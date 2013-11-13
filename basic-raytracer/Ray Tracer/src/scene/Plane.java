@@ -18,4 +18,10 @@ public class Plane extends Shape
    {
       return normal;
    }
+
+   @Override
+   public float intersect2(Ray ray)
+   {
+      throw new RuntimeException("Not yet implemented");
+   }
 }
