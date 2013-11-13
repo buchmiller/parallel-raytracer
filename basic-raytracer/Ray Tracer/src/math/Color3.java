@@ -33,4 +33,10 @@ public class Color3
    {
       return this.vector.getZ();
    }
+
+   @Override
+   public String toString()
+   {
+      return getR() + "," + getG() + "," + getB();
+   }
 }
