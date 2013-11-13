@@ -3,6 +3,8 @@ package scene;
 import java.util.ArrayList;
 import java.util.List;
 import math.Color3;
+import math.Vector3;
+import raytracer.Ray;
 
 public class Scene
 {
@@ -59,5 +61,15 @@ public class Scene
    public int getMaxDepth()
    {
       return maxDepth;
+   }
+
+   public Ray constructRay(int row, int col)
+   {
+      float x = (float) (2 * ((col + 0.5) / screen.getWidth()) - 1) * screen.getAspectRatio() * camera.getAngle();
+      float y = (float) (1 - 2 * ((row + 0.5) / screen.getHeight())) * camera.getAngle();
+      Vector3 rayDir = new Vector3(x, y, -1);
+      rayDir.normalize();
+
+      return new Ray(camera.getPosition(), rayDir, camera.getNearClippingPlane(), camera.getFarClippingPlane());
    }
 }
