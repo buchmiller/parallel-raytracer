@@ -25,4 +25,9 @@ public class ISect
    {
       throw new RuntimeException("Not yet implemented");
    }
+
+   public float getDistance()
+   {
+      return distance;
+   }
 }
