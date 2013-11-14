@@ -43,6 +43,8 @@ public class RayTracer
 
       BufferedImage img = new BufferedImage(screen.getWidth(), screen.getHeight(), BufferedImage.TYPE_INT_RGB);
 
+      long startTime = System.currentTimeMillis();
+      
       for (int row = 0; row < screen.getHeight(); row++)
       {
          Color3[] colors = tracer.render(row);
@@ -59,6 +61,9 @@ public class RayTracer
          }
          //System.out.println();
       }
+      
+      long endTime = System.currentTimeMillis();
+      System.out.println("Raytracing took " + (endTime - startTime) + " milliseconds.");
       
       try
       {
