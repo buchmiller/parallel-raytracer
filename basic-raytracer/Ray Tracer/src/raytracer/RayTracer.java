@@ -17,13 +17,18 @@ public class RayTracer
    {
       int width = 600;
       int height = 400;
+      String fileName = "output";
 
-      if (args.length == 2) //allow for easily changing size on command line
+      if (args.length > 1) //allow for easily changing size on command line
       {
-          width = Integer.parseInt(args[0]);
-          height = Integer.parseInt(args[1]);
+         width = Integer.parseInt(args[0]);
+         height = Integer.parseInt(args[1]);
+         if (args.length > 2) //allow for changing the output fileName
+         {
+            fileName = args[2];
+         }
       }
-      
+
       Image image = new Image(width, height);
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
@@ -37,7 +42,7 @@ public class RayTracer
       Tracer tracer = new Tracer(scene);
 
       BufferedImage img = new BufferedImage(screen.getWidth(), screen.getHeight(), BufferedImage.TYPE_INT_RGB);
-      
+
       for (int row = 0; row < screen.getHeight(); row++)
       {
          Color3[] colors = tracer.render(row);
@@ -54,7 +59,7 @@ public class RayTracer
          }
          try
          {
-         ImageIO.write(img, "bmp", new File("abc.bmp"));
+            ImageIO.write(img, "bmp", new File(fileName + ".bmp"));
          }
          catch (Exception e)
          {
