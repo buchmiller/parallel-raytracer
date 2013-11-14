@@ -15,9 +15,15 @@ public class RayTracer
 {
    public static void main(String[] args)
    {
-      int width = 1000;
-      int height = 1000;
+      int width = 600;
+      int height = 400;
 
+      if (args.length == 2) //allow for easily changing size on command line
+      {
+          width = Integer.parseInt(args[0]);
+          height = Integer.parseInt(args[1]);
+      }
+      
       Image image = new Image(width, height);
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
