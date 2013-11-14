@@ -57,15 +57,16 @@ public class RayTracer
             img.setRGB(col, row, rgb);
             //System.out.print(color.toString() + " | ");
          }
-         try
-         {
-            ImageIO.write(img, "bmp", new File(fileName + ".bmp"));
-         }
-         catch (Exception e)
-         {
-            System.out.println("Error: " + e);
-         }
          //System.out.println();
+      }
+      
+      try
+      {
+         ImageIO.write(img, "bmp", new File(fileName + ".bmp"));
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error: " + e);
       }
    }
 }
