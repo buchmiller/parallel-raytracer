@@ -12,7 +12,7 @@ public class Ray
    public Ray(Vector3 origin, Vector3 direction, float min, float max)
    {
       this.origin = origin;
-      this.direction = direction;
+      this.direction = direction.getNormalized();
       this.min = min;
       this.max = max;
    }

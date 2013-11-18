@@ -7,6 +7,7 @@ import math.Color3;
 import math.Vector3;
 import scene.Camera;
 import scene.Material;
+import scene.Plane;
 import scene.Scene;
 import scene.Screen;
 import scene.Sphere;
@@ -36,13 +37,29 @@ public class RayTracer
       int maxDepth = 4;
 
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
-      scene.addShape(new Sphere(new Vector3(0, 5, -30), 4, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0))); //red
-      scene.addShape(new Sphere(new Vector3(5, 2.5f, -30), 4, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0))); //yellow
-      scene.addShape(new Sphere(new Vector3(5, -2.5f, -30), 4, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0))); //green
-      scene.addShape(new Sphere(new Vector3(0, -5, -30), 4, new Material(new Color3(0, 255, 255), 0, 0, 0, 0, 0))); //cyan
-      scene.addShape(new Sphere(new Vector3(-5, -2.5f, -30), 4, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0))); //blue
-      scene.addShape(new Sphere(new Vector3(-5, 2.5f, -30), 4, new Material(new Color3(255, 0, 255), 0, 0, 0, 0, 0))); //magenta
-      scene.addShape(new Sphere(new Vector3(0, 0, -29), 5, new Material(new Color3(255, 255, 255), 0, 0, 0, 0, 0))); //white
+
+      //color wheel
+//      scene.addShape(new Sphere(new Vector3(0, 5, -30), 4, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0))); //red
+//      scene.addShape(new Sphere(new Vector3(5, 2.5f, -30), 4, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0))); //yellow
+//      scene.addShape(new Sphere(new Vector3(5, -2.5f, -30), 4, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0))); //green
+//      scene.addShape(new Sphere(new Vector3(0, -5, -30), 4, new Material(new Color3(0, 255, 255), 0, 0, 0, 0, 0))); //cyan
+//      scene.addShape(new Sphere(new Vector3(-5, -2.5f, -30), 4, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0))); //blue
+//      scene.addShape(new Sphere(new Vector3(-5, 2.5f, -30), 4, new Material(new Color3(255, 0, 255), 0, 0, 0, 0, 0))); //magenta
+//      scene.addShape(new Sphere(new Vector3(0, 0, -29), 5, new Material(new Color3(255, 255, 255), 0, 0, 0, 0, 0))); //white
+
+
+      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0))); //red
+      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0))); //blue
+      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0))); //yellow
+      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0))); //green
+
+      Vector3 normal = new Vector3(0, 1, 0);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100), 0, 0, 0, 0, 0), normal)); //grey
+
+      normal = new Vector3(-1, 0.3f, 0);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(180, 180, 180), 0, 0, 0, 0, 0), normal)); //grey
 
       Tracer tracer = new Tracer(scene);
 
