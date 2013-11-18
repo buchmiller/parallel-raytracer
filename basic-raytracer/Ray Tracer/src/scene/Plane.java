@@ -8,7 +8,7 @@ public class Plane extends Shape
    private Vector3 normal;
 
    @Override
-   public ISect intersect(Ray ray)
+   public float intersect(Ray ray)
    {
       throw new RuntimeException("Not yet implemented");
    }
