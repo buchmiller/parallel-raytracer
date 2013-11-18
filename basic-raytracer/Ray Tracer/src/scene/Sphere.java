@@ -17,47 +17,24 @@ public class Sphere extends Shape
    @Override
    public float intersect(Ray ray)
    {
-     throw new RuntimeException("Not yet implemented");
-   }
+      //geometric solution from:
+      // http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-sphere-intersection/
 
-   @Override
-   public float intersect2(Ray ray)
-   {
-      // http://ray-tracer-concept.blogspot.com/2011/11/ray-sphere-intersection.html
+      float t0 = -1;
+      //float t1 = -1;
       
-      Vector3 d = ray.getDirection();
-      float t1 = -1;
-      float t2 = -1;
-      float discriminent;
-      float t = -1;
-      //temporary == e-c
-      Vector3 temporary = ray.getOrigin().subtract(position);
-      float b = 2 * Vector3.dot(d, temporary);
-      float a = Vector3.dot(d, d);
-      float c = Vector3.dot(temporary, temporary) - (radius * radius);
-      float disc;
-      disc = b * b - 4 * a * c;
-      if (disc < 0)
-      {
+      Vector3 L = position.subtract(ray.getOrigin());
+      float tca = Vector3.dot(L, ray.getDirection());
+      if (tca < 0)
          return -1;
-      }
-      else
-      {
-         discriminent = (float) Math.sqrt(disc);
-         t1 = (-b + discriminent) / (2 * a);
-         t2 = (-b - discriminent) / (2 * a);
-
-         if (t1 > 0)
-         {
-            t = t1;
-         }
-         else if (t2 > 0)
-         {
-            t = t2;
-         }
-      }
-
-      return t;
+      float d2 = Vector3.dot(L, L) - (tca * tca);
+      if (d2 > (radius * radius))
+         return -1;
+      float thc = (float) Math.sqrt((radius * radius) - d2);
+      t0 = tca - thc;
+      //t1 = tca + thc;
+      
+      return t0;
    }
 
    @Override
