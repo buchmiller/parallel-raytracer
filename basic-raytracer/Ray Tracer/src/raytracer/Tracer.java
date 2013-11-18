@@ -58,10 +58,10 @@ public class Tracer
 //            closestHit = intersection.getDistance();
 //            shapeHit = shape;
 //         }
-         float t = shape.intersect2(ray);
+         float t = shape.intersect(ray);
          if (t > 0)
          {
-            if (t < closestHit)
+            if (t < closestHit && t > scene.getCamera().getNearClippingPlane())
             {
                closestHit = t;
                shapeHit = shape;

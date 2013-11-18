@@ -15,8 +15,8 @@ public class RayTracer
 {
    public static void main(String[] args)
    {
-      int width = 600;
-      int height = 400;
+      int width = 640;
+      int height = 480;
       String fileName = "output";
 
       if (args.length > 1) //allow for easily changing size on command line
@@ -37,6 +37,7 @@ public class RayTracer
 
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
       scene.addShape(new Sphere(new Vector3(-5, 5, -30), 4, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0)));
+      scene.addShape(new Sphere(new Vector3(-5, 10, -30), 4, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0)));
       scene.addShape(new Sphere(new Vector3(0, 0, -20), 4, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0)));
       scene.addShape(new Sphere(new Vector3(3, -3, -10), 4, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0)));
       Tracer tracer = new Tracer(scene);
