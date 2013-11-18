@@ -36,10 +36,14 @@ public class RayTracer
       int maxDepth = 4;
 
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
-      scene.addShape(new Sphere(new Vector3(-5, 5, -30), 4, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0)));
-      scene.addShape(new Sphere(new Vector3(-5, 10, -30), 4, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0)));
-      scene.addShape(new Sphere(new Vector3(0, 0, -20), 4, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0)));
-      scene.addShape(new Sphere(new Vector3(3, -3, -10), 4, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0)));
+      scene.addShape(new Sphere(new Vector3(0, 5, -30), 4, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0))); //red
+      scene.addShape(new Sphere(new Vector3(5, 2.5f, -30), 4, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0))); //yellow
+      scene.addShape(new Sphere(new Vector3(5, -2.5f, -30), 4, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0))); //green
+      scene.addShape(new Sphere(new Vector3(0, -5, -30), 4, new Material(new Color3(0, 255, 255), 0, 0, 0, 0, 0))); //cyan
+      scene.addShape(new Sphere(new Vector3(-5, -2.5f, -30), 4, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0))); //blue
+      scene.addShape(new Sphere(new Vector3(-5, 2.5f, -30), 4, new Material(new Color3(255, 0, 255), 0, 0, 0, 0, 0))); //magenta
+      scene.addShape(new Sphere(new Vector3(0, 0, -29), 5, new Material(new Color3(255, 255, 255), 0, 0, 0, 0, 0))); //white
+
       Tracer tracer = new Tracer(scene);
 
       BufferedImage img = new BufferedImage(screen.getWidth(), screen.getHeight(), BufferedImage.TYPE_INT_RGB);
