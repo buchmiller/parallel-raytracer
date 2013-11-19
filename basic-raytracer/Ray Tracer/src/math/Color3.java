@@ -34,6 +34,16 @@ public class Color3
       return this.vector.getZ();
    }
 
+   public void add(Color3 value)
+   {
+      vector = vector.add(value.vector);
+   }
+
+   public void subtract(Color3 value)
+   {
+      vector = vector.subtract(value.vector);
+   }
+   
    @Override
    public String toString()
    {

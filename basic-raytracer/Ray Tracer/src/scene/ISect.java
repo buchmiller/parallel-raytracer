@@ -6,19 +6,24 @@ import raytracer.Ray;
 public class ISect
 {
    private Shape shape;
-   private Ray ray;
+   private Vector3 position;
    private float distance;
 
-   public ISect(Shape shape, Ray ray, float distance)
+   public ISect(Shape shape, Vector3 position, float distance)
    {
       this.shape = shape;
-      this.ray = ray;
+      this.position = position;
       this.distance = distance;
+   }
+
+   public Shape getShape()
+   {
+      return shape;
    }
 
    public Vector3 getPosition()
    {
-      return shape.getPosition();
+      return position;
    }
 
    public float getIntensity()

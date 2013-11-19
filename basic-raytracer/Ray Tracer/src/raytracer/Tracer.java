@@ -1,7 +1,9 @@
 package raytracer;
 
 import math.Color3;
+import math.Vector3;
 import scene.ISect;
+import scene.PointLight;
 import scene.Scene;
 import scene.Shape;
 
@@ -45,6 +47,37 @@ public class Tracer
       return colors;
    }
 
+   private Color3 shade(ISect intersection)
+   {
+      Color3 color = intersection.getShape().getMaterial().getColor();
+
+      for (PointLight light : scene.getLights())
+      {
+         Vector3 rayDir = light.getPosition().subtract(intersection.getPosition());
+         Ray shadowRay = new Ray(intersection.getPosition(), rayDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+         boolean isInShadow = false;
+         for (Shape shape : scene.getShapes())
+         {
+            float t = shape.intersect(shadowRay);
+            if (t > 0)
+            {
+               isInShadow = true;
+               break;
+            }
+         }
+         if (isInShadow)
+         {
+            color.subtract(new Color3(100, 100, 100));
+         }
+         else
+         {
+            color.add(light.getColor());
+         }
+      }
+
+      return color;
+   }
+
    private Color3 traceRay(Ray ray)
    {
       Shape shapeHit = null;
@@ -71,8 +104,10 @@ public class Tracer
       
       if (shapeHit != null)
       {
+
          //TODO: replace this line with a call to a shade() function.
          return shapeHit.getMaterial().getColor();
+         //return shade(intersection);
       }
 
       return scene.getBackgroundColor();

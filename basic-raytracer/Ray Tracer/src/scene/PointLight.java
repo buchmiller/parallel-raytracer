@@ -9,6 +9,13 @@ public class PointLight
    private float intensity;
    private Color3 color;
 
+   public PointLight(Vector3 position, float intensity, Color3 color)
+   {
+      this.position = position;
+      this.intensity = intensity;
+      this.color = color;
+   }
+
    public Vector3 getPosition()
    {
       return position;

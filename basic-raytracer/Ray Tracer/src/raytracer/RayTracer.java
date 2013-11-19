@@ -8,6 +8,7 @@ import math.Vector3;
 import scene.Camera;
 import scene.Material;
 import scene.Plane;
+import scene.PointLight;
 import scene.Scene;
 import scene.Screen;
 import scene.Sphere;
@@ -61,6 +62,9 @@ public class RayTracer
       normal.normalize();
       scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(180, 180, 180), 0, 0, 0, 0, 0), normal)); //grey
 
+      //lights
+      scene.addLight(new PointLight(new Vector3(5, 10, -40), 5, new Color3(255, 255, 255)));
+      
       Tracer tracer = new Tracer(scene);
 
       BufferedImage img = new BufferedImage(screen.getWidth(), screen.getHeight(), BufferedImage.TYPE_INT_RGB);
