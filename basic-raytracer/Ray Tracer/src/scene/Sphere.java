@@ -38,9 +38,9 @@ public class Sphere extends Shape
    }
 
    @Override
-   public Vector3 normal(Vector3 vector)
+   public Vector3 normal(Vector3 intersectPoint)
    {
-      throw new RuntimeException("Not yet implemented");
+      return intersectPoint.subtract(position).multiply(1.0f / radius);
    }
 
    public boolean isInside()

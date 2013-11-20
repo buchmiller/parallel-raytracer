@@ -20,5 +20,5 @@ public abstract class Shape
 
    public abstract float intersect(Ray ray);
 
-   public abstract Vector3 normal(Vector3 vector);
+   public abstract Vector3 normal(Vector3 intersectPoint);
 }

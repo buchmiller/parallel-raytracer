@@ -82,6 +82,11 @@ public class Vector3
       return new Vector3(x * n, y * n, z * n);
    }
 
+   public Vector3 multiply(Vector3 v)
+   {
+      return new Vector3(x * v.x, y * v.y, z * v.z);
+   }
+
    public Vector3 divide(float n)
    {
       return new Vector3(x / n, y / n, z / n);

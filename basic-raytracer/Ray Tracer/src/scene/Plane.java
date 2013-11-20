@@ -30,7 +30,7 @@ public class Plane extends Shape
    }
 
    @Override
-   public Vector3 normal(Vector3 vector)
+   public Vector3 normal(Vector3 intersectPoint)
    {
       return normal;
    }

@@ -40,30 +40,30 @@ public class RayTracer
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
 
       //color wheel
-//      scene.addShape(new Sphere(new Vector3(0, 5, -30), 4, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0))); //red
-//      scene.addShape(new Sphere(new Vector3(5, 2.5f, -30), 4, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0))); //yellow
-//      scene.addShape(new Sphere(new Vector3(5, -2.5f, -30), 4, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0))); //green
-//      scene.addShape(new Sphere(new Vector3(0, -5, -30), 4, new Material(new Color3(0, 255, 255), 0, 0, 0, 0, 0))); //cyan
-//      scene.addShape(new Sphere(new Vector3(-5, -2.5f, -30), 4, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0))); //blue
-//      scene.addShape(new Sphere(new Vector3(-5, 2.5f, -30), 4, new Material(new Color3(255, 0, 255), 0, 0, 0, 0, 0))); //magenta
-//      scene.addShape(new Sphere(new Vector3(0, 0, -29), 5, new Material(new Color3(255, 255, 255), 0, 0, 0, 0, 0))); //white
+//      scene.addShape(new Sphere(new Vector3(0, 5, -30), 4, new Material(new Color3(255, 0, 0)))); //red
+//      scene.addShape(new Sphere(new Vector3(5, 2.5f, -30), 4, new Material(new Color3(255, 255, 0)))); //yellow
+//      scene.addShape(new Sphere(new Vector3(5, -2.5f, -30), 4, new Material(new Color3(0, 255, 0)))); //green
+//      scene.addShape(new Sphere(new Vector3(0, -5, -30), 4, new Material(new Color3(0, 255, 255)))); //cyan
+//      scene.addShape(new Sphere(new Vector3(-5, -2.5f, -30), 4, new Material(new Color3(0, 0, 255)))); //blue
+//      scene.addShape(new Sphere(new Vector3(-5, 2.5f, -30), 4, new Material(new Color3(255, 0, 255)))); //magenta
+//      scene.addShape(new Sphere(new Vector3(0, 0, -29), 5, new Material(new Color3(255, 255, 255)))); //white
 
 
-      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(new Color3(255, 0, 0), 0, 0, 0, 0, 0))); //red
-      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(new Color3(0, 0, 255), 0, 0, 0, 0, 0))); //blue
-      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(new Color3(255, 255, 0), 0, 0, 0, 0, 0))); //yellow
-      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(new Color3(0, 255, 0), 0, 0, 0, 0, 0))); //green
+      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(new Color3(300, 0, 0)))); //red
+      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(new Color3(0, 0, 300)))); //blue
+      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(new Color3(300, 300, 0)))); //yellow
+      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(new Color3(0, 300, 0)))); //green
 
       Vector3 normal = new Vector3(0, 1, 0);
       normal.normalize();
-      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100), 0, 0, 0, 0, 0), normal)); //grey
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
 
       normal = new Vector3(-1, 0.3f, 0);
       normal.normalize();
-      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(180, 180, 180), 0, 0, 0, 0, 0), normal)); //grey
+      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
 
       //lights
-      scene.addLight(new PointLight(new Vector3(5, 10, -40), 5, new Color3(255, 255, 255)));
+      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
       
       Tracer tracer = new Tracer(scene);
 
@@ -77,9 +77,9 @@ public class RayTracer
 
          for (int col = 0; col < colors.length; col++)
          {
-            int red = (int) colors[col].getR();
-            int green = (int) colors[col].getG();
-            int blue = (int) colors[col].getB();
+            int red = colors[col].getR() < 0 ? 0 : (int) colors[col].getR() % 256;
+            int green = colors[col].getG() < 0 ? 0 : (int) colors[col].getG() % 256;
+            int blue = colors[col].getB() < 0 ? 0 : (int) colors[col].getB() % 256;
 
             int rgb = (red << 16) | (green << 8) | blue;
             img.setRGB(col, row, rgb);

@@ -13,7 +13,7 @@ public class Color3
    {
       this.vector = new Vector3(r, g, b);
    }
-   
+
    public Vector3 getVector()
    {
       return this.vector;
@@ -34,16 +34,26 @@ public class Color3
       return this.vector.getZ();
    }
 
-   public void add(Color3 value)
+   public Color3 add(Color3 value)
    {
-      vector = vector.add(value.vector);
+      return new Color3(vector.add(value.vector));
    }
 
-   public void subtract(Color3 value)
+   public Color3 subtract(Color3 value)
    {
-      vector = vector.subtract(value.vector);
+      return new Color3(vector.subtract(value.vector));
    }
-   
+
+   public Color3 multiply(Color3 value)
+   {
+      return new Color3(vector.multiply(value.vector));
+   }
+
+   public Color3 multiply(float value)
+   {
+      return new Color3(vector.multiply(value));
+   }
+
    @Override
    public String toString()
    {
