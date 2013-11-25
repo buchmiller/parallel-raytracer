@@ -11,7 +11,7 @@ public class MyClient
 {
    public MyClient()
    {
-      String serverName = "localhost";
+      String serverName = "Sam-PC";
       int port = 3000;
       
       try
