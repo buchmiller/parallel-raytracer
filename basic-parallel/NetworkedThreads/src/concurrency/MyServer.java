@@ -1,42 +1,45 @@
 package concurrency;
 
 import java.net.Socket;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class MyServer
 {
    private Socket client;
-   Set<Callable<ResultData>> callables = new HashSet<>();
+   private int poolSize = 12;
 
    public void start()
    {
-      for (int i = 0; i < 10; i++)
+      ExecutorService executorService = Executors.newFixedThreadPool(2);
+      CompletionService<ResultData> completionService =
+            new ExecutorCompletionService<>(executorService);
+
+      for (int i = 0; i < poolSize; i++)
       {
-         callables.add(new ServerCallable(i));
+         completionService.submit(new ServerCallable(i));
       }
 
-      try
+      executorService.shutdown();
+
+      for (int i = 0; i < poolSize; i++)
       {
-         ExecutorService executorService = Executors.newFixedThreadPool(4);
-
-         List<Future<ResultData>> futures = executorService.invokeAll(callables);
-
-         for (Future<ResultData> future : futures)
+         try
          {
-            System.out.println("Row " + future.get().getRow());
+            ResultData result = completionService.take().get();
+            System.out.println("Completed row " + result.getRow());
          }
-
-         executorService.shutdown();
-      }
-      catch (Exception e)
-      {
-         System.out.println("Error: " + e);
+         catch (InterruptedException e)
+         {
+            System.out.println("Error: Interrupted exception\n" + e);
+         }
+         catch (ExecutionException e)
+         {
+            System.out.println("Error: get() threw exception\n" + e);
+         }
       }
    }
 }

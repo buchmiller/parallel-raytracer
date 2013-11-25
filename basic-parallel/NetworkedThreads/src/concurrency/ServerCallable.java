@@ -2,7 +2,7 @@ package concurrency;
 
 import java.util.concurrent.Callable;
 
-public class ServerCallable implements Callable
+public class ServerCallable implements Callable<ResultData>
 {
    private int row;
 
@@ -17,5 +17,4 @@ public class ServerCallable implements Callable
       Thread.sleep(1000);
       return new ResultData(row);
    }
-
 }
