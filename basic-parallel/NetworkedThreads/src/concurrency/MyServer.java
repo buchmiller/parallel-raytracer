@@ -27,23 +27,35 @@ public class MyServer extends Thread
    @Override
    public void run()
    {
+      try
+      {
+         System.out.println("Server started with address: " + InetAddress.getLocalHost());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error: " + e);
+      }
+
       while (true)
       {
          try
          {
-            System.out.println("Server started with address: " + InetAddress.getLocalHost());
-            System.out.println("Waiting for client on port "
-                  + serverSocket.getLocalPort() + "...");
-            Socket server = serverSocket.accept();
-            System.out.println("Just connected to " + server.getRemoteSocketAddress());
+            System.out.println("\nWaiting for client on port " + serverSocket.getLocalPort() + "...");
+            try (Socket server = serverSocket.accept())
+            {
+               System.out.println("Client has connected: " + server.getRemoteSocketAddress());
 
-            DataInputStream in = new DataInputStream(server.getInputStream());
-            System.out.println(in.readUTF());
+               DataInputStream in = new DataInputStream(server.getInputStream());
+               DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
-            DataOutputStream out = new DataOutputStream(server.getOutputStream());
+               System.out.println("Received from client: '" + in.readUTF() + "'");
 
-            out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
-            server.close();
+               out.writeUTF("Scene received");
+
+               System.out.println("Received from client: '" + in.readUTF() + "'");
+
+               out.writeUTF("RENDER DATA");
+            }
          }
          catch (SocketTimeoutException e)
          {
