@@ -17,17 +17,21 @@ public class MyClient
       try
       {
          System.out.println("Connecting to " + serverName + " on port " + port);
-         Socket client = new Socket(serverName, port);
-         System.out.println("Now connected to " + client.getRemoteSocketAddress());
-         OutputStream outToServer = client.getOutputStream();
-         DataOutputStream out = new DataOutputStream(outToServer);
-
-         out.writeUTF("Hello from " + client.getLocalSocketAddress());
-
-         InputStream inFromServer = client.getInputStream();
-         DataInputStream in = new DataInputStream(inFromServer);
-         System.out.println("Server says " + in.readUTF());
-         client.close();
+         try (Socket client = new Socket(serverName, port))
+         {
+            System.out.println("Now connected to " + client.getRemoteSocketAddress());
+            
+            DataInputStream in = new DataInputStream(client.getInputStream());
+            DataOutputStream out = new DataOutputStream(client.getOutputStream());
+            
+            out.writeUTF("SCENE DATA");
+            
+            System.out.println("Received from server: '" + in.readUTF() + "'");
+            
+            out.writeUTF("Rows 0 - 11");
+            
+            System.out.println("Received from server: '" + in.readUTF() + "'");
+         }
       }
       catch (IOException e)
       {
