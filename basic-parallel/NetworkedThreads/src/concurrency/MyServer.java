@@ -43,14 +43,18 @@ public class MyServer extends Thread
             System.out.println("\nWaiting for client on port " + serverSocket.getLocalPort() + "...");
             try (Socket server = serverSocket.accept())
             {
-               System.out.println("Just connected to " + server.getRemoteSocketAddress());
+               System.out.println("Client has connected: " + server.getRemoteSocketAddress());
 
                DataInputStream in = new DataInputStream(server.getInputStream());
-               System.out.println(in.readUTF());
-
                DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
-               out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
+               System.out.println("Received from client: '" + in.readUTF() + "'");
+
+               out.writeUTF("Scene received");
+
+               System.out.println("Received from client: '" + in.readUTF() + "'");
+
+               out.writeUTF("RENDER DATA");
             }
          }
          catch (SocketTimeoutException e)
