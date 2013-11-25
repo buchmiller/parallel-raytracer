@@ -27,12 +27,20 @@ public class MyServer extends Thread
    @Override
    public void run()
    {
+      try
+      {
+         System.out.println("Server started with address: " + InetAddress.getLocalHost());
+      }
+      catch (Exception e)
+      {
+         System.out.println("Error: " + e);
+      }
+
       while (true)
       {
          try
          {
-            System.out.println("Server started with address: " + InetAddress.getLocalHost());
-            System.out.println("Waiting for client on port "
+            System.out.println("\nWaiting for client on port "
                   + serverSocket.getLocalPort() + "...");
             Socket server = serverSocket.accept();
             System.out.println("Just connected to " + server.getRemoteSocketAddress());
