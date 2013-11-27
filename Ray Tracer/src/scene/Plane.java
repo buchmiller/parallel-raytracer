@@ -1,9 +1,10 @@
 package scene;
 
+import java.io.Serializable;
 import math.Vector3;
 import raytracer.Ray;
 
-public class Plane extends Shape
+public class Plane extends Shape implements Serializable
 {
    private Vector3 normal;
 

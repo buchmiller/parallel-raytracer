@@ -1,12 +1,13 @@
 package scene;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import math.Color3;
 import math.Vector3;
 import raytracer.Ray;
 
-public class Scene
+public class Scene implements Serializable
 {
    private List<Shape> shapes = new ArrayList<>();
    private List<PointLight> lights = new ArrayList<>();

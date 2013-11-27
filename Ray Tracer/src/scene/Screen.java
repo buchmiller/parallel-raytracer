@@ -1,6 +1,8 @@
 package scene;
 
-public class Screen
+import java.io.Serializable;
+
+public class Screen implements Serializable
 {
    private int width;
    private int height;

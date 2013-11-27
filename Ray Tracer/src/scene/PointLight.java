@@ -1,9 +1,10 @@
 package scene;
 
+import java.io.Serializable;
 import math.Color3;
 import math.Vector3;
 
-public class PointLight
+public class PointLight implements Serializable
 {
    private Vector3 position;
    private float intensity;

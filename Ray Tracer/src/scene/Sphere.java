@@ -1,9 +1,10 @@
 package scene;
 
+import java.io.Serializable;
 import math.Vector3;
 import raytracer.Ray;
 
-public class Sphere extends Shape
+public class Sphere extends Shape implements Serializable
 {
    private float radius;
 

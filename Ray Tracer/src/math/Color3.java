@@ -1,6 +1,8 @@
 package math;
 
-public class Color3
+import java.io.Serializable;
+
+public class Color3 implements Serializable
 {
    private Vector3 vector;
 

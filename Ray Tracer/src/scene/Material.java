@@ -1,8 +1,9 @@
 package scene;
 
+import java.io.Serializable;
 import math.Color3;
 
-public class Material
+public class Material implements Serializable
 {
    private Color3 color;
    private float transparency;

@@ -1,8 +1,9 @@
 package scene;
 
+import java.io.Serializable;
 import math.Vector3;
 
-public class Camera
+public class Camera implements Serializable
 {
    private Vector3 position;
    private Vector3 direction;
