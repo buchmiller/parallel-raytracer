@@ -37,10 +37,10 @@ public class MyClient
       }
    }
 
-   public void sendData()
+   public void sendSceneData()
    {
-      System.out.println("Sending data to servers...");
-      
+      System.out.println("Sending scene data to servers...");
+
       for (Socket socket : servers)
       {
          try
@@ -51,6 +51,25 @@ public class MyClient
             out.writeUTF("SCENE DATA");
 
             System.out.println("Received from server: '" + in.readUTF() + "'");
+         }
+         catch (IOException e)
+         {
+            System.out.println("Error: " + e);
+         }
+
+      }
+   }
+
+   public void sendRowData()
+   {
+      System.out.println("Sending row data to servers...");
+
+      for (Socket socket : servers)
+      {
+         try
+         {
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 
             out.writeUTF("Rows 0 - 11");
 
@@ -67,7 +86,7 @@ public class MyClient
    public void closeConnections()
    {
       System.out.println("Closing socket connections to servers");
-      
+
       for (Socket socket : servers)
       {
          try
