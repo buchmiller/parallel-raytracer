@@ -1,18 +1,24 @@
 package networkedthreads;
 
 import concurrency.MyClient;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Client
 {
    public static void main(String[] args)
    {
-      String hostName = "Sam-PC";
-      if (args.length > 0)
+      if (args.length < 1)
       {
-         hostName = args[0];
+         System.out.println("Must enter host names");
+         return;
       }
 
-      MyClient client = new MyClient(hostName, 3000);
+      List<String> serverNames = new ArrayList<>();
+      serverNames.addAll(Arrays.asList(args));
+
+      MyClient client = new MyClient(serverNames, 3000);
       client.makeConnections();
    }
 }

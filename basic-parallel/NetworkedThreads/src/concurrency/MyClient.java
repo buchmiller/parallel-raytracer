@@ -4,15 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 public class MyClient
 {
-   private String serverName;
+   private List<String> serverNames;
    private int port;
 
-   public MyClient(String hostName, int port)
+   public MyClient(List<String> serverNames, int port)
    {
-      this.serverName = hostName;
+      this.serverNames = serverNames;
       this.port = port;
    }
 
@@ -20,21 +21,24 @@ public class MyClient
    {
       try
       {
-         System.out.println("Connecting to " + serverName + " on port " + port);
-         try (Socket client = new Socket(serverName, port))
+         for (String serverName : serverNames)
          {
-            System.out.println("Now connected to " + client.getRemoteSocketAddress());
+            System.out.println("Connecting to " + serverName + " on port " + port);
+            try (Socket client = new Socket(serverName, port))
+            {
+               System.out.println("Now connected to " + client.getRemoteSocketAddress());
 
-            DataInputStream in = new DataInputStream(client.getInputStream());
-            DataOutputStream out = new DataOutputStream(client.getOutputStream());
+               DataInputStream in = new DataInputStream(client.getInputStream());
+               DataOutputStream out = new DataOutputStream(client.getOutputStream());
 
-            out.writeUTF("SCENE DATA");
+               out.writeUTF("SCENE DATA");
 
-            System.out.println("Received from server: '" + in.readUTF() + "'");
+               System.out.println("Received from server: '" + in.readUTF() + "'");
 
-            out.writeUTF("Rows 0 - 11");
+               out.writeUTF("Rows 0 - 11");
 
-            System.out.println("Received from server: '" + in.readUTF() + "'");
+               System.out.println("Received from server: '" + in.readUTF() + "'");
+            }
          }
       }
       catch (IOException e)
