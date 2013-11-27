@@ -13,13 +13,13 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MyServer extends Thread
+public class Server extends Thread
 {
    private ServerSocket serverSocket;
    private Socket client;
    private int poolSize = 12; //TODO: this will eventually come from Scene
 
-   public MyServer(int port) throws IOException
+   public Server(int port) throws IOException
    {
       serverSocket = new ServerSocket(port);
    }

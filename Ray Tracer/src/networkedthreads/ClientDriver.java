@@ -1,11 +1,11 @@
 package networkedthreads;
 
-import concurrency.MyClient;
+import concurrency.Client;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Client
+public class ClientDriver
 {
    public static void main(String[] args)
    {
@@ -20,7 +20,7 @@ public class Client
 
       try
       {
-         MyClient client = new MyClient(serverNames, 3000);
+         Client client = new Client(serverNames, 3000);
          client.openConnections();
          Thread.sleep(1000); //Delay added for testing purposes only
          client.sendSceneData();

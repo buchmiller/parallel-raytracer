@@ -1,15 +1,15 @@
 package networkedthreads;
 
-import concurrency.MyServer;
+import concurrency.Server;
 import java.io.IOException;
 
-public class Server
+public class ServerDriver
 {
    public static void main(String[] args)
    {
       try
       {
-         Thread t = new MyServer(3000);
+         Thread t = new Server(3000);
          t.start();
       }
       catch (IOException e)

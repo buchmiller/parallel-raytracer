@@ -7,13 +7,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyClient
+public class Client
 {
    private List<String> serverNames;
    private int port;
    private List<Socket> servers = new ArrayList<>();
 
-   public MyClient(List<String> serverNames, int port)
+   public Client(List<String> serverNames, int port)
    {
       this.serverNames = serverNames;
       this.port = port;
