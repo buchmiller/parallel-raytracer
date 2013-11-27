@@ -18,9 +18,20 @@ public class Client
       List<String> serverNames = new ArrayList<>();
       serverNames.addAll(Arrays.asList(args));
 
-      MyClient client = new MyClient(serverNames, 3000);
-      client.openConnections();
-      client.sendData();
-      client.closeConnections();
+      try
+      {
+         MyClient client = new MyClient(serverNames, 3000);
+         client.openConnections();
+         Thread.sleep(1000); //Delay added for testing purposes only
+         client.sendSceneData();
+         Thread.sleep(1000); //Delay added for testing purposes only
+         client.sendRowData();
+         Thread.sleep(1000); //Delay added for testing purposes only
+         client.closeConnections();
+      }
+      catch (InterruptedException e)
+      {
+         System.out.println("Sleep Thread interrupted: " + e);
+      }
    }
 }
