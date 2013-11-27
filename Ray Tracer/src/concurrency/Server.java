@@ -48,7 +48,6 @@ public class Server extends Thread
 
                DataInputStream in = new DataInputStream(server.getInputStream());
                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-               ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
 
                System.out.println("Received from client: '" + in.readUTF() + "'");
 
@@ -59,6 +58,7 @@ public class Server extends Thread
                //begin();
 
                //out.writeUTF("RENDER DATA");
+               ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
                oos.writeObject(new ResultData(5));
 
                //TODO: Put these in a finally statement
