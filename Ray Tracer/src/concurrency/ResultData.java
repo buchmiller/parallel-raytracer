@@ -1,6 +1,8 @@
 package concurrency;
 
-public class ResultData
+import java.io.Serializable;
+
+public class ResultData implements Serializable
 {
    private int row;
 

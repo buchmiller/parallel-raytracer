@@ -3,6 +3,7 @@ package concurrency;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,20 +83,33 @@ public class Client
    public void getRenderData()
    {
       System.out.println("Getting render data from servers");
-      
+
       for (Socket socket : servers)
       {
          try
          {
             DataInputStream in = new DataInputStream(socket.getInputStream());
-            System.out.println("Received from server: '" + in.readUTF() + "'");
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+//            System.out.println("Received from server: '" + in.readUTF() + "'");
+            ResultData result = (ResultData) ois.readObject();
+            System.out.println("Received from server: '" + result.getRow() + "'");
+
+            //TODO: put these in a finally statement
+            in.close();
+            ois.close();
          }
          catch (IOException e)
          {
             System.out.println("Error: " + e);
          }
+         catch (ClassNotFoundException e)
+         {
+            System.out.println("Error: " + e);
+         }
       }
    }
+
    public void closeConnections()
    {
       System.out.println("Closing socket connections to servers");

@@ -3,6 +3,7 @@ package concurrency;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -47,6 +48,7 @@ public class Server extends Thread
 
                DataInputStream in = new DataInputStream(server.getInputStream());
                DataOutputStream out = new DataOutputStream(server.getOutputStream());
+               ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
 
                System.out.println("Received from client: '" + in.readUTF() + "'");
 
@@ -54,9 +56,15 @@ public class Server extends Thread
 
                System.out.println("Received from client: '" + in.readUTF() + "'");
 
-               begin();
+               //begin();
 
-               out.writeUTF("RENDER DATA");
+               //out.writeUTF("RENDER DATA");
+               oos.writeObject(new ResultData(5));
+
+               //TODO: Put these in a finally statement
+               in.close();
+               out.close();
+               oos.close();
             }
          }
          catch (SocketTimeoutException e)
