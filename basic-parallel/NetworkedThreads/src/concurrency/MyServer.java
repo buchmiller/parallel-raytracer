@@ -17,7 +17,7 @@ public class MyServer extends Thread
 {
    private ServerSocket serverSocket;
    private Socket client;
-   private int poolSize = 12;
+   private int poolSize = 12; //TODO: this will eventually come from Scene
 
    public MyServer(int port) throws IOException
    {
@@ -54,6 +54,8 @@ public class MyServer extends Thread
 
                System.out.println("Received from client: '" + in.readUTF() + "'");
 
+               begin();
+               
                out.writeUTF("RENDER DATA");
             }
          }
