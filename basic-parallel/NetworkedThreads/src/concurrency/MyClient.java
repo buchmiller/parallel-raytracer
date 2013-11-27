@@ -68,12 +68,8 @@ public class MyClient
       {
          try
          {
-            DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
             out.writeUTF("Rows 0 - 11");
-
-            System.out.println("Received from server: '" + in.readUTF() + "'");
          }
          catch (IOException e)
          {
@@ -83,6 +79,23 @@ public class MyClient
       }
    }
 
+   public void getRenderData()
+   {
+      System.out.println("Getting render data from servers");
+      
+      for (Socket socket : servers)
+      {
+         try
+         {
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            System.out.println("Received from server: '" + in.readUTF() + "'");
+         }
+         catch (IOException e)
+         {
+            System.out.println("Error: " + e);
+         }
+      }
+   }
    public void closeConnections()
    {
       System.out.println("Closing socket connections to servers");

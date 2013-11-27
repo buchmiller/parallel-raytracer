@@ -27,6 +27,8 @@ public class Client
          Thread.sleep(1000); //Delay added for testing purposes only
          client.sendRowData();
          Thread.sleep(1000); //Delay added for testing purposes only
+         client.getRenderData();
+         Thread.sleep(1000); //Delay added for testing purposes only
          client.closeConnections();
       }
       catch (InterruptedException e)
