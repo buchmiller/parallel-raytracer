@@ -4,9 +4,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import math.Color3;
+import math.Vector3;
+import scene.Camera;
+import scene.Scene;
+import scene.Screen;
 
 public class Client
 {
@@ -48,8 +54,10 @@ public class Client
          {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
-            out.writeUTF("SCENE DATA");
+            oos.writeObject(new Scene(new Camera(new Vector3(1, 1, 1), new Vector3(1, 1, 1)), new Screen(10, 10), new Color3(0, 0, 0), 5));
+            //out.writeUTF("SCENE DATA");
 
             System.out.println("Received from server: '" + in.readUTF() + "'");
          }

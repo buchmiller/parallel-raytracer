@@ -3,6 +3,7 @@ package concurrency;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import scene.Scene;
 
 public class Server extends Thread
 {
@@ -49,7 +51,10 @@ public class Server extends Thread
                DataInputStream in = new DataInputStream(server.getInputStream());
                DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
-               System.out.println("Received from client: '" + in.readUTF() + "'");
+               ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
+               Scene scene = (Scene) ois.readObject();
+               System.out.println("Scene background color: " + scene.getBackgroundColor());
+//               System.out.println("Received from client: '" + in.readUTF() + "'");
 
                out.writeUTF("Scene received");
 
@@ -72,6 +77,10 @@ public class Server extends Thread
             System.out.println("Socket timed out!\n" + e);
          }
          catch (IOException e)
+         {
+            System.out.println("Error: " + e);
+         }
+         catch (ClassNotFoundException e)
          {
             System.out.println("Error: " + e);
          }
