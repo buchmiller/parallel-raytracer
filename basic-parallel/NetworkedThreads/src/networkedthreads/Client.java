@@ -19,6 +19,8 @@ public class Client
       serverNames.addAll(Arrays.asList(args));
 
       MyClient client = new MyClient(serverNames, 3000);
-      client.makeConnections();
+      client.openConnections();
+      client.sendData();
+      client.closeConnections();
    }
 }

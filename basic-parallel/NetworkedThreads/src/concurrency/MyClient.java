@@ -4,12 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyClient
 {
    private List<String> serverNames;
    private int port;
+   private List<Socket> servers = new ArrayList<>();
 
    public MyClient(List<String> serverNames, int port)
    {
@@ -17,33 +19,65 @@ public class MyClient
       this.port = port;
    }
 
-   public void makeConnections()
+   public void openConnections()
    {
-      try
+      for (String serverName : serverNames)
       {
-         for (String serverName : serverNames)
+         try
          {
             System.out.println("Connecting to " + serverName + " on port " + port);
-            try (Socket client = new Socket(serverName, port))
-            {
-               System.out.println("Now connected to " + client.getRemoteSocketAddress());
-
-               DataInputStream in = new DataInputStream(client.getInputStream());
-               DataOutputStream out = new DataOutputStream(client.getOutputStream());
-
-               out.writeUTF("SCENE DATA");
-
-               System.out.println("Received from server: '" + in.readUTF() + "'");
-
-               out.writeUTF("Rows 0 - 11");
-
-               System.out.println("Received from server: '" + in.readUTF() + "'");
-            }
+            Socket socket = new Socket(serverName, port);
+            servers.add(socket);
+            System.out.println("Now connected to " + socket.getRemoteSocketAddress());
+         }
+         catch (IOException e)
+         {
+            System.out.println("Error: " + e);
          }
       }
-      catch (IOException e)
+   }
+
+   public void sendData()
+   {
+      System.out.println("Sending data to servers...");
+      
+      for (Socket socket : servers)
       {
-         System.out.println("Error: " + e);
+         try
+         {
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+
+            out.writeUTF("SCENE DATA");
+
+            System.out.println("Received from server: '" + in.readUTF() + "'");
+
+            out.writeUTF("Rows 0 - 11");
+
+            System.out.println("Received from server: '" + in.readUTF() + "'");
+         }
+         catch (IOException e)
+         {
+            System.out.println("Error: " + e);
+         }
+
+      }
+   }
+
+   public void closeConnections()
+   {
+      System.out.println("Closing socket connections to servers");
+      
+      for (Socket socket : servers)
+      {
+         try
+         {
+            socket.close();
+         }
+         catch (IOException e)
+         {
+            System.out.println("Error closing socket connections: " + e);
+         }
       }
    }
 }
