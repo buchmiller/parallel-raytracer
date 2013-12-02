@@ -19,28 +19,25 @@ public class Client
    private List<String> serverNames;
    private int port;
    private List<Socket> servers = new ArrayList<>();
+   private Scene testScene;
 
    public Client(List<String> serverNames, int port)
    {
       this.serverNames = serverNames;
       this.port = port;
+
+      testScene = new Scene(new Camera(new Vector3(1, 1, 1), new Vector3(1, 1, 1)), new Screen(10, 10), new Color3(0, 0, 0), 5);
    }
 
-   public void openConnections()
+   public void openConnections() throws IOException
    {
       for (String serverName : serverNames)
       {
-         try
-         {
-            System.out.println("Connecting to " + serverName + " on port " + port);
-            Socket socket = new Socket(serverName, port);
-            servers.add(socket);
-            System.out.println("Now connected to " + socket.getRemoteSocketAddress());
-         }
-         catch (IOException e)
-         {
-            System.out.println("Error: " + e);
-         }
+         System.out.println("Connecting to " + serverName + " on port " + port);
+         Socket socket = new Socket(serverName, port);
+         servers.add(socket);
+         System.out.println("Now connected to " + socket.getRemoteSocketAddress());
+
       }
    }
 
@@ -56,9 +53,10 @@ public class Client
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
-            oos.writeObject(new Scene(new Camera(new Vector3(1, 1, 1), new Vector3(1, 1, 1)), new Screen(10, 10), new Color3(0, 0, 0), 5));
-            //out.writeUTF("SCENE DATA");
+            //write out scene data
+            oos.writeObject(testScene);
 
+            //read in confirmation that data was received
             System.out.println("Received from server: '" + in.readUTF() + "'");
          }
          catch (IOException e)
@@ -71,14 +69,22 @@ public class Client
 
    public void sendRowData()
    {
-      System.out.println("Sending row data to servers...");
+      System.out.println("Sending thread/row data to servers...");
+
+      int numTasksEach = testScene.getScreen().getHeight() / servers.size();
+      System.out.println("Numtasks = " + numTasksEach);
 
       for (Socket socket : servers)
       {
          try
          {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            out.writeUTF("Rows 0 - 11");
+
+            //write out number of threads to use
+            out.writeUTF("2");
+
+            //write out row numbers to process
+            out.writeUTF("0-3");
          }
          catch (IOException e)
          {

@@ -19,8 +19,7 @@ import scene.Scene;
 
 public class Server extends Thread
 {
-   private ServerSocket serverSocket;
-   private Socket client;
+   private ServerSocket serverSocket; //listening socket
    private int poolSize = 12; //TODO: this will eventually come from Scene
    private Scene scene;
 
@@ -53,18 +52,21 @@ public class Server extends Thread
                DataInputStream in = new DataInputStream(server.getInputStream());
                DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
+               //read in scene
                ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
                scene = (Scene) ois.readObject();
                System.out.println("Scene background color: " + scene.getBackgroundColor());
-//               System.out.println("Received from client: '" + in.readUTF() + "'");
-
                out.writeUTF("Scene received");
 
-               System.out.println("Received from client: '" + in.readUTF() + "'");
+               //read in number of threads
+               System.out.println("Number of threads to use: '" + in.readUTF() + "'");
 
+               //read in row numbers
+               System.out.println("Row numbers to process: '" + in.readUTF() + "'");
+
+               //write out results
                startTasks();
 
-               //out.writeUTF("RENDER DATA");
                ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
                Color3[] colors = new Color3[10];
                oos.writeObject(new ResultData(5, colors));

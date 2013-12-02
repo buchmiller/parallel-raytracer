@@ -1,6 +1,7 @@
 package networkedthreads;
 
 import concurrency.Client;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +35,10 @@ public class ClientDriver
       catch (InterruptedException e)
       {
          System.out.println("Sleep Thread interrupted: " + e);
+      }
+      catch (IOException e)
+      {
+         System.out.println("Error: " + e);
       }
    }
 }
