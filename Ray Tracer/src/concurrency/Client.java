@@ -10,9 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import math.Color3;
 import math.Vector3;
+import raytracer.Image;
 import scene.Camera;
+import scene.Material;
+import scene.Plane;
+import scene.PointLight;
 import scene.Scene;
 import scene.Screen;
+import scene.Sphere;
 
 public class Client
 {
@@ -26,7 +31,35 @@ public class Client
       this.serverNames = serverNames;
       this.port = port;
 
-      testScene = new Scene(new Camera(new Vector3(1, 1, 1), new Vector3(1, 1, 1)), new Screen(10, 10), new Color3(0, 0, 0), 5);
+      //Data for a test scene
+      int width = 640;
+      int height = 480;
+      String fileName = "output";
+      Image image = new Image(width, height);
+      Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+      Screen screen = new Screen(width, height);
+      Color3 bColor = new Color3(0, 1, 0);
+      int maxDepth = 4;
+
+      Scene scene = new Scene(camera, screen, bColor, maxDepth);
+
+      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(new Color3(300, 0, 0)))); //red
+      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(new Color3(0, 0, 300)))); //blue
+      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(new Color3(300, 300, 0)))); //yellow
+      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(new Color3(0, 300, 0)))); //green
+
+      Vector3 normal = new Vector3(0, 1, 0);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
+
+      normal = new Vector3(-1, 0.3f, 0);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
+
+      //lights
+      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
+
+      testScene = scene;
    }
 
    public void openConnections() throws IOException
