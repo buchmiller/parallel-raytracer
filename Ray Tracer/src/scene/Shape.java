@@ -1,9 +1,10 @@
 package scene;
 
+import java.io.Serializable;
 import math.Vector3;
 import raytracer.Ray;
 
-public abstract class Shape
+public abstract class Shape implements Serializable
 {
    protected Vector3 position;
    protected Material material;
