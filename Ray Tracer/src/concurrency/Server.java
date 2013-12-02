@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import math.Color3;
 import scene.Scene;
 
 public class Server extends Thread
@@ -61,11 +62,12 @@ public class Server extends Thread
 
                System.out.println("Received from client: '" + in.readUTF() + "'");
 
-               //begin();
+               startTasks();
 
                //out.writeUTF("RENDER DATA");
                ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
-               oos.writeObject(new ResultData(5));
+               Color3[] colors = new Color3[10];
+               oos.writeObject(new ResultData(5, colors));
 
                //TODO: Put these in a finally statement
                in.close();
@@ -88,7 +90,7 @@ public class Server extends Thread
       }
    }
 
-   public void begin()
+   public void startTasks()
    {
       ExecutorService executorService = Executors.newFixedThreadPool(2);
       CompletionService<ResultData> completionService =

@@ -25,11 +25,10 @@ public class TracerCallable implements Callable<ResultData>
    @Override
    public ResultData call() throws Exception
    {
-      Thread.sleep(1000);
-      return new ResultData(row);
+      return render();
    }
 
-   public Color3[] render(int row)
+   public ResultData render()
    {
       Color3[] colors = new Color3[scene.getScreen().getWidth()];
 
@@ -56,7 +55,7 @@ public class TracerCallable implements Callable<ResultData>
          colors[col] = color;
       }
 
-      return colors;
+      return new ResultData(row, colors);
    }
 
    private Color3 shade(ISect hitData)
