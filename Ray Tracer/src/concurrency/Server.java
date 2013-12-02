@@ -21,6 +21,7 @@ public class Server extends Thread
    private ServerSocket serverSocket;
    private Socket client;
    private int poolSize = 12; //TODO: this will eventually come from Scene
+   private Scene scene;
 
    public Server(int port) throws IOException
    {
@@ -52,7 +53,7 @@ public class Server extends Thread
                DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
                ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
-               Scene scene = (Scene) ois.readObject();
+               scene = (Scene) ois.readObject();
                System.out.println("Scene background color: " + scene.getBackgroundColor());
 //               System.out.println("Received from client: '" + in.readUTF() + "'");
 
@@ -95,7 +96,7 @@ public class Server extends Thread
 
       for (int i = 0; i < poolSize; i++)
       {
-         completionService.submit(new ServerCallable(i));
+         completionService.submit(new TracerCallable(scene, i));
       }
 
       executorService.shutdown();
