@@ -61,7 +61,7 @@ public class Server extends Thread
                System.out.println("Number of threads to use: " + numThreads);
 
                //read in row numbers
-               List rowNumbers = (ArrayList) inStream.readObject();
+               List<Integer> rowNumbers = (ArrayList<Integer>) inStream.readObject();
                System.out.println("Row numbers received.");
 
                //write out results
