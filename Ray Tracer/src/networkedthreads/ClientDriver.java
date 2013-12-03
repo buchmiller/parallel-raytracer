@@ -24,9 +24,7 @@ public class ClientDriver
          Client client = new Client(serverNames, 3000);
          client.openConnections();
          Thread.sleep(1000); //Delay added for testing purposes only
-         client.sendSceneData();
-         Thread.sleep(1000); //Delay added for testing purposes only
-         client.sendRowData();
+         client.sendData();
          Thread.sleep(1000); //Delay added for testing purposes only
          client.getRenderData();
          Thread.sleep(1000); //Delay added for testing purposes only

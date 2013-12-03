@@ -1,13 +1,10 @@
 package concurrency;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import math.Color3;
 import math.Vector3;
@@ -26,7 +23,6 @@ public class Client
    private int port;
    private List<Socket> servers = new ArrayList<>();
    private Scene testScene;
-   ObjectOutputStream outStream;
 
    public Client(List<String> serverNames, int port)
    {
@@ -76,35 +72,9 @@ public class Client
       }
    }
 
-   public void sendSceneData()
+   public void sendData()
    {
-      System.out.println("Sending scene data to servers...");
-
-      for (Socket socket : servers)
-      {
-         try
-         {
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            outStream = new ObjectOutputStream(socket.getOutputStream());
-
-            //write out scene data
-            outStream.writeObject(testScene);
-
-            //read in confirmation that data was received
-            System.out.println("Received from server: '" + in.readUTF() + "'");
-         }
-         catch (IOException e)
-         {
-            System.out.println("Error: " + e);
-         }
-
-      }
-   }
-
-   public void sendRowData()
-   {
-      System.out.println("Sending thread/row data to servers...");
-
+      System.out.println("Sending scene/thread/row data to servers...");
       int numTasksEach = testScene.getScreen().getHeight() / servers.size();
       System.out.println("NumtasksEach = " + numTasksEach);
 
@@ -114,19 +84,23 @@ public class Client
       {
          rowNums.add(i);
       }
-      
+
       int i = 0;
       for (Socket socket : servers)
       {
          try
          {
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
+
+            //write out the scene
+            outStream.writeObject(testScene);
 
             //write out number of threads to use
-            out.writeUTF("2");
+            outStream.writeInt(2);
 
             //write out row numbers to process
             outStream.writeObject(new ArrayList(rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
+
          }
          catch (IOException e)
          {
@@ -145,22 +119,12 @@ public class Client
       {
          try
          {
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
 
-//            System.out.println("Received from server: '" + in.readUTF() + "'");
-            ResultData result = (ResultData) ois.readObject();
+            ResultData result = (ResultData) inStream.readObject();
             System.out.println("Received from server: '" + result.getRow() + "'");
-
-            //TODO: put these in a finally statement
-            in.close();
-            ois.close();
          }
-         catch (IOException e)
-         {
-            System.out.println("Error: " + e);
-         }
-         catch (ClassNotFoundException e)
+         catch (IOException | ClassNotFoundException e)
          {
             System.out.println("Error: " + e);
          }
