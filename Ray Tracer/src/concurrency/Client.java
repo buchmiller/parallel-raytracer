@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import math.Color3;
 import math.Vector3;
@@ -25,6 +26,7 @@ public class Client
    private int port;
    private List<Socket> servers = new ArrayList<>();
    private Scene testScene;
+   ObjectOutputStream outStream;
 
    public Client(List<String> serverNames, int port)
    {
@@ -83,11 +85,10 @@ public class Client
          try
          {
             DataInputStream in = new DataInputStream(socket.getInputStream());
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            outStream = new ObjectOutputStream(socket.getOutputStream());
 
             //write out scene data
-            oos.writeObject(testScene);
+            outStream.writeObject(testScene);
 
             //read in confirmation that data was received
             System.out.println("Received from server: '" + in.readUTF() + "'");
@@ -105,8 +106,16 @@ public class Client
       System.out.println("Sending thread/row data to servers...");
 
       int numTasksEach = testScene.getScreen().getHeight() / servers.size();
-      System.out.println("Numtasks = " + numTasksEach);
+      System.out.println("NumtasksEach = " + numTasksEach);
 
+      //create list of row numbers for partitioning
+      List<Integer> rowNums = new ArrayList<>();
+      for (int i = 0; i < testScene.getScreen().getHeight(); i++)
+      {
+         rowNums.add(i);
+      }
+      
+      int i = 0;
       for (Socket socket : servers)
       {
          try
@@ -117,13 +126,14 @@ public class Client
             out.writeUTF("2");
 
             //write out row numbers to process
-            out.writeUTF("0-3");
+            outStream.writeObject(new ArrayList(rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
          }
          catch (IOException e)
          {
             System.out.println("Error: " + e);
          }
 
+         i += numTasksEach;
       }
    }
 
