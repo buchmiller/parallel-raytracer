@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
@@ -20,7 +22,6 @@ import scene.Scene;
 public class Server extends Thread
 {
    private ServerSocket serverSocket; //listening socket
-   private int poolSize = 12; //TODO: this will eventually come from Scene
    private Scene scene;
 
    public Server(int port) throws IOException
@@ -59,13 +60,15 @@ public class Server extends Thread
                out.writeUTF("Scene received");
 
                //read in number of threads
-               System.out.println("Number of threads to use: '" + in.readUTF() + "'");
+               int numThreads = Integer.parseInt(in.readUTF());
+               System.out.println("Number of threads to use: " + numThreads);
 
                //read in row numbers
-               System.out.println("Row numbers to process: '" + in.readUTF() + "'");
+               List rowNumbers = (ArrayList) ois.readObject();
+               System.out.println("Row numbers received.");
 
                //write out results
-               startTasks();
+               startTasks(numThreads, rowNumbers);
 
                ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
                Color3[] colors = new Color3[10];
@@ -92,20 +95,20 @@ public class Server extends Thread
       }
    }
 
-   public void startTasks()
+   public void startTasks(int numThreads, List<Integer> rowNumbers)
    {
-      ExecutorService executorService = Executors.newFixedThreadPool(2);
+      ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
       CompletionService<ResultData> completionService =
             new ExecutorCompletionService<>(executorService);
 
-      for (int i = 0; i < poolSize; i++)
+      for (int rowNum : rowNumbers)
       {
-         completionService.submit(new TracerCallable(scene, i));
+         completionService.submit(new TracerCallable(scene, rowNum));
       }
 
       executorService.shutdown();
 
-      for (int i = 0; i < poolSize; i++)
+      for (int i = 0; i < rowNumbers.size(); i++)
       {
          try
          {
