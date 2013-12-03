@@ -1,6 +1,5 @@
 package concurrency;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -123,9 +122,12 @@ public class Client
          {
             ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
 
-            ResultData result = (ResultData) inStream.readObject();
-            System.out.println("Received from server: '" + result.getRow() + "'");
-            image.setRow(result.getRow(), result.getColors());
+            for (int i = 0; i < testScene.getScreen().getHeight(); i++)
+            {
+               ResultData result = (ResultData) inStream.readObject();
+               System.out.println("Received data for row: " + result.getRow());
+               image.setRow(result.getRow(), result.getColors());
+            }
          }
          catch (IOException | ClassNotFoundException e)
          {
