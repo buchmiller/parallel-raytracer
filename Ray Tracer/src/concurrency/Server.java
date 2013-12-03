@@ -41,6 +41,8 @@ public class Server extends Thread
          System.out.println("Error: " + e);
       }
 
+      ObjectInputStream inStream;
+      ObjectOutputStream outStream;
       while (true)
       {
          try
@@ -50,34 +52,34 @@ public class Server extends Thread
             {
                System.out.println("Client has connected: " + server.getRemoteSocketAddress());
 
-               DataInputStream in = new DataInputStream(server.getInputStream());
-               DataOutputStream out = new DataOutputStream(server.getOutputStream());
+               inStream = new ObjectInputStream(server.getInputStream());
+               //DataInputStream in = new DataInputStream(server.getInputStream());
+               //DataOutputStream out = new DataOutputStream(server.getOutputStream());
 
                //read in scene
-               ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
-               scene = (Scene) ois.readObject();
-               System.out.println("Scene background color: " + scene.getBackgroundColor());
-               out.writeUTF("Scene received");
+               scene = (Scene) inStream.readObject();
+               System.out.println("Received scene");
+//               outStream.writeUTF("Scene received");
 
                //read in number of threads
-               int numThreads = Integer.parseInt(in.readUTF());
+               int numThreads = inStream.readInt();
                System.out.println("Number of threads to use: " + numThreads);
 
                //read in row numbers
-               List rowNumbers = (ArrayList) ois.readObject();
+               List rowNumbers = (ArrayList) inStream.readObject();
                System.out.println("Row numbers received.");
 
                //write out results
+               outStream = new ObjectOutputStream(server.getOutputStream());
                startTasks(numThreads, rowNumbers);
 
-               ObjectOutputStream oos = new ObjectOutputStream(server.getOutputStream());
                Color3[] colors = new Color3[10];
-               oos.writeObject(new ResultData(5, colors));
+               outStream.writeObject(new ResultData(5, colors));
 
                //TODO: Put these in a finally statement
-               in.close();
-               out.close();
-               oos.close();
+               //in.close();
+               //out.close();
+               //oos.close();
             }
          }
          catch (SocketTimeoutException e)
