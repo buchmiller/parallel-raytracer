@@ -1,5 +1,6 @@
 package concurrency;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,6 +24,7 @@ public class Client
    private int port;
    private List<Socket> servers = new ArrayList<>();
    private Scene testScene;
+   private Image image;
 
    public Client(List<String> serverNames, int port)
    {
@@ -33,7 +35,7 @@ public class Client
       int width = 640;
       int height = 480;
       String fileName = "output";
-      Image image = new Image(width, height);
+      image = new Image(width, height);
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
       Color3 bColor = new Color3(0, 1, 0);
@@ -123,6 +125,7 @@ public class Client
 
             ResultData result = (ResultData) inStream.readObject();
             System.out.println("Received from server: '" + result.getRow() + "'");
+            image.setRow(result.getRow(), result.getColors());
          }
          catch (IOException | ClassNotFoundException e)
          {
@@ -146,5 +149,10 @@ public class Client
             System.out.println("Error closing socket connections: " + e);
          }
       }
+   }
+
+   public void saveImageToFile()
+   {
+      image.saveImageToFile("output");
    }
 }
