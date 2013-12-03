@@ -41,8 +41,6 @@ public class Server extends Thread
          System.out.println("Error: " + e);
       }
 
-      ObjectInputStream inStream;
-      ObjectOutputStream outStream;
       while (true)
       {
          try
@@ -52,14 +50,11 @@ public class Server extends Thread
             {
                System.out.println("Client has connected: " + server.getRemoteSocketAddress());
 
-               inStream = new ObjectInputStream(server.getInputStream());
-               //DataInputStream in = new DataInputStream(server.getInputStream());
-               //DataOutputStream out = new DataOutputStream(server.getOutputStream());
+               ObjectInputStream inStream = new ObjectInputStream(server.getInputStream());
 
                //read in scene
                scene = (Scene) inStream.readObject();
                System.out.println("Received scene");
-//               outStream.writeUTF("Scene received");
 
                //read in number of threads
                int numThreads = inStream.readInt();
@@ -70,16 +65,11 @@ public class Server extends Thread
                System.out.println("Row numbers received.");
 
                //write out results
-               outStream = new ObjectOutputStream(server.getOutputStream());
+               ObjectOutputStream outStream = new ObjectOutputStream(server.getOutputStream());
                startTasks(numThreads, rowNumbers);
 
                Color3[] colors = new Color3[10];
                outStream.writeObject(new ResultData(5, colors));
-
-               //TODO: Put these in a finally statement
-               //in.close();
-               //out.close();
-               //oos.close();
             }
          }
          catch (SocketTimeoutException e)
