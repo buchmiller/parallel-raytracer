@@ -29,6 +29,8 @@ public class ClientDriver
          client.getRenderData();
          Thread.sleep(1000); //Delay added for testing purposes only
          client.closeConnections();
+
+         client.saveImageToFile();
       }
       catch (InterruptedException e)
       {
