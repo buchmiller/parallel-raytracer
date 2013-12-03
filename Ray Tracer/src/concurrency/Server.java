@@ -66,10 +66,7 @@ public class Server extends Thread
 
                //write out results
                ObjectOutputStream outStream = new ObjectOutputStream(server.getOutputStream());
-               startTasks(numThreads, rowNumbers);
-
-               Color3[] colors = new Color3[10];
-               outStream.writeObject(new ResultData(5, colors));
+               startTasks(numThreads, rowNumbers, outStream);
             }
          }
          catch (SocketTimeoutException e)
@@ -87,7 +84,7 @@ public class Server extends Thread
       }
    }
 
-   public void startTasks(int numThreads, List<Integer> rowNumbers)
+   public void startTasks(int numThreads, List<Integer> rowNumbers, ObjectOutputStream outStream)
    {
       ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
       CompletionService<ResultData> completionService =
@@ -106,6 +103,7 @@ public class Server extends Thread
          {
             ResultData result = completionService.take().get();
             System.out.println("Completed row " + result.getRow());
+            outStream.writeObject(result);
          }
          catch (InterruptedException e)
          {
@@ -114,6 +112,10 @@ public class Server extends Thread
          catch (ExecutionException e)
          {
             System.out.println("Error: get() threw exception\n" + e);
+         }
+         catch (IOException e)
+         {
+            System.out.println("Error: outStream threw exception\n" + e);
          }
       }
    }
