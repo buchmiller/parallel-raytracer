@@ -1,7 +1,5 @@
 package concurrency;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,7 +14,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import math.Color3;
 import scene.Scene;
 
 public class Server extends Thread
@@ -88,7 +85,7 @@ public class Server extends Thread
    {
       ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
       CompletionService<ResultData> completionService =
-            new ExecutorCompletionService<>(executorService);
+              new ExecutorCompletionService<>(executorService);
 
       for (int rowNum : rowNumbers)
       {
