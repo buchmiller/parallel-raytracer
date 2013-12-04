@@ -24,6 +24,7 @@ public class Client
    private List<Socket> servers = new ArrayList<>();
    private Scene testScene;
    private Image image;
+   int numTasksEach;
 
    public Client(List<String> serverNames, int port)
    {
@@ -76,7 +77,7 @@ public class Client
    public void sendData()
    {
       System.out.println("Sending scene/thread/row data to servers...");
-      int numTasksEach = testScene.getScreen().getHeight() / servers.size();
+      numTasksEach = testScene.getScreen().getHeight() / servers.size();
       System.out.println("NumtasksEach = " + numTasksEach);
 
       //create list of row numbers for partitioning
@@ -122,7 +123,7 @@ public class Client
          {
             ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
 
-            for (int i = 0; i < testScene.getScreen().getHeight(); i++)
+            for (int i = 0; i < numTasksEach; i++)
             {
                ResultData result = (ResultData) inStream.readObject();
                System.out.println("Received data for row: " + result.getRow());
