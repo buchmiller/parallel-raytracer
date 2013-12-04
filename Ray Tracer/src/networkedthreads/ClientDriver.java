@@ -23,18 +23,11 @@ public class ClientDriver
       {
          Client client = new Client(serverNames, 3000);
          client.openConnections();
-         Thread.sleep(1000); //Delay added for testing purposes only
          client.sendData();
-         Thread.sleep(1000); //Delay added for testing purposes only
          client.getRenderData();
-         Thread.sleep(1000); //Delay added for testing purposes only
          client.closeConnections();
 
          client.saveImageToFile();
-      }
-      catch (InterruptedException e)
-      {
-         System.out.println("Sleep Thread interrupted: " + e);
       }
       catch (IOException e)
       {
