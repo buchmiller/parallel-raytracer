@@ -11,14 +11,16 @@ import scene.Scene;
 
 public class ClientRunnable implements Runnable
 {
+   private int serverNumber;
    private Scene scene;
    private Socket server;
    private Image image;
    private int numTasksEach;
    private List rowNums;
 
-   public ClientRunnable(Socket server, Scene scene, Image image, int numTasksEach, List rowNums)
+   public ClientRunnable(int serverNumber, Socket server, Scene scene, Image image, int numTasksEach, List rowNums)
    {
+      this.serverNumber = serverNumber;
       this.server = server;
       this.scene = scene;
       this.image = image;
@@ -36,7 +38,7 @@ public class ClientRunnable implements Runnable
 
    public void sendData()
    {
-      System.out.println("Sending scene/thread/row data to servers...");
+      System.out.println("Sending scene/thread/row data to server " + serverNumber);
 
       try
       {
@@ -54,13 +56,13 @@ public class ClientRunnable implements Runnable
       }
       catch (IOException e)
       {
-         System.out.println("Error: " + e);
+         System.out.println(serverNumber + " | Error: " + e);
       }
    }
 
    public void getRenderData()
    {
-      System.out.println("Getting render data from servers");
+      System.out.println("Getting render data from server " + serverNumber);
 
       try
       {
@@ -69,19 +71,19 @@ public class ClientRunnable implements Runnable
          for (int i = 0; i < numTasksEach; i++)
          {
             ResultData result = (ResultData) inStream.readObject();
-            System.out.println("Received data for row: " + result.getRow());
+            System.out.println(serverNumber + " | Received data for row: " + result.getRow());
             image.setRow(result.getRow(), result.getColors());
          }
       }
       catch (IOException | ClassNotFoundException e)
       {
-         System.out.println("Error: " + e);
+         System.out.println(serverNumber + " | Error: " + e);
       }
    }
 
    public void closeConnection()
    {
-      System.out.println("Closing socket connections to servers");
+      System.out.println("Closing socket connection to server " + serverNumber);
 
       try
       {
@@ -89,7 +91,8 @@ public class ClientRunnable implements Runnable
       }
       catch (IOException e)
       {
-         System.out.println("Error closing socket connections: " + e);
+         System.out.println("Error closing socket connection to server "
+                 + serverNumber + ": " + e);
       }
 
    }

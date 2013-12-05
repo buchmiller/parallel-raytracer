@@ -95,11 +95,13 @@ public class Client
       try
       {
          int i = 0;
+         int serverNumber = 0;
          for (Socket socket : servers)
          {
-            executorService.submit(new ClientRunnable(socket, testScene, image, numTasksEach,
+            executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, numTasksEach,
                     rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
             i += numTasksEach;
+            serverNumber++;
          }
       }
       finally
