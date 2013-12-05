@@ -13,7 +13,7 @@ import scene.Shape;
 public class TracerCallable implements Callable<ResultData>
 {
    private Scene scene;
-   private int row;
+   private int row; //TODO: Allow multiple rows to be done at once?
    private int depth = 0;
 
    public TracerCallable(Scene scene, int row)
@@ -25,6 +25,16 @@ public class TracerCallable implements Callable<ResultData>
    @Override
    public ResultData call() throws Exception
    {
+      //This sleep is only for testing, remove once more advance ray tracing is added
+      try
+      {
+         Thread.sleep(100);
+      }
+      catch (InterruptedException e)
+      {
+         System.out.println("Error: " + e);
+      }
+      
       return render();
    }
 
