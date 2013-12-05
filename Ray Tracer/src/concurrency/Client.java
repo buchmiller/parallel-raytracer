@@ -99,7 +99,7 @@ public class Client
          for (Socket socket : servers)
          {
             executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, numTasksEach,
-                    rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
+                    rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)), 4));
             i += numTasksEach;
             serverNumber++;
          }

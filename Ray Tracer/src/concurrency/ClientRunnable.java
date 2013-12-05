@@ -17,8 +17,10 @@ public class ClientRunnable implements Runnable
    private Image image;
    private int numTasksEach;
    private List rowNums;
+   private int numThreadsForServer;
 
-   public ClientRunnable(int serverNumber, Socket server, Scene scene, Image image, int numTasksEach, List rowNums)
+   public ClientRunnable(int serverNumber, Socket server, Scene scene, Image image,
+                         int numTasksEach, List rowNums, int numThreadsForServer)
    {
       this.serverNumber = serverNumber;
       this.server = server;
@@ -26,6 +28,7 @@ public class ClientRunnable implements Runnable
       this.image = image;
       this.numTasksEach = numTasksEach;
       this.rowNums = new ArrayList(rowNums);
+      this.numThreadsForServer = numThreadsForServer;
    }
 
    @Override
@@ -48,7 +51,7 @@ public class ClientRunnable implements Runnable
          outStream.writeObject(scene);
 
          //write out number of threads to use
-         outStream.writeInt(2);
+         outStream.writeInt(numThreadsForServer);
 
          //write out row numbers to process
          outStream.writeObject(rowNums);
