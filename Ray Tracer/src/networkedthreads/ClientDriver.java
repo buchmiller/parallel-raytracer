@@ -23,8 +23,9 @@ public class ClientDriver
       {
          Client client = new Client(serverNames, 3000);
          client.openConnections();
-         client.sendData();
-         client.getRenderData();
+         client.startRunnables();
+//         client.sendData();
+//         client.getRenderData();
          client.closeConnections();
 
          client.saveImageToFile();

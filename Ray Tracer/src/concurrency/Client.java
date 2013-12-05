@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import math.Color3;
 import math.Vector3;
 import raytracer.Image;
@@ -74,6 +76,36 @@ public class Client
       }
    }
 
+   public void startRunnables()
+   {
+      ExecutorService executorService = Executors.newFixedThreadPool(3);
+      
+      numTasksEach = testScene.getScreen().getHeight() / servers.size();
+      System.out.println("NumtasksEach = " + numTasksEach);
+
+      //create list of row numbers for partitioning
+      List<Integer> rowNums = new ArrayList<>();
+      for (int i = 0; i < testScene.getScreen().getHeight(); i++)
+      {
+         rowNums.add(i);
+      }
+      
+      try
+      {
+         int i = 0;
+         for (Socket socket : servers)
+         {
+            executorService.submit(new ClientRunnable(socket, testScene, image, numTasksEach,
+                    rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
+            i += numTasksEach;
+         }
+      }
+      finally
+      {
+         executorService.shutdown();
+      }
+   }
+   
    public void sendData()
    {
       System.out.println("Sending scene/thread/row data to servers...");
