@@ -79,7 +79,8 @@ public class Client
 
    public void startRunnables()
    {
-      ExecutorService executorService = Executors.newFixedThreadPool(3);
+      //TODO: make this use a specified number of threads
+      ExecutorService executorService = Executors.newFixedThreadPool(servers.size());
       
       numTasksEach = testScene.getScreen().getHeight() / servers.size();
       System.out.println("NumtasksEach = " + numTasksEach);
