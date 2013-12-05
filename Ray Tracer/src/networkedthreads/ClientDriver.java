@@ -26,7 +26,7 @@ public class ClientDriver
          client.startRunnables();
 //         client.sendData();
 //         client.getRenderData();
-         client.closeConnections();
+//         client.closeConnections();
 
          client.saveImageToFile();
       }

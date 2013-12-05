@@ -29,7 +29,9 @@ public class ClientRunnable implements Runnable
    @Override
    public void run()
    {
-      throw new RuntimeException("Not yet implemented");
+      sendData();
+      getRenderData();
+      closeConnection();
    }
 
    public void sendData()
@@ -74,6 +76,20 @@ public class ClientRunnable implements Runnable
       catch (IOException | ClassNotFoundException e)
       {
          System.out.println("Error: " + e);
+      }
+   }
+
+   public void closeConnection()
+   {
+      System.out.println("Closing socket connections to servers");
+
+      try
+      {
+         server.close();
+      }
+      catch (IOException e)
+      {
+         System.out.println("Error closing socket connections: " + e);
       }
 
    }
