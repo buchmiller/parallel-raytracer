@@ -1,4 +1,4 @@
-package math;
+package common.raytracer;
 
 import java.io.Serializable;
 

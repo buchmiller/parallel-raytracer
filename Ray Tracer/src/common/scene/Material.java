@@ -1,7 +1,7 @@
-package scene;
+package common.scene;
 
 import java.io.Serializable;
-import math.Color3;
+import common.raytracer.Color3;
 
 public class Material implements Serializable
 {

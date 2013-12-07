@@ -1,8 +1,8 @@
-package scene;
+package common.scene;
 
 import java.io.Serializable;
-import math.Vector3;
-import raytracer.Ray;
+import common.raytracer.Vector3;
+import common.raytracer.Ray;
 
 public abstract class Shape implements Serializable
 {

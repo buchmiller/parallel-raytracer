@@ -1,7 +1,7 @@
-package concurrency;
+package common;
 
+import common.raytracer.Color3;
 import java.io.Serializable;
-import math.Color3;
 
 public class ResultData implements Serializable
 {

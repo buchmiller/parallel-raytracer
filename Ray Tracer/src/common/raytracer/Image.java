@@ -1,10 +1,9 @@
-package raytracer;
+package common.raytracer;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import math.Color3;
 
 public class Image
 {

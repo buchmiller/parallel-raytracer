@@ -1,4 +1,4 @@
-package scene;
+package common.scene;
 
 import java.io.Serializable;
 

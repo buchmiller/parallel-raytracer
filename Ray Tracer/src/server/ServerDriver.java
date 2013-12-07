@@ -1,6 +1,5 @@
-package networkedthreads;
+package server;
 
-import concurrency.Server;
 import java.io.IOException;
 
 public class ServerDriver

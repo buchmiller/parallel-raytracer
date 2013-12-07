@@ -1,8 +1,8 @@
-package scene;
+package common.scene;
 
 import java.io.Serializable;
-import math.Color3;
-import math.Vector3;
+import common.raytracer.Color3;
+import common.raytracer.Vector3;
 
 public class PointLight implements Serializable
 {

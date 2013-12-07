@@ -1,11 +1,11 @@
-package scene;
+package common.scene;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import math.Color3;
-import math.Vector3;
-import raytracer.Ray;
+import common.raytracer.Color3;
+import common.raytracer.Vector3;
+import common.raytracer.Ray;
 
 public class Scene implements Serializable
 {

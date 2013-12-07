@@ -1,17 +1,15 @@
-package raytracer;
+package common.raytracer;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-import math.Color3;
-import math.Vector3;
-import scene.Camera;
-import scene.Material;
-import scene.Plane;
-import scene.PointLight;
-import scene.Scene;
-import scene.Screen;
-import scene.Sphere;
+import common.scene.Camera;
+import common.scene.Material;
+import common.scene.Plane;
+import common.scene.PointLight;
+import common.scene.Scene;
+import common.scene.Screen;
+import common.scene.Sphere;
 
 public class RayTracer
 {

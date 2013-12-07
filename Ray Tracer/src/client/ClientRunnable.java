@@ -1,13 +1,14 @@
-package concurrency;
+package client;
 
+import common.ResultData;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import raytracer.Image;
-import scene.Scene;
+import common.raytracer.Image;
+import common.scene.Scene;
 
 public class ClientRunnable implements Runnable
 {

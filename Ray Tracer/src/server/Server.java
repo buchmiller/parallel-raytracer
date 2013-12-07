@@ -1,5 +1,7 @@
-package concurrency;
+package server;
 
+import common.raytracer.TracerCallable;
+import common.ResultData;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import scene.Scene;
+import common.scene.Scene;
 
 public class Server extends Thread
 {

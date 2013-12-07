@@ -1,44 +1,22 @@
-package concurrency;
+package common.raytracer;
 
-import java.util.concurrent.Callable;
-import math.Color3;
-import math.Vector3;
-import raytracer.Ray;
-import scene.ISect;
-import scene.Material;
-import scene.PointLight;
-import scene.Scene;
-import scene.Shape;
+import common.scene.ISect;
+import common.scene.Material;
+import common.scene.PointLight;
+import common.scene.Scene;
+import common.scene.Shape;
 
-public class TracerCallable implements Callable<ResultData>
+public class Tracer
 {
    private Scene scene;
-   private int row; //TODO: Allow multiple rows to be done at once?
    private int depth = 0;
 
-   public TracerCallable(Scene scene, int row)
+   public Tracer(Scene scene)
    {
       this.scene = scene;
-      this.row = row;
    }
 
-   @Override
-   public ResultData call() throws Exception
-   {
-      //This sleep is only for testing, remove once more advance ray tracing is added
-      try
-      {
-         Thread.sleep(100);
-      }
-      catch (InterruptedException e)
-      {
-         System.out.println("Error: " + e);
-      }
-      
-      return render();
-   }
-
-   public ResultData render()
+   public Color3[] render(int row)
    {
       Color3[] colors = new Color3[scene.getScreen().getWidth()];
 
@@ -65,7 +43,7 @@ public class TracerCallable implements Callable<ResultData>
          colors[col] = color;
       }
 
-      return new ResultData(row, colors);
+      return colors;
    }
 
    private Color3 shade(ISect hitData)
@@ -155,7 +133,7 @@ public class TracerCallable implements Callable<ResultData>
       }
 
       //TODO: add reflection color
-
+      
       return color.add(hitData.getShape().getMaterial().getColor());
    }
 

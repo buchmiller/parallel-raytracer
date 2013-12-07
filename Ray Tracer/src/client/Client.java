@@ -1,5 +1,6 @@
-package concurrency;
+package client;
 
+import common.ResultData;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,16 +10,16 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import math.Color3;
-import math.Vector3;
-import raytracer.Image;
-import scene.Camera;
-import scene.Material;
-import scene.Plane;
-import scene.PointLight;
-import scene.Scene;
-import scene.Screen;
-import scene.Sphere;
+import common.raytracer.Color3;
+import common.raytracer.Vector3;
+import common.raytracer.Image;
+import common.scene.Camera;
+import common.scene.Material;
+import common.scene.Plane;
+import common.scene.PointLight;
+import common.scene.Scene;
+import common.scene.Screen;
+import common.scene.Sphere;
 
 public class Client
 {

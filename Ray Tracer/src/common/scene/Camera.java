@@ -1,7 +1,7 @@
-package scene;
+package common.scene;
 
 import java.io.Serializable;
-import math.Vector3;
+import common.raytracer.Vector3;
 
 public class Camera implements Serializable
 {

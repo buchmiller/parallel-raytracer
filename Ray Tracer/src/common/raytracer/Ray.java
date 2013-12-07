@@ -1,6 +1,4 @@
-package raytracer;
-
-import math.Vector3;
+package common.raytracer;
 
 public class Ray
 {
