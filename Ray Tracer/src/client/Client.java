@@ -66,6 +66,11 @@ public class Client
       testScene = scene;
    }
 
+   public Client(int port)
+   {
+      this(new ArrayList<String>(), port);
+   }
+
    public void openConnections() throws IOException
    {
       for (String serverName : serverNames)
@@ -78,11 +83,26 @@ public class Client
       }
    }
 
+   public void connectTo(String serverName) throws IOException
+   {
+      Socket socket = new Socket(serverName, port);
+      serverNames.add(serverName);
+      servers.add(socket);
+   }
+
+   public void disconnectFrom(String hostName) throws IOException
+   {
+      int index = serverNames.indexOf(hostName);
+      servers.get(index).close();
+      servers.remove(index);
+      serverNames.remove(index);
+   }
+   
    public void startRunnables()
    {
       //TODO: make this use a specified number of threads
       ExecutorService executorService = Executors.newFixedThreadPool(servers.size());
-      
+
       numTasksEach = testScene.getScreen().getHeight() / servers.size();
       System.out.println("NumtasksEach = " + numTasksEach);
 
@@ -92,7 +112,7 @@ public class Client
       {
          rowNums.add(i);
       }
-      
+
       try
       {
          int i = 0;
@@ -100,7 +120,7 @@ public class Client
          for (Socket socket : servers)
          {
             executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, numTasksEach,
-                    rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)), 4));
+                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)), 4));
             i += numTasksEach;
             serverNumber++;
          }
@@ -109,7 +129,7 @@ public class Client
       {
          executorService.shutdown();
       }
-      
+
       try
       {
          executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
@@ -118,9 +138,9 @@ public class Client
       {
          System.out.println("Await termination interrupted: " + e);
       }
-              
+
    }
-   
+
    public void sendData()
    {
       System.out.println("Sending scene/thread/row data to servers...");
@@ -201,8 +221,13 @@ public class Client
       }
    }
 
+   public void saveImageToFile(String fileName)
+   {
+      image.saveImageToFile(fileName);
+   }
+   
    public void saveImageToFile()
    {
-      image.saveImageToFile("output");
+      saveImageToFile("output");
    }
 }

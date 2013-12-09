@@ -37,7 +37,7 @@ public class ClientRunnable implements Runnable
    {
       sendData();
       getRenderData();
-      closeConnection();
+      //closeConnection();
    }
 
    public void sendData()
