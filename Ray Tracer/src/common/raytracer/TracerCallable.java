@@ -27,7 +27,7 @@ public class TracerCallable implements Callable<ResultData>
       //This sleep is only for testing, remove once more advance ray tracing is added
       try
       {
-         Thread.sleep(100);
+         Thread.sleep(10);
       }
       catch (InterruptedException e)
       {
