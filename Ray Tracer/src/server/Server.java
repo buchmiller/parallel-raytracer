@@ -37,7 +37,7 @@ public class Server extends Thread
       }
       catch (Exception e)
       {
-         System.out.println("Error: " + e);
+         System.out.println("Error 0: " + e);
       }
 
       while (true)
@@ -49,23 +49,26 @@ public class Server extends Thread
             {
                System.out.println("Client has connected: " + server.getRemoteSocketAddress());
 
-               ObjectInputStream inStream = new ObjectInputStream(server.getInputStream());
+               while (true) //jumps out of loop when socket is closed
+               {
+                  ObjectInputStream inStream = new ObjectInputStream(server.getInputStream());
 
-               //read in scene
-               scene = (Scene) inStream.readObject();
-               System.out.println("Received scene");
+                  //read in scene
+                  scene = (Scene) inStream.readObject();
+                  System.out.println("Received scene");
 
-               //read in number of threads
-               int numThreads = inStream.readInt();
-               System.out.println("Number of threads to use: " + numThreads);
+                  //read in number of threads
+                  int numThreads = inStream.readInt();
+                  System.out.println("Number of threads to use: " + numThreads);
 
-               //read in row numbers
-               List<Integer> rowNumbers = (ArrayList<Integer>) inStream.readObject();
-               System.out.println("Row numbers received.");
+                  //read in row numbers
+                  List<Integer> rowNumbers = (ArrayList<Integer>) inStream.readObject();
+                  System.out.println("Row numbers received.");
 
-               //write out results
-               ObjectOutputStream outStream = new ObjectOutputStream(server.getOutputStream());
-               startTasks(numThreads, rowNumbers, outStream);
+                  //write out results
+                  ObjectOutputStream outStream = new ObjectOutputStream(server.getOutputStream());
+                  startTasks(numThreads, rowNumbers, outStream);
+               }
             }
          }
          catch (SocketTimeoutException e)
@@ -74,11 +77,11 @@ public class Server extends Thread
          }
          catch (IOException e)
          {
-            System.out.println("Error: " + e);
+            System.out.println("Error 1: " + e);
          }
          catch (ClassNotFoundException e)
          {
-            System.out.println("Error: " + e);
+            System.out.println("Error 2: " + e);
          }
       }
    }
@@ -87,7 +90,7 @@ public class Server extends Thread
    {
       ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
       CompletionService<ResultData> completionService =
-              new ExecutorCompletionService<>(executorService);
+            new ExecutorCompletionService<>(executorService);
 
       for (int rowNum : rowNumbers)
       {
