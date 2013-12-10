@@ -2,8 +2,14 @@ package client;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
 public class ClientUI extends javax.swing.JFrame
 {
@@ -176,7 +182,6 @@ public class ClientUI extends javax.swing.JFrame
       mainPanel.add(SetupPanel, "card2");
 
       jButton5.setText("Display image");
-      jButton5.setEnabled(false);
       jButton5.addActionListener(new java.awt.event.ActionListener()
       {
          public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -316,7 +321,7 @@ public class ClientUI extends javax.swing.JFrame
 
    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton5ActionPerformed
    {//GEN-HEADEREND:event_jButton5ActionPerformed
-      // TODO add your handling code here:
+      client.displayImage();
    }//GEN-LAST:event_jButton5ActionPerformed
 
    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField2ActionPerformed

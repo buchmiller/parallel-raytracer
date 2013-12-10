@@ -20,6 +20,7 @@ import common.scene.PointLight;
 import common.scene.Scene;
 import common.scene.Screen;
 import common.scene.Sphere;
+import java.awt.image.BufferedImage;
 
 public class Client
 {
@@ -229,5 +230,10 @@ public class Client
    public void saveImageToFile()
    {
       saveImageToFile("output");
+   }
+   
+   public void displayImage()
+   {
+      image.displayImage();
    }
 }

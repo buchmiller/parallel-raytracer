@@ -1,9 +1,14 @@
 package common.raytracer;
 
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
 public class Image
 {
@@ -25,6 +30,20 @@ public class Image
 
    public void saveImageToFile(String fileName)
    {
+      BufferedImage img = getBufferedImage();
+
+      try
+      {
+         ImageIO.write(img, "bmp", new File(fileName + ".bmp"));
+      }
+      catch (IOException e)
+      {
+         System.out.println("Error writing image to file: " + e);
+      }
+   }
+
+   public BufferedImage getBufferedImage()
+   {
       BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
       for (int row = 0; row < height; row++)
@@ -42,19 +61,21 @@ public class Image
          }
          //System.out.println();
       }
-
-      try
-      {
-         ImageIO.write(img, "bmp", new File(fileName + ".bmp"));
-      }
-      catch (IOException e)
-      {
-         System.out.println("Error writing image to file: " + e);
-      }
+      
+      return img;
    }
-
+   
    public void displayImage()
    {
-      throw new RuntimeException("Not yet implemented");
+      BufferedImage img = getBufferedImage();
+      ImageIcon icon = new ImageIcon(img);
+      JDialog dialog = new JDialog();
+      dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+      dialog.setLayout(new FlowLayout());
+      dialog.setSize(img.getWidth(), img.getHeight());
+      JLabel lbl = new JLabel();
+      lbl.setIcon(icon);
+      dialog.add(lbl);
+      dialog.setVisible(true);
    }
 }
