@@ -182,6 +182,7 @@ public class ClientUI extends javax.swing.JFrame
       mainPanel.add(SetupPanel, "card2");
 
       jButton5.setText("Display image");
+      jButton5.setEnabled(false);
       jButton5.addActionListener(new java.awt.event.ActionListener()
       {
          public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -191,6 +192,7 @@ public class ClientUI extends javax.swing.JFrame
       });
 
       jButton6.setText("Save image");
+      jButton6.setEnabled(false);
       jButton6.addActionListener(new java.awt.event.ActionListener()
       {
          public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -409,6 +411,8 @@ public class ClientUI extends javax.swing.JFrame
    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
    {//GEN-HEADEREND:event_jButton8ActionPerformed
       client.startRunnables(); //'Render' pressed
+      jButton5.setEnabled(true); //Enable 'Display image'
+      jButton6.setEnabled(true); //Enable 'Save image'
    }//GEN-LAST:event_jButton8ActionPerformed
 
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
