@@ -24,14 +24,14 @@ public class TracerCallable implements Callable<ResultData>
    public ResultData call() throws Exception
    {
       //This sleep is only for testing, remove once more advance ray tracing is added
-      try
-      {
-         Thread.sleep(10);
-      }
-      catch (InterruptedException e)
-      {
-         System.out.println("Error: " + e);
-      }
+//      try
+//      {
+//         Thread.sleep(10);
+//      }
+//      catch (InterruptedException e)
+//      {
+//         System.out.println("Error: " + e);
+//      }
 
       return render();
    }
