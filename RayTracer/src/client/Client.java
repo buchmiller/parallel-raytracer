@@ -25,7 +25,7 @@ import java.awt.image.BufferedImage;
 public class Client
 {
    private List<String> serverNames;
-   private int port;
+   private int defaultPort;
    private List<Socket> servers = new ArrayList<>();
    private Scene testScene;
    private Image image;
@@ -34,7 +34,7 @@ public class Client
    public Client(List<String> serverNames, int port)
    {
       this.serverNames = serverNames;
-      this.port = port;
+      this.defaultPort = port;
 
       //Data for a test scene
       int width = 640;
@@ -76,18 +76,18 @@ public class Client
    {
       for (String serverName : serverNames)
       {
-         System.out.println("Connecting to " + serverName + " on port " + port);
-         Socket socket = new Socket(serverName, port);
+         System.out.println("Connecting to " + serverName + " on port " + defaultPort);
+         Socket socket = new Socket(serverName, defaultPort);
          servers.add(socket);
          System.out.println("Now connected to " + socket.getRemoteSocketAddress());
 
       }
    }
 
-   public void connectTo(String serverName) throws IOException
+   public void connectTo(String serverName, int portNum) throws IOException
    {
-      Socket socket = new Socket(serverName, port);
-      serverNames.add(serverName);
+      Socket socket = new Socket(serverName, portNum);
+      serverNames.add(serverName + ":" + portNum);
       servers.add(socket);
    }
 

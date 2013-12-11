@@ -49,6 +49,8 @@ public class ClientUI extends javax.swing.JFrame
       jButton3 = new javax.swing.JButton();
       jSeparator1 = new javax.swing.JSeparator();
       jSeparator2 = new javax.swing.JSeparator();
+      jTextField3 = new javax.swing.JTextField();
+      jLabel5 = new javax.swing.JLabel();
       CompletePanel = new javax.swing.JPanel();
       jButton5 = new javax.swing.JButton();
       jButton6 = new javax.swing.JButton();
@@ -69,7 +71,7 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
-      jLabel1.setText("IP Address:");
+      jLabel1.setText("Host name:");
 
       jButton1.setText("Connect");
       jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -120,6 +122,10 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
+      jTextField3.setText("3000");
+
+      jLabel5.setText("Port number:");
+
       javax.swing.GroupLayout SetupPanelLayout = new javax.swing.GroupLayout(SetupPanel);
       SetupPanel.setLayout(SetupPanelLayout);
       SetupPanelLayout.setHorizontalGroup(
@@ -140,26 +146,33 @@ public class ClientUI extends javax.swing.JFrame
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                .addComponent(jButton2)))
+         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
             .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-               .addComponent(jSeparator1)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
-                  .addComponent(jLabel1)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(28, 28, 28)
-                  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+               .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(SetupPanelLayout.createSequentialGroup()
+                  .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGap(85, 85, 85)
+                  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
       );
       SetupPanelLayout.setVerticalGroup(
          SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(SetupPanelLayout.createSequentialGroup()
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel1)
+               .addComponent(jLabel1))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel5)
                .addComponent(jButton1))
-            .addGap(8, 8, 8)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jLabel4)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,15 +249,12 @@ public class ClientUI extends javax.swing.JFrame
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(CompletePanelLayout.createSequentialGroup()
             .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-               .addGroup(CompletePanelLayout.createSequentialGroup()
-                  .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(60, 60, 60))
-               .addGroup(CompletePanelLayout.createSequentialGroup()
-                  .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(jLabel3)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+               .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+               .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(18, 18, 18)
+            .addComponent(jLabel3)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
             .addGap(4, 4, 4))
          .addGroup(CompletePanelLayout.createSequentialGroup()
             .addComponent(jButton7)
@@ -264,7 +274,7 @@ public class ClientUI extends javax.swing.JFrame
                   .addComponent(jButton5)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jButton6)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
             .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton7)
                .addComponent(jButton8)))
@@ -276,7 +286,7 @@ public class ClientUI extends javax.swing.JFrame
       getContentPane().setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 306, Short.MAX_VALUE)
+         .addGap(0, 313, Short.MAX_VALUE)
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                .addContainerGap()
@@ -285,7 +295,7 @@ public class ClientUI extends javax.swing.JFrame
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 216, Short.MAX_VALUE)
+         .addGap(0, 240, Short.MAX_VALUE)
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                .addContainerGap()
@@ -301,6 +311,7 @@ public class ClientUI extends javax.swing.JFrame
       //TODO connect to the server first and set # of cores
 
       String hostName = jTextField1.getText();
+      int portNum = Integer.parseInt(jTextField3.getText());
       jTextField1.setBackground(Color.WHITE);
 
       try
@@ -310,8 +321,8 @@ public class ClientUI extends javax.swing.JFrame
             throw new Exception();
          }
 
-         client.connectTo(hostName);
-         listModel.addElement(hostName);
+         client.connectTo(hostName, portNum);
+         listModel.addElement(hostName + ":" + portNum);
          jButton3.setEnabled(true); //enable Render button
       }
       catch (Exception e)
@@ -485,12 +496,14 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
+   private javax.swing.JLabel jLabel5;
    private javax.swing.JList jList1;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JSeparator jSeparator1;
    private javax.swing.JSeparator jSeparator2;
    private javax.swing.JTextField jTextField1;
    private javax.swing.JTextField jTextField2;
+   private javax.swing.JTextField jTextField3;
    private javax.swing.JPanel mainPanel;
    // End of variables declaration//GEN-END:variables
 }
