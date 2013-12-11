@@ -3,6 +3,7 @@ package client;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.IOException;
+import java.sql.Time;
 import javax.swing.DefaultListModel;
 
 public class ClientUI extends javax.swing.JFrame
@@ -209,7 +210,7 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
-      jLabel3.setText("Time");
+      jLabel3.setText("Time:");
 
       jTextField2.setFocusable(false);
       jTextField2.addActionListener(new java.awt.event.ActionListener()
@@ -237,24 +238,26 @@ public class ClientUI extends javax.swing.JFrame
       CompletePanel.setLayout(CompletePanelLayout);
       CompletePanelLayout.setHorizontalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(CompletePanelLayout.createSequentialGroup()
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-               .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-               .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGap(18, 18, 18)
-            .addComponent(jLabel3)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-            .addGap(4, 4, 4))
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
             .addComponent(jButton7)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton8))
          .addGroup(CompletePanelLayout.createSequentialGroup()
-            .addGap(187, 187, 187)
-            .addComponent(jLabel2)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+               .addGroup(CompletePanelLayout.createSequentialGroup()
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                  .addGap(18, 18, 18)
+                  .addComponent(jLabel3)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jTextField2))
+               .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CompletePanelLayout.createSequentialGroup()
+                  .addGap(187, 187, 187)
+                  .addComponent(jLabel2)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(0, 4, Short.MAX_VALUE))
       );
       CompletePanelLayout.setVerticalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,7 +423,12 @@ public class ClientUI extends javax.swing.JFrame
    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
    {//GEN-HEADEREND:event_jButton8ActionPerformed
       int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
+
+      long startTime = System.currentTimeMillis();
       client.startRunnables(numCores); //'Render' pressed
+      long endTime = System.currentTimeMillis();
+
+      jTextField2.setText("" + ((endTime - startTime) / 1000.0) + " seconds");
       jButton5.setEnabled(true); //Enable 'Display image'
       jButton6.setEnabled(true); //Enable 'Save image'
    }//GEN-LAST:event_jButton8ActionPerformed
