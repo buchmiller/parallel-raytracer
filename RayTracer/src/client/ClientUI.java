@@ -103,7 +103,6 @@ public class ClientUI extends javax.swing.JFrame
       jButton4.setEnabled(false);
 
       jButton3.setText("Next");
-      jButton3.setEnabled(false);
       jButton3.addActionListener(new java.awt.event.ActionListener()
       {
          public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -222,6 +221,7 @@ public class ClientUI extends javax.swing.JFrame
       });
 
       jButton8.setText("Render");
+      jButton8.setEnabled(false);
       jButton8.addActionListener(new java.awt.event.ActionListener()
       {
          public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -233,6 +233,7 @@ public class ClientUI extends javax.swing.JFrame
       jLabel2.setText("Server Cores:");
 
       jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
+      jComboBox1.setEnabled(false);
 
       javax.swing.GroupLayout CompletePanelLayout = new javax.swing.GroupLayout(CompletePanel);
       CompletePanel.setLayout(CompletePanelLayout);
@@ -325,7 +326,8 @@ public class ClientUI extends javax.swing.JFrame
 
          client.connectTo(hostName, portNum);
          listModel.addElement(hostName + ":" + portNum);
-         jButton3.setEnabled(true); //enable Render button
+         jComboBox1.setEnabled(true); //enable 'Server cores' dropdown
+         jButton8.setEnabled(true); //enable Render button
       }
       catch (Exception e)
       {
@@ -400,12 +402,14 @@ public class ClientUI extends javax.swing.JFrame
          if (jList1.getSelectedIndex() == -1) //No selection
          {
             jButton2.setEnabled(false); //disable Disconnect button
-            jButton3.setEnabled(false); //disalbe Render button
+            jComboBox1.setEnabled(false); //disable 'Server cores' dropdown
+            jButton8.setEnabled(false); //disable Render button
          }
          else //selection
          {
             jButton2.setEnabled(true); //enable Disconnect button
-            jButton3.setEnabled(true); //enable Render button
+            jComboBox1.setEnabled(true); //enable 'Server cores' dropdown
+            jButton8.setEnabled(true); //enable Render button
          }
       }
    }//GEN-LAST:event_serverSelected
