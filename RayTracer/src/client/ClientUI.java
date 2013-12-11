@@ -42,8 +42,6 @@ public class ClientUI extends javax.swing.JFrame
       jScrollPane1 = new javax.swing.JScrollPane();
       jList1 = new javax.swing.JList(listModel);
       jButton2 = new javax.swing.JButton();
-      jComboBox1 = new javax.swing.JComboBox();
-      jLabel2 = new javax.swing.JLabel();
       jLabel4 = new javax.swing.JLabel();
       jButton4 = new javax.swing.JButton();
       jButton3 = new javax.swing.JButton();
@@ -58,6 +56,8 @@ public class ClientUI extends javax.swing.JFrame
       jLabel3 = new javax.swing.JLabel();
       jTextField2 = new javax.swing.JTextField();
       jButton8 = new javax.swing.JButton();
+      jLabel2 = new javax.swing.JLabel();
+      jComboBox1 = new javax.swing.JComboBox();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,11 +102,6 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
-      jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
-      jComboBox1.setEnabled(false);
-
-      jLabel2.setText("Cores");
-
       jLabel4.setText("Connected servers");
 
       jButton4.setText("Open scene file");
@@ -147,12 +142,7 @@ public class ClientUI extends javax.swing.JFrame
                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(jLabel4))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
-                  .addComponent(jLabel2)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addComponent(jButton2)))
+            .addComponent(jButton2))
          .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
             .addGap(0, 0, Short.MAX_VALUE)
@@ -185,12 +175,7 @@ public class ClientUI extends javax.swing.JFrame
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addGroup(SetupPanelLayout.createSequentialGroup()
-                  .addComponent(jButton2)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(jLabel2))))
+               .addComponent(jButton2))
             .addGap(7, 7, 7)
             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -250,6 +235,10 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
+      jLabel2.setText("Server Cores:");
+
+      jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
+
       javax.swing.GroupLayout CompletePanelLayout = new javax.swing.GroupLayout(CompletePanel);
       CompletePanel.setLayout(CompletePanelLayout);
       CompletePanelLayout.setHorizontalGroup(
@@ -263,10 +252,15 @@ public class ClientUI extends javax.swing.JFrame
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
             .addGap(4, 4, 4))
-         .addGroup(CompletePanelLayout.createSequentialGroup()
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
             .addComponent(jButton7)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton8))
+         .addGroup(CompletePanelLayout.createSequentialGroup()
+            .addGap(187, 187, 187)
+            .addComponent(jLabel2)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
       );
       CompletePanelLayout.setVerticalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,7 +275,11 @@ public class ClientUI extends javax.swing.JFrame
                   .addComponent(jButton5)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jButton6)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel2))
+            .addGap(62, 62, 62)
             .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton7)
                .addComponent(jButton8)))
@@ -346,6 +344,7 @@ public class ClientUI extends javax.swing.JFrame
 
    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField2ActionPerformed
    {//GEN-HEADEREND:event_jTextField2ActionPerformed
+      //This is the amount of time it took to render
       // TODO add your handling code here:
    }//GEN-LAST:event_jTextField2ActionPerformed
 
@@ -404,13 +403,11 @@ public class ClientUI extends javax.swing.JFrame
          if (jList1.getSelectedIndex() == -1) //No selection
          {
             jButton2.setEnabled(false); //disable Disconnect button
-            jComboBox1.setEnabled(false); //disable Core# selector
             jButton3.setEnabled(false); //disalbe Render button
          }
          else //selection
          {
             jButton2.setEnabled(true); //enable Disconnect button
-            jComboBox1.setEnabled(true); //enable Core# selector
             jButton3.setEnabled(true); //enable Render button
          }
       }
@@ -428,7 +425,8 @@ public class ClientUI extends javax.swing.JFrame
 
    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
    {//GEN-HEADEREND:event_jButton8ActionPerformed
-      client.startRunnables(); //'Render' pressed
+      int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
+      client.startRunnables(numCores); //'Render' pressed
       jButton5.setEnabled(true); //Enable 'Display image'
       jButton6.setEnabled(true); //Enable 'Save image'
    }//GEN-LAST:event_jButton8ActionPerformed

@@ -23,7 +23,7 @@ public class ClientDriver
       {
          Client client = new Client(serverNames, 3000);
          client.openConnections();
-         client.startRunnables();
+         client.startRunnables(4); //use 4 threads on servers
 //         client.sendData();
 //         client.getRenderData();
 //         client.closeConnections();

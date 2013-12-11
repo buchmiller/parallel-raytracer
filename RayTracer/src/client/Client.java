@@ -20,7 +20,6 @@ import common.scene.PointLight;
 import common.scene.Scene;
 import common.scene.Screen;
 import common.scene.Sphere;
-import java.awt.image.BufferedImage;
 
 public class Client
 {
@@ -98,8 +97,8 @@ public class Client
       servers.remove(index);
       serverNames.remove(index);
    }
-   
-   public void startRunnables()
+
+   public void startRunnables(int numThreadsOnServer)
    {
       //TODO: make this use a specified number of threads
       ExecutorService executorService = Executors.newFixedThreadPool(servers.size());
@@ -121,7 +120,8 @@ public class Client
          for (Socket socket : servers)
          {
             executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, numTasksEach,
-                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)), 4));
+                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)),
+                                                      numThreadsOnServer));
             i += numTasksEach;
             serverNumber++;
          }
@@ -226,12 +226,12 @@ public class Client
    {
       image.saveImageToFile(fileName);
    }
-   
+
    public void saveImageToFile()
    {
       saveImageToFile("output");
    }
-   
+
    public void displayImage()
    {
       image.displayImage();
