@@ -123,6 +123,13 @@ public class ClientUI extends javax.swing.JFrame
       });
 
       jTextField3.setText("3000");
+      jTextField3.addActionListener(new java.awt.event.ActionListener()
+      {
+         public void actionPerformed(java.awt.event.ActionEvent evt)
+         {
+            jTextField3ActionPerformed(evt);
+         }
+      });
 
       jLabel5.setText("Port number:");
 
@@ -430,6 +437,11 @@ public class ClientUI extends javax.swing.JFrame
    {//GEN-HEADEREND:event_jButton6ActionPerformed
       client.saveImageToFile(); //'Save image' pressed
    }//GEN-LAST:event_jButton6ActionPerformed
+
+   private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField3ActionPerformed
+   {//GEN-HEADEREND:event_jTextField3ActionPerformed
+      connectToServer(); //enter key pressed in textfield
+   }//GEN-LAST:event_jTextField3ActionPerformed
 
    /**
     * @param args the command line arguments
