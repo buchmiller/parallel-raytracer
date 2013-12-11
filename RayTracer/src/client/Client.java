@@ -134,6 +134,7 @@ public class Client
       try
       {
          executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+         System.out.println("All image data received.");
       }
       catch (InterruptedException e)
       {
