@@ -3,7 +3,6 @@ package client;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.IOException;
-import java.sql.Time;
 import javax.swing.DefaultListModel;
 
 public class ClientUI extends javax.swing.JFrame
@@ -426,15 +425,36 @@ public class ClientUI extends javax.swing.JFrame
 
    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
    {//GEN-HEADEREND:event_jButton8ActionPerformed
-      int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
+      final int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
 
-      long startTime = System.currentTimeMillis();
-      client.startRunnables(numCores); //'Render' pressed
-      long endTime = System.currentTimeMillis();
+      //reset fields and controls until rendering is complete
+      jTextField2.setText("");
+      jButton7.setEnabled(false); //Disable 'Back'
+      jButton8.setEnabled(false); //Disable 'Render'
+      jButton5.setEnabled(false); //Disable 'Display image'
+      jButton6.setEnabled(false); //Disable 'Save image'
+      jComboBox1.setEnabled(false); //Disable 'Server cores' dropdown
 
-      jTextField2.setText("" + ((endTime - startTime) / 1000.0) + " seconds");
-      jButton5.setEnabled(true); //Enable 'Display image'
-      jButton6.setEnabled(true); //Enable 'Save image'
+      new Thread()
+      {
+         @Override
+         public void run()
+         {
+            long startTime = System.currentTimeMillis();
+            client.startRunnables(numCores);
+            long endTime = System.currentTimeMillis();
+
+            jTextField2.setText("" + ((endTime - startTime) / 1000.0) + " seconds");
+            jButton7.setEnabled(true); //Enable 'Back'
+            jButton8.setEnabled(true); //Enable 'Render'
+            jButton5.setEnabled(true); //Enable 'Display image'
+            jButton6.setEnabled(true); //Enable 'Save image'
+            jComboBox1.setEnabled(true); //Enable 'Server cores' dropdown
+         }
+      }.start();
+
+
+
    }//GEN-LAST:event_jButton8ActionPerformed
 
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
