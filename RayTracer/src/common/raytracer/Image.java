@@ -61,10 +61,10 @@ public class Image
          }
          //System.out.println();
       }
-      
+
       return img;
    }
-   
+
    public void displayImage()
    {
       BufferedImage img = getBufferedImage();

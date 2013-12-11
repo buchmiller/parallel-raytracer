@@ -19,7 +19,7 @@ public class Ray
    {
       this.origin = new Vector3(src);
       this.direction = new Vector3(dest.getX() - src.getX(),
-            dest.getY() - src.getY(), dest.getZ() - src.getZ());
+                                   dest.getY() - src.getY(), dest.getZ() - src.getZ());
       this.direction.normalize();
    }
 

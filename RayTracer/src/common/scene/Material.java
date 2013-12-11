@@ -28,7 +28,7 @@ public class Material implements Serializable
    {
       this(color, 0, 0, 1, 1, 0, 50);
    }
-   
+
    public Color3 getColor()
    {
       return color;

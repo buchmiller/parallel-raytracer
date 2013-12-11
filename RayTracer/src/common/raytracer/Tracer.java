@@ -133,7 +133,7 @@ public class Tracer
       }
 
       //TODO: add reflection color
-      
+
       return color.add(hitData.getShape().getMaterial().getColor());
    }
 

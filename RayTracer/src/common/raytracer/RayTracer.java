@@ -62,13 +62,13 @@ public class RayTracer
 
       //lights
       scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
-      
+
       Tracer tracer = new Tracer(scene);
 
       BufferedImage img = new BufferedImage(screen.getWidth(), screen.getHeight(), BufferedImage.TYPE_INT_RGB);
 
       long startTime = System.currentTimeMillis();
-      
+
       for (int row = 0; row < screen.getHeight(); row++)
       {
          Color3[] colors = tracer.render(row);
@@ -85,10 +85,10 @@ public class RayTracer
          }
          //System.out.println();
       }
-      
+
       long endTime = System.currentTimeMillis();
       System.out.println("Raytracing took " + (endTime - startTime) + " milliseconds.");
-      
+
       try
       {
          ImageIO.write(img, "bmp", new File(fileName + ".bmp"));

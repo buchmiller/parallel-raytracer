@@ -20,7 +20,7 @@ public class Plane extends Shape implements Serializable
    {
       float distance = -1;
       float denom = -Vector3.dot(normal, ray.getDirection().getNormalized());
-      
+
       if (denom > 1e-6)
       {
          Vector3 p0l0 = ray.getOrigin().subtract(position);

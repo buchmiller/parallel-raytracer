@@ -2,14 +2,8 @@ package client;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dialog;
-import java.awt.FlowLayout;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 
 public class ClientUI extends javax.swing.JFrame
 {

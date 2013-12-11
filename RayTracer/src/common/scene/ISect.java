@@ -1,6 +1,5 @@
 package common.scene;
 
-import common.raytracer.Vector3;
 import common.raytracer.Ray;
 
 public class ISect

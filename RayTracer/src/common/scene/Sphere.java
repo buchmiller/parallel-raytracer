@@ -21,19 +21,20 @@ public class Sphere extends Shape implements Serializable
       //geometric solution from:
       // http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-sphere-intersection/
 
-      float t0 = -1;
-      float t1 = -1;
-      
       Vector3 L = position.subtract(ray.getOrigin());
       float tca = Vector3.dot(L, ray.getDirection());
       if (tca < 0)
+      {
          return -1;
+      }
       float d2 = Vector3.dot(L, L) - (tca * tca);
       if (d2 > (radius * radius))
+      {
          return -1;
+      }
       float thc = (float) Math.sqrt((radius * radius) - d2);
-      t0 = tca - thc;
-      t1 = tca + thc;
+      float t0 = tca - thc;
+      float t1 = tca + thc;
 
       return Math.min(t0, t1);
    }

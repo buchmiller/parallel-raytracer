@@ -2,7 +2,6 @@ package common.raytracer;
 
 import common.ResultData;
 import java.util.concurrent.Callable;
-import common.raytracer.Ray;
 import common.scene.ISect;
 import common.scene.Material;
 import common.scene.PointLight;
@@ -33,7 +32,7 @@ public class TracerCallable implements Callable<ResultData>
       {
          System.out.println("Error: " + e);
       }
-      
+
       return render();
    }
 
