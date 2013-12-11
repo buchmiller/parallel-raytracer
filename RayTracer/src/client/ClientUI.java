@@ -2,8 +2,10 @@ package client;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
+import javax.swing.UIManager;
 
 public class ClientUI extends javax.swing.JFrame
 {
@@ -15,7 +17,10 @@ public class ClientUI extends javax.swing.JFrame
     */
    public ClientUI()
    {
+      UIManager.put("ProgressBar.repaintInterval", new Integer(50));
+      UIManager.put("ProgressBar.cycleTime", new Integer(1000));
       initComponents();
+      jProgressBar1.setVisible(false);
    }
 
    /**
@@ -52,6 +57,7 @@ public class ClientUI extends javax.swing.JFrame
       jButton8 = new javax.swing.JButton();
       jLabel2 = new javax.swing.JLabel();
       jComboBox1 = new javax.swing.JComboBox();
+      jProgressBar1 = new javax.swing.JProgressBar();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -234,6 +240,8 @@ public class ClientUI extends javax.swing.JFrame
       jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
       jComboBox1.setEnabled(false);
 
+      jProgressBar1.setIndeterminate(true);
+
       javax.swing.GroupLayout CompletePanelLayout = new javax.swing.GroupLayout(CompletePanel);
       CompletePanel.setLayout(CompletePanelLayout);
       CompletePanelLayout.setHorizontalGroup(
@@ -251,7 +259,9 @@ public class ClientUI extends javax.swing.JFrame
                   .addGap(18, 18, 18)
                   .addComponent(jLabel3)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jTextField2))
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                     .addComponent(jTextField2)))
                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CompletePanelLayout.createSequentialGroup()
                   .addGap(187, 187, 187)
                   .addComponent(jLabel2)
@@ -267,20 +277,28 @@ public class ClientUI extends javax.swing.JFrame
                   .addContainerGap()
                   .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                      .addComponent(jLabel3)
-                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGap(18, 18, 18)
+                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                .addGroup(CompletePanelLayout.createSequentialGroup()
                   .addComponent(jButton5)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jButton6)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel2))
-            .addGap(62, 62, 62)
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jButton7)
-               .addComponent(jButton8)))
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(CompletePanelLayout.createSequentialGroup()
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addComponent(jLabel2))
+                  .addContainerGap(84, Short.MAX_VALUE))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                     .addComponent(jButton7)
+                     .addComponent(jButton8)))))
       );
+
+      jProgressBar1.getAccessibleContext().setAccessibleName("");
 
       mainPanel.add(CompletePanel, "card1");
 
@@ -435,6 +453,9 @@ public class ClientUI extends javax.swing.JFrame
       jButton6.setEnabled(false); //Disable 'Save image'
       jComboBox1.setEnabled(false); //Disable 'Server cores' dropdown
 
+      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+      jProgressBar1.setVisible(true);
+
       new Thread()
       {
          @Override
@@ -450,6 +471,9 @@ public class ClientUI extends javax.swing.JFrame
             jButton5.setEnabled(true); //Enable 'Display image'
             jButton6.setEnabled(true); //Enable 'Save image'
             jComboBox1.setEnabled(true); //Enable 'Server cores' dropdown
+
+            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            jProgressBar1.setVisible(false);
          }
       }.start();
 
@@ -534,6 +558,7 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
    private javax.swing.JList jList1;
+   private javax.swing.JProgressBar jProgressBar1;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JSeparator jSeparator1;
    private javax.swing.JSeparator jSeparator2;
