@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import common.raytracer.Color3;
 import common.raytracer.Vector3;
 import common.raytracer.Image;
+import common.raytracer.TracerCallable;
 import common.scene.Camera;
 import common.scene.Material;
 import common.scene.Plane;
@@ -20,6 +21,9 @@ import common.scene.PointLight;
 import common.scene.Scene;
 import common.scene.Screen;
 import common.scene.Sphere;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 
 public class Client
 {
@@ -69,6 +73,11 @@ public class Client
    public Client(int port)
    {
       this(new ArrayList<String>(), port);
+   }
+
+   public Client()
+   {
+      this(new ArrayList<String>(), 3000);
    }
 
    public void openConnections() throws IOException
@@ -219,6 +228,41 @@ public class Client
          catch (IOException e)
          {
             System.out.println("Error closing socket connections: " + e);
+         }
+      }
+   }
+
+   public void runLocally(int numThreads)
+   {
+      Scene scene = testScene;
+      int numRows = scene.getScreen().getHeight();
+
+      ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
+      CompletionService<ResultData> completionService =
+            new ExecutorCompletionService<>(executorService);
+
+      for (int row = 0; row < numRows; row++)
+      {
+         completionService.submit(new TracerCallable(scene, row));
+      }
+
+      executorService.shutdown();
+
+      for (int i = 0; i < numRows; i++)
+      {
+         try
+         {
+            ResultData result = completionService.take().get();
+            System.out.println("Completed row " + result.getRow());
+            image.setRow(result.getRow(), result.getColors());
+         }
+         catch (InterruptedException e)
+         {
+            System.out.println("Error: Interrupted exception\n" + e);
+         }
+         catch (ExecutionException e)
+         {
+            System.out.println("Error: get() threw exception\n" + e);
          }
       }
    }

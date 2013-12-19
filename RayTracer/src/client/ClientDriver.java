@@ -11,8 +11,27 @@ public class ClientDriver
    {
       if (args.length < 1)
       {
-         System.out.println("Must enter host names");
-         return;
+         Client client = new Client();
+         client.runLocally(2); //Default of 2 threads
+      }
+      else if (args.length == 1)
+      {
+         try
+         {
+            int arg1 = Integer.parseInt(args[0]);
+
+            if (arg1 < 10) //reasonable number for numThreads
+            {
+               Client client = new Client();
+               client.runLocally(arg1);
+               client.saveImageToFile();
+               return;
+            }
+         }
+         catch (NumberFormatException e)
+         {
+            //Ignore non-number argument
+         }
       }
 
       List<String> serverNames = new ArrayList<>();

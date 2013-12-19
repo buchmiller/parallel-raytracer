@@ -58,6 +58,7 @@ public class ClientUI extends javax.swing.JFrame
       jLabel2 = new javax.swing.JLabel();
       jComboBox1 = new javax.swing.JComboBox();
       jProgressBar1 = new javax.swing.JProgressBar();
+      jButton9 = new javax.swing.JButton();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,7 +226,7 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
-      jButton8.setText("Render");
+      jButton8.setText("Render on Servers");
       jButton8.setEnabled(false);
       jButton8.addActionListener(new java.awt.event.ActionListener()
       {
@@ -235,39 +236,51 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
-      jLabel2.setText("Server Cores:");
+      jLabel2.setText("Number of Cores:");
 
       jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
-      jComboBox1.setEnabled(false);
 
       jProgressBar1.setIndeterminate(true);
+
+      jButton9.setText("Render locally");
+      jButton9.addActionListener(new java.awt.event.ActionListener()
+      {
+         public void actionPerformed(java.awt.event.ActionEvent evt)
+         {
+            jButton9ActionPerformed(evt);
+         }
+      });
 
       javax.swing.GroupLayout CompletePanelLayout = new javax.swing.GroupLayout(CompletePanel);
       CompletePanel.setLayout(CompletePanelLayout);
       CompletePanelLayout.setHorizontalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
-            .addComponent(jButton7)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton8))
          .addGroup(CompletePanelLayout.createSequentialGroup()
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-               .addGroup(CompletePanelLayout.createSequentialGroup()
-                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                  .addGap(18, 18, 18)
-                  .addComponent(jLabel3)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                     .addComponent(jTextField2)))
-               .addGroup(javax.swing.GroupLayout.Alignment.LEADING, CompletePanelLayout.createSequentialGroup()
-                  .addGap(187, 187, 187)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
                   .addComponent(jLabel2)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(0, 4, Short.MAX_VALUE))
+                  .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)))
+         .addGroup(CompletePanelLayout.createSequentialGroup()
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                  .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .addComponent(jButton7))
+            .addGap(18, 18, 18)
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(CompletePanelLayout.createSequentialGroup()
+                  .addComponent(jLabel3)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                  .addGap(0, 0, Short.MAX_VALUE))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
+                  .addGap(0, 25, Short.MAX_VALUE)
+                  .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
       );
       CompletePanelLayout.setVerticalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,18 +297,16 @@ public class ClientUI extends javax.swing.JFrame
                   .addComponent(jButton5)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jButton6)))
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(CompletePanelLayout.createSequentialGroup()
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(jLabel2))
-                  .addContainerGap(84, Short.MAX_VALUE))
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(jButton7)
-                     .addComponent(jButton8)))))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel2))
+            .addGap(25, 25, 25)
+            .addComponent(jButton8)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jButton7)
+               .addComponent(jButton9)))
       );
 
       jProgressBar1.getAccessibleContext().setAccessibleName("");
@@ -343,7 +354,6 @@ public class ClientUI extends javax.swing.JFrame
 
          client.connectTo(hostName, portNum);
          listModel.addElement(hostName + ":" + portNum);
-         jComboBox1.setEnabled(true); //enable 'Server cores' dropdown
          jButton8.setEnabled(true); //enable Render button
       }
       catch (Exception e)
@@ -419,13 +429,11 @@ public class ClientUI extends javax.swing.JFrame
          if (jList1.getSelectedIndex() == -1) //No selection
          {
             jButton2.setEnabled(false); //disable Disconnect button
-            jComboBox1.setEnabled(false); //disable 'Server cores' dropdown
             jButton8.setEnabled(false); //disable Render button
          }
          else //selection
          {
             jButton2.setEnabled(true); //enable Disconnect button
-            jComboBox1.setEnabled(true); //enable 'Server cores' dropdown
             jButton8.setEnabled(true); //enable Render button
          }
       }
@@ -448,10 +456,10 @@ public class ClientUI extends javax.swing.JFrame
       //reset fields and controls until rendering is complete
       jTextField2.setText("");
       jButton7.setEnabled(false); //Disable 'Back'
-      jButton8.setEnabled(false); //Disable 'Render'
+      jButton8.setEnabled(false); //Disable 'Render on servers'
+      jButton9.setEnabled(false); //Disable 'Render locally'
       jButton5.setEnabled(false); //Disable 'Display image'
       jButton6.setEnabled(false); //Disable 'Save image'
-      jComboBox1.setEnabled(false); //Disable 'Server cores' dropdown
 
       mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       jProgressBar1.setVisible(true);
@@ -467,18 +475,15 @@ public class ClientUI extends javax.swing.JFrame
 
             jTextField2.setText("" + ((endTime - startTime) / 1000.0) + " seconds");
             jButton7.setEnabled(true); //Enable 'Back'
-            jButton8.setEnabled(true); //Enable 'Render'
+            jButton8.setEnabled(true); //Enable 'Render on servers'
+            jButton9.setEnabled(true); //Enable 'Render locally'
             jButton5.setEnabled(true); //Enable 'Display image'
             jButton6.setEnabled(true); //Enable 'Save image'
-            jComboBox1.setEnabled(true); //Enable 'Server cores' dropdown
 
             mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             jProgressBar1.setVisible(false);
          }
       }.start();
-
-
-
    }//GEN-LAST:event_jButton8ActionPerformed
 
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
@@ -490,6 +495,44 @@ public class ClientUI extends javax.swing.JFrame
    {//GEN-HEADEREND:event_jTextField3ActionPerformed
       connectToServer(); //enter key pressed in textfield
    }//GEN-LAST:event_jTextField3ActionPerformed
+
+   private void jButton9ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton9ActionPerformed
+   {//GEN-HEADEREND:event_jButton9ActionPerformed
+      final int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
+      final boolean isConnected = jButton8.isEnabled(); //'Render on servers' button enabled
+
+      //reset fields and controls until rendering is complete
+      jTextField2.setText("");
+      jButton7.setEnabled(false); //Disable 'Back'
+      jButton8.setEnabled(false); //Disable 'Render on servers'
+      jButton9.setEnabled(false); //Disable 'Render locally'
+      jButton5.setEnabled(false); //Disable 'Display image'
+      jButton6.setEnabled(false); //Disable 'Save image'
+
+      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+      jProgressBar1.setVisible(true);
+
+      new Thread()
+      {
+         @Override
+         public void run()
+         {
+            long startTime = System.currentTimeMillis();
+            client.runLocally(numCores);
+            long endTime = System.currentTimeMillis();
+
+            jTextField2.setText("" + ((endTime - startTime) / 1000.0) + " seconds");
+            jButton7.setEnabled(true); //Enable 'Back'
+            jButton8.setEnabled(isConnected); //Restore state of 'Render on servers'
+            jButton9.setEnabled(true); //Enable 'Render locally'
+            jButton5.setEnabled(true); //Enable 'Display image'
+            jButton6.setEnabled(true); //Enable 'Save image'
+
+            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            jProgressBar1.setVisible(false);
+         }
+      }.start();
+   }//GEN-LAST:event_jButton9ActionPerformed
 
    /**
     * @param args the command line arguments
@@ -551,6 +594,7 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JButton jButton6;
    private javax.swing.JButton jButton7;
    private javax.swing.JButton jButton8;
+   private javax.swing.JButton jButton9;
    private javax.swing.JComboBox jComboBox1;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
