@@ -17,18 +17,18 @@ public class ClientRunnable implements Runnable
    private Socket server;
    private Image image;
    private int numTasksEach;
-   private List rowNums;
+   private List<Integer> rowNums;
    private int numThreadsForServer;
 
    public ClientRunnable(int serverNumber, Socket server, Scene scene, Image image,
-                         int numTasksEach, List rowNums, int numThreadsForServer)
+                         int numTasksEach, List<Integer> rowNums, int numThreadsForServer)
    {
       this.serverNumber = serverNumber;
       this.server = server;
       this.scene = scene;
       this.image = image;
       this.numTasksEach = numTasksEach;
-      this.rowNums = new ArrayList(rowNums);
+      this.rowNums = new ArrayList<>(rowNums);
       this.numThreadsForServer = numThreadsForServer;
    }
 

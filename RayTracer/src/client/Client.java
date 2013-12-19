@@ -179,7 +179,7 @@ public class Client
             outStream.writeInt(2);
 
             //write out row numbers to process
-            outStream.writeObject(new ArrayList(rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
+            outStream.writeObject(new ArrayList<>(rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i))));
 
          }
          catch (IOException e)
