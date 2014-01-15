@@ -49,25 +49,7 @@ public class Client
       Color3 bColor = new Color3(0, 1, 0);
       int maxDepth = 4;
 
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
-
-      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(new Color3(300, 0, 0)))); //red
-      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(new Color3(0, 0, 300)))); //blue
-      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(new Color3(300, 300, 0)))); //yellow
-      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(new Color3(0, 300, 0)))); //green
-
-      Vector3 normal = new Vector3(0, 1, 0);
-      normal.normalize();
-      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
-
-      normal = new Vector3(-1, 0.3f, 0);
-      normal.normalize();
-      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
-
-      //lights
-      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
-
-      testScene = scene;
+      testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
    }
 
    public Client(int port)
