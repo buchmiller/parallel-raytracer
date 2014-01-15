@@ -96,4 +96,21 @@ public class Scene implements Serializable
 
       return scene;
    }
+
+   public static Scene createLightTest(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   {
+      Scene scene = new Scene(camera, screen, bColor, maxDepth);
+      scene.addShape(new Sphere(new Vector3(0, 0, -4), 0.5f, new Material(new Color3(100, 100, 100))));
+
+      Vector3 normal = new Vector3(0, 1, 0);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(Color3.BLACK), normal));
+
+      //lights
+      scene.addLight(new PointLight(new Vector3(1, 1, -3), 2, Color3.CYAN));
+      scene.addLight(new PointLight(new Vector3(-1, 0.5f, -3), 2, Color3.YELLOW));
+//      scene.addLight(new PointLight(new Vector3(0, 10, 0), 2, new Color3(100, 100, 100)));
+      
+      return scene;
+   }
 }
