@@ -78,10 +78,10 @@ public class Scene implements Serializable
    {
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
 
-      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(new Color3(300, 0, 0)))); //red
-      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(new Color3(0, 0, 300)))); //blue
-      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(new Color3(300, 300, 0)))); //yellow
-      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(new Color3(0, 300, 0)))); //green
+      scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(Color3.RED))); //red
+      scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(Color3.BLUE))); //blue
+      scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(Color3.YELLOW))); //yellow
+      scene.addShape(new Sphere(new Vector3(2, 0, -15), 1, new Material(Color3.GREEN))); //green
 
       Vector3 normal = new Vector3(0, 1, 0);
       normal.normalize();

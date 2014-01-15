@@ -51,9 +51,18 @@ public class Image
          for (int col = 0; col < width; col++)
          {
             Color3 color = pixels[row][col];
-            int red = color.getR() < 0 ? 0 : (int) color.getR() % 256;
-            int green = color.getG() < 0 ? 0 : (int) color.getG() % 256;
-            int blue = color.getB() < 0 ? 0 : (int) color.getB() % 256;
+
+            int red = (int) color.getR();
+            red = Math.max(red, 0);
+            red = Math.min(255, red);
+
+            int green = (int) color.getG();
+            green = Math.max(green, 0);
+            green = Math.min(255, green);
+
+            int blue = (int) color.getB();
+            blue = Math.max(blue, 0);
+            blue = Math.min(255, blue);
 
             int rgb = (red << 16) | (green << 8) | blue;
             img.setRGB(col, row, rgb);
