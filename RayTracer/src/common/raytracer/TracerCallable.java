@@ -43,29 +43,20 @@ public class TracerCallable implements Callable<ResultData>
       for (int col = 0; col < scene.getScreen().getWidth(); col++)
       {
          //Compute primary ray direction
-         //compute pixel area in the viewplane using the current camera
          Ray ray = scene.constructRay(row, col);
 
          //shoot primary ray into the scene and search for intersection
          //compute the first visible point in the scene for the given ray
          //obtain pixel intensity
-         Color3 color = traceRay(ray);
-
-         //compute illumination
-         //	if no intersection is found then
-         //    return background radiance
-         // else begin
-         //    retrieve aspect value of intersected object at intersection point
-         //    evaluate local illumination model using the aspect value
-         //    return the computed radiance
-
-         //update pixel intensity in the image
-         colors[col] = color;
+         colors[col] = traceRay(ray);
       }
 
       return new ResultData(row, colors);
    }
 
+   //    retrieve aspect value of intersected object at intersection point
+   //    evaluate local illumination model using the aspect value
+   //    return the computed radiance
    private Color3 shade(HitData hitData)
    {
       Vector3 intersectPoint = hitData.getRay().getOrigin().add(hitData.getRay().getDirection().multiply(hitData.getDistance()));
@@ -181,6 +172,6 @@ public class TracerCallable implements Callable<ResultData>
          return shade(hitData);
       }
 
-      return scene.getBackgroundColor();
+      return scene.getBackgroundColor(); //no intersection found
    }
 }
