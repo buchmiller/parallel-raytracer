@@ -2,7 +2,7 @@ package common.raytracer;
 
 import common.ResultData;
 import java.util.concurrent.Callable;
-import common.scene.ISect;
+import common.scene.HitData;
 import common.scene.Material;
 import common.scene.PointLight;
 import common.scene.Scene;
@@ -52,7 +52,7 @@ public class TracerCallable implements Callable<ResultData>
          Color3 color = traceRay(ray);
 
          //compute illumination
-         //	if none intersection is found then
+         //	if no intersection is found then
          //    return background radiance
          // else begin
          //    retrieve aspect value of intersected object at intersection point
@@ -66,7 +66,7 @@ public class TracerCallable implements Callable<ResultData>
       return new ResultData(row, colors);
    }
 
-   private Color3 shade(ISect hitData)
+   private Color3 shade(HitData hitData)
    {
       Vector3 intersectPoint = hitData.getRay().getOrigin().add(hitData.getRay().getDirection().multiply(hitData.getDistance()));
 
@@ -164,13 +164,7 @@ public class TracerCallable implements Callable<ResultData>
 
       for (Shape shape : scene.getShapes())
       {
-//         ISect intersection = shape.intersect(ray);
-//         if (intersection.getDistance() < closestHit)
-//         {
-//            closestHit = intersection.getDistance();
-//            shapeHit = shape;
-//         }
-         float t = shape.intersect(ray);
+         float t = shape.intersect(ray); //distance to intersection
          if (t > 0)
          {
             if (t < closestHit && t > scene.getCamera().getNearClippingPlane())
@@ -183,10 +177,7 @@ public class TracerCallable implements Callable<ResultData>
 
       if (shapeHit != null)
       {
-
-         //TODO: replace this line with a call to a shade() function.
-         //return shapeHit.getMaterial().getColor();
-         ISect hitData = new ISect(shapeHit, ray, closestHit);
+         HitData hitData = new HitData(shapeHit, ray, closestHit);
          return shade(hitData);
       }
 

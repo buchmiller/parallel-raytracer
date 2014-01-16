@@ -2,13 +2,13 @@ package common.scene;
 
 import common.raytracer.Ray;
 
-public class ISect
+public class HitData
 {
    private Shape shape;
    private Ray ray;
    private float distance;
 
-   public ISect(Shape shape, Ray ray, float distance)
+   public HitData(Shape shape, Ray ray, float distance)
    {
       this.shape = shape;
       this.ray = ray;

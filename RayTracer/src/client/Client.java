@@ -46,6 +46,7 @@ public class Client
       int maxDepth = 4;
 
       testScene = Scene.createLightTest(camera, screen, bColor, maxDepth);
+//      testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
    }
 
    public Client(int port)

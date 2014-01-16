@@ -1,6 +1,6 @@
 package common.raytracer;
 
-import common.scene.ISect;
+import common.scene.HitData;
 import common.scene.Material;
 import common.scene.PointLight;
 import common.scene.Scene;
@@ -46,7 +46,7 @@ public class Tracer
       return colors;
    }
 
-   private Color3 shade(ISect hitData)
+   private Color3 shade(HitData hitData)
    {
       Vector3 intersectPoint = hitData.getRay().getOrigin().add(hitData.getRay().getDirection().multiply(hitData.getDistance()));
 
@@ -166,7 +166,7 @@ public class Tracer
 
          //TODO: replace this line with a call to a shade() function.
          //return shapeHit.getMaterial().getColor();
-         ISect hitData = new ISect(shapeHit, ray, closestHit);
+         HitData hitData = new HitData(shapeHit, ray, closestHit);
          return shade(hitData);
       }
 
