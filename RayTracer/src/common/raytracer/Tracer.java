@@ -83,7 +83,7 @@ public class Tracer
             Color3 lcolor = illum > 0 ? light.getColor().multiply(illum) : new Color3(0, 0, 0);
             float specular = Vector3.dot(livec, reflectDir.getNormalized());
             Color3 scolor = specular > 0 ? light.getColor().multiply((float) Math.pow(specular, mat.getRoughness())) : new Color3(0, 0, 0);
-            color = color.add((lcolor.multiply(mat.getDiffuse())).add(scolor.multiply(mat.getSpecular())));
+            color = color.add(lcolor.add(scolor.multiply(mat.getSpecular())));
          }
 
 
