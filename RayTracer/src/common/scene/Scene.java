@@ -85,11 +85,11 @@ public class Scene implements Serializable
 
       Vector3 normal = new Vector3(0, 1, 0);
       normal.normalize();
-      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(new Color3(100, 100, 100), 0), normal)); //grey
 
       normal = new Vector3(-1, 0.3f, 0);
       normal.normalize();
-      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(100, 100, 100)), normal)); //grey
+      scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(100, 100, 100), 0), normal)); //grey
 
       //lights
       scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
@@ -100,11 +100,11 @@ public class Scene implements Serializable
    public static Scene createLightTest(Camera camera, Screen screen, Color3 bColor, int maxDepth)
    {
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
-      scene.addShape(new Sphere(new Vector3(0, 0, -4), 0.5f, new Material(new Color3(100, 100, 100))));
+      scene.addShape(new Sphere(new Vector3(0, 0, -4), 0.5f, new Material(new Color3(100, 100, 100), 0)));
 
       Vector3 normal = new Vector3(0, 1, 0);
       normal.normalize();
-      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(Color3.BLACK), normal));
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(Color3.BLACK, 0), normal));
 
       //lights
       scene.addLight(new PointLight(new Vector3(1, 1, -3), 2, Color3.CYAN));
