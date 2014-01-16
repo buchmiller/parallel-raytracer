@@ -59,27 +59,31 @@ public class TracerCallable implements Callable<ResultData>
    //    return the computed radiance
    private Color3 shade(HitData hitData)
    {
-      Vector3 intersectPoint = hitData.getRay().getOrigin().add(hitData.getRay().getDirection().multiply(hitData.getDistance()));
-
       //************* third attempt *************
-      Vector3 d = hitData.getRay().getDirection();
-      Vector3 pos = d.multiply(hitData.getDistance()).add(hitData.getRay().getOrigin()); //same as intersectionPoint
-      Vector3 normal = hitData.getShape().normal(pos);
-      Vector3 reflectDir = d.subtract(normal.multiply(Vector3.dot(normal, d) * 2f));
+      Vector3 rayDir = hitData.getRay().getDirection();
+      // intersectPos = rayPos + (rayDir * distance)
+      Vector3 intersectPos = hitData.getRay().getOrigin().add(rayDir.multiply(hitData.getDistance())); //same as intersectionPoint
+      Vector3 normal = hitData.getShape().normal(intersectPos);
+      // reflectDir = rayDir - (normal * (2 * (normal dot rayDir)))
+      Vector3 reflectDir = rayDir.subtract(normal.multiply(Vector3.dot(normal, rayDir) * 2f));
 
       Color3 color = new Color3(0, 0, 0); //hitData.getShape().getMaterial().getColor();
 
       for (PointLight light : scene.getLights())
       {
-         Vector3 ldis = light.getPosition().subtract(pos);
-         Vector3 livec = ldis.getNormalized();
-         //float neatIsect =
-         Ray shadowRay = new Ray(pos, livec, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+         Vector3 shadowRayDir = light.getPosition().subtract(intersectPos);
+         shadowRayDir.normalize();
+         if (Vector3.dot(normal, shadowRayDir) < 0) //not facing towards light source
+         {
+            continue; //avoid unneccesary computation
+         }
+         float shadowRayMagnitude = shadowRayDir.getMagnitude();
+         Ray shadowRay = new Ray(intersectPos, shadowRayDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
          boolean isInShadow = false;
          for (Shape shape : scene.getShapes())
          {
-            float neatIsect = shape.intersect(shadowRay);
-            if (neatIsect > 0 && neatIsect < ldis.getMagnitude())
+            float t = shape.intersect(shadowRay); //distance to intersection
+            if (t > 0 && t < shadowRayMagnitude)
             {
                isInShadow = true;
                break;
@@ -90,61 +94,42 @@ public class TracerCallable implements Callable<ResultData>
          {
             Material mat = hitData.getShape().getMaterial();
 
-            float illum = Vector3.dot(livec, normal);
+            float illum = Vector3.dot(shadowRayDir, normal);
             Color3 lcolor = illum > 0 ? light.getColor().multiply(illum) : new Color3(0, 0, 0);
-            float specular = Vector3.dot(livec, reflectDir.getNormalized());
+            float specular = Vector3.dot(shadowRayDir, reflectDir.getNormalized());
             Color3 scolor = specular > 0 ? light.getColor().multiply((float) Math.pow(specular, mat.getRoughness())) : new Color3(0, 0, 0);
-            color = color.add((lcolor.multiply(mat.getDiffuse())).add(scolor.multiply(mat.getSpecular())));
+            color = color.add(lcolor.add(scolor.multiply(mat.getSpecular())));
          }
 
-
-         //************* second attempt *************
-//         Vector3 L = hitData.getShape().getPosition().subtract(intersectPoint);
-//         L.normalize();
-//         Vector3 N = hitData.getShape().normal(intersectPoint);
-//         N.normalize();
-//         Vector3 reflectDir = hitData.getRay().getDirection().subtract(intersectPoint.multiply(2.0f).multiply(Vector3.dot(hitData.getRay().getDirection(), intersectPoint)));
 //         reflectDir.normalize();
-//         Ray reflectRay = new Ray(intersectPoint.add(N), reflectDir, 0.1f, 1000f);
+//         Ray reflectRay = new Ray(intersectPos.add(N), reflectDir, 0.1f, 1000f);
 //         Color3 reflection = traceRay(reflectRay);
-//         if (hitData.getShape().getMaterial().getDiffuse() > 0)
-//         {
-//            float dot = Vector3.dot(N, L);
-//            if (dot > 0) //must be facing towards light source
-//            {
-//               Color3 shapeColor = hitData.getShape().getMaterial().getColor();
-//               Color3 lightColor = light.getColor();
+
+//         Color3 shapeColor = hitData.getShape().getMaterial().getColor();
+//         Color3 lightColor = light.getColor();
 //
-//               float diff = dot * hitData.getShape().getMaterial().getDiffuse();
+//         float diff = dot * hitData.getShape().getMaterial().getDiffuse();
 //
-//               //add diffuse component to ray color
-//               //color += diff * shapeColor * lightColor;
-//               //color = color.add(shapeColor.multiply(lightColor).multiply(diff));
-//               color = color.add(shapeColor).add(lightColor);
-//            }
-//         }
-         //************* first attempt *************
-         //Vector3 rayDir = light.getPosition().subtract(intersection.getPosition());
-         //Ray shadowRay = new Ray(intersection.getPosition(), rayDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
-//         boolean isInShadow = false;
-//         for (Shape shape : scene.getShapes())
-//         {
-//            //float t = shape.intersect(shadowRay);
-//            //if (t > 0)
-//            {
-//               isInShadow = true;
-//               break;
-//            }
-//         }
+//         //add diffuse component to ray color
+//         //color += diff * shapeColor * lightColor;
+//         //color = color.add(shapeColor.multiply(lightColor).multiply(diff));
+//         color = color.add(shapeColor).add(lightColor);
       }
 
-      if (depth >= scene.getMaxDepth())
-      {
-         return color.add(new Color3(50, 50, 50));
-      }
+      /**
+       * http://cs.fit.edu/~wds/classes/adv-graphics/raytrace/raytrace.html
+       * Refraction formula: n1 and n2 are the indices of refraction in the
+       * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1 -
+       * (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay (refraction) =
+       * (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot rayDir)] * normal
+       *
+       */
 
+//      if (depth >= scene.getMaxDepth())
+//      {
+//         return color.add(new Color3(50, 50, 50));
+//      }
       //TODO: add reflection color
-
       return color.add(hitData.getShape().getMaterial().getColor());
    }
 
