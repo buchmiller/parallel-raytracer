@@ -118,7 +118,8 @@ public class TracerCallable implements Callable<ResultData>
           */
           reflectDir.normalize();
           Ray reflectRay = new Ray(intersectPos, reflectDir, 0.1f, 1000f);
-          Color3 reflection = traceRay(reflectRay, depth + 1);
+          Color3 reflectColor = traceRay(reflectRay, depth + 1);
+          color = color.add(reflectColor.multiply(hitData.getShape().getMaterial().getReflect()));
       }
       return color.add(hitData.getShape().getMaterial().getColor());
    }
