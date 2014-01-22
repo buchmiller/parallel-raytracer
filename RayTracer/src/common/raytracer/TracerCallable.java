@@ -12,7 +12,6 @@ public class TracerCallable implements Callable<ResultData>
 {
    private Scene scene;
    private int row; //TODO: Allow multiple rows to be done at once?
-   private int depth = 0;
 
    public TracerCallable(Scene scene, int row)
    {
@@ -48,7 +47,7 @@ public class TracerCallable implements Callable<ResultData>
          //shoot primary ray into the scene and search for intersection
          //compute the first visible point in the scene for the given ray
          //obtain pixel intensity
-         colors[col] = traceRay(ray);
+         colors[col] = traceRay(ray, 0);
       }
 
       return new ResultData(row, colors);
@@ -57,7 +56,7 @@ public class TracerCallable implements Callable<ResultData>
    //    retrieve aspect value of intersected object at intersection point
    //    evaluate local illumination model using the aspect value
    //    return the computed radiance
-   private Color3 shade(HitData hitData)
+   private Color3 shade(HitData hitData, int depth)
    {
       Vector3 rayDir = hitData.getRay().getDirection();
       // intersectPos = rayPos + (rayDir * distance)
@@ -101,28 +100,30 @@ public class TracerCallable implements Callable<ResultData>
          }
       }
 
-      /**
-       * http://cs.fit.edu/~wds/classes/adv-graphics/raytrace/raytrace.html
-       * Refraction formula: n1 and n2 are the indices of refraction in the
-       * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1 -
-       * (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay (refraction) =
-       * (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot rayDir)] * normal
-       *
-       */
 
 //      if (depth >= scene.getMaxDepth())
 //      {
 //         return color.add(new Color3(50, 50, 50));
 //      }
-      //TODO: add reflection color
-//       reflectDir.normalize();
-//       Ray reflectRay = new Ray(intersectPos.add(N), reflectDir, 0.1f, 1000f);
-//       Color3 reflection = traceRay(reflectRay);
 
+      if (depth < scene.getMaxDepth())
+      {
+         /**
+          * http://cs.fit.edu/~wds/classes/adv-graphics/raytrace/raytrace.html
+          * Refraction formula: n1 and n2 are the indices of refraction in the
+          * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1 -
+          * (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay (refraction) =
+          * (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot rayDir)] * normal
+          *
+          */
+          reflectDir.normalize();
+          Ray reflectRay = new Ray(intersectPos, reflectDir, 0.1f, 1000f);
+          Color3 reflection = traceRay(reflectRay, depth + 1);
+      }
       return color.add(hitData.getShape().getMaterial().getColor());
    }
 
-   private Color3 traceRay(Ray ray)
+   private Color3 traceRay(Ray ray, int depth)
    {
       Shape shapeHit = null;
       float closestHit = scene.getCamera().getFarClippingPlane();
@@ -143,7 +144,7 @@ public class TracerCallable implements Callable<ResultData>
       if (shapeHit != null)
       {
          HitData hitData = new HitData(shapeHit, ray, closestHit);
-         return shade(hitData);
+         return shade(hitData, depth);
       }
 
       return scene.getBackgroundColor(); //no intersection found
