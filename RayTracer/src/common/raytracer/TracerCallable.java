@@ -59,7 +59,6 @@ public class TracerCallable implements Callable<ResultData>
    //    return the computed radiance
    private Color3 shade(HitData hitData)
    {
-      //************* third attempt *************
       Vector3 rayDir = hitData.getRay().getDirection();
       // intersectPos = rayPos + (rayDir * distance)
       Vector3 intersectPos = hitData.getRay().getOrigin().add(rayDir.multiply(hitData.getDistance())); //same as intersectionPoint
@@ -67,13 +66,13 @@ public class TracerCallable implements Callable<ResultData>
       // reflectDir = rayDir - (normal * (2 * (normal dot rayDir)))
       Vector3 reflectDir = rayDir.subtract(normal.multiply(Vector3.dot(normal, rayDir) * 2f));
 
-      Color3 color = new Color3(0, 0, 0); //hitData.getShape().getMaterial().getColor();
+      Color3 color = Color3.BLACK; //hitData.getShape().getMaterial().getColor();
 
       for (PointLight light : scene.getLights())
       {
          Vector3 shadowRayDir = light.getPosition().subtract(intersectPos);
          shadowRayDir.normalize();
-         if (Vector3.dot(normal, shadowRayDir) < 0) //not facing towards light source
+         if (Vector3.dot(shadowRayDir, normal) < 0) //not facing towards light source
          {
             continue; //avoid unneccesary computation
          }
@@ -94,26 +93,12 @@ public class TracerCallable implements Callable<ResultData>
          {
             Material mat = hitData.getShape().getMaterial();
 
-            float illum = Vector3.dot(shadowRayDir, normal);
-            Color3 lcolor = illum > 0 ? light.getColor().multiply(illum) : new Color3(0, 0, 0);
+            float illum = Vector3.dot(shadowRayDir, normal); //TODO this is repetitive
+            Color3 lightColor = light.getColor().multiply(illum);
             float specular = Vector3.dot(shadowRayDir, reflectDir.getNormalized());
-            Color3 scolor = specular > 0 ? light.getColor().multiply((float) Math.pow(specular, mat.getRoughness())) : new Color3(0, 0, 0);
-            color = color.add(lcolor.add(scolor.multiply(mat.getSpecular())));
+            Color3 specularColor = specular > 0 ? light.getColor().multiply((float) Math.pow(specular, mat.getRoughness())) : Color3.BLACK;
+            color = color.add(lightColor.add(specularColor.multiply(mat.getSpecular())));
          }
-
-//         reflectDir.normalize();
-//         Ray reflectRay = new Ray(intersectPos.add(N), reflectDir, 0.1f, 1000f);
-//         Color3 reflection = traceRay(reflectRay);
-
-//         Color3 shapeColor = hitData.getShape().getMaterial().getColor();
-//         Color3 lightColor = light.getColor();
-//
-//         float diff = dot * hitData.getShape().getMaterial().getDiffuse();
-//
-//         //add diffuse component to ray color
-//         //color += diff * shapeColor * lightColor;
-//         //color = color.add(shapeColor.multiply(lightColor).multiply(diff));
-//         color = color.add(shapeColor).add(lightColor);
       }
 
       /**
@@ -130,6 +115,10 @@ public class TracerCallable implements Callable<ResultData>
 //         return color.add(new Color3(50, 50, 50));
 //      }
       //TODO: add reflection color
+//       reflectDir.normalize();
+//       Ray reflectRay = new Ray(intersectPos.add(N), reflectDir, 0.1f, 1000f);
+//       Color3 reflection = traceRay(reflectRay);
+
       return color.add(hitData.getShape().getMaterial().getColor());
    }
 
