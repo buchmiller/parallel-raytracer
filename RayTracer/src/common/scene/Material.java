@@ -22,6 +22,11 @@ public class Material implements Serializable
       this.roughness = roughness;
    }
 
+   public Material(Color3 color, float specular, float reflect)
+   {
+      this(color, 0, 0, specular, reflect, 50);
+   }
+
    public Material(Color3 color, float specular)
    {
       this(color, 0, 0, specular, 0, 50);
@@ -45,5 +50,10 @@ public class Material implements Serializable
    public float getRoughness()
    {
       return roughness;
+   }
+
+   public float getReflect()
+   {
+      return reflect;
    }
 }
