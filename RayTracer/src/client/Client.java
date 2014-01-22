@@ -45,7 +45,8 @@ public class Client
       Color3 bColor = new Color3(0, 1, 0);
       int maxDepth = 4;
 
-      testScene = Scene.createShadowTest(camera, screen, bColor, maxDepth);
+      testScene = Scene.createReflectTest(camera, screen, bColor, maxDepth);
+//      testScene = Scene.createShadowTest(camera, screen, bColor, maxDepth);
 //      testScene = Scene.createLightTest(camera, screen, bColor, maxDepth);
 //      testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
    }
