@@ -6,7 +6,7 @@ public class Color3 implements Serializable
 {
    private Vector3 vector;
    public static final Color3 WHITE = new Color3(200, 200, 200);
-   public static final Color3 BLACK = new Color3(10, 10, 10);
+   public static final Color3 BLACK = new Color3(0, 0, 0);
    public static final Color3 RED = new Color3(100, 0, 0);
    public static final Color3 GREEN = new Color3(0, 100, 0);
    public static final Color3 BLUE = new Color3(0, 0, 100);
