@@ -43,9 +43,10 @@ public class Client
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
       Color3 bColor = new Color3(0, 1, 0);
-      int maxDepth = 4;
+      int maxDepth = 10;
 
-      testScene = Scene.createReflectTest(camera, screen, bColor, maxDepth);
+      testScene = Scene.createTwoMirrors(camera, screen, bColor, maxDepth);
+//      testScene = Scene.createReflectTest(camera, screen, bColor, maxDepth);
 //      testScene = Scene.createShadowTest(camera, screen, bColor, maxDepth);
 //      testScene = Scene.createLightTest(camera, screen, bColor, maxDepth);
 //      testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
@@ -234,7 +235,7 @@ public class Client
          try
          {
             ResultData result = completionService.take().get();
-            System.out.println("Completed row " + result.getRow());
+//            System.out.println("Completed row " + result.getRow());
             image.setRow(result.getRow(), result.getColors());
          }
          catch (InterruptedException e)
