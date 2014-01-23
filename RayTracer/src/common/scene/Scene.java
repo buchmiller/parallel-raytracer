@@ -189,4 +189,27 @@ public class Scene implements Serializable
 
       return scene;
    }
+
+   public static Scene createTwoMirrors(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   {
+      Scene scene = new Scene(camera, screen, bColor, maxDepth);
+
+      scene.addShape(new Sphere(new Vector3(-2, 0, 0), 0.5f, new Material(Color3.BLACK, 1, 0.5f)));
+      scene.addShape(new Sphere(new Vector3(2, -0.3f, 0), 0.5f, new Material(Color3.RED, 1, 0.5f)));
+      scene.addShape(new Sphere(new Vector3(-1.2f, 2, 0), 0.5f, new Material(Color3.YELLOW, 1, 0.5f)));
+      scene.addShape(new Sphere(new Vector3(0, -2, -1), 0.5f, new Material(Color3.CYAN, 1, 0.5f)));
+      
+      Vector3 normal = new Vector3(0, 0, 1);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(0, -0.5f, -2), new Material(Color3.BLACK, 0, 0.8f), normal));
+
+      normal = new Vector3(0, 0, -1);
+      normal.normalize();
+      scene.addShape(new Plane(new Vector3(0, -0.5f, 2), new Material(Color3.BLACK, 0, 0.8f), normal));
+
+      //lights
+      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
+
+      return scene;
+   }
 }
