@@ -28,6 +28,7 @@ public class Color3 implements Serializable
 
    private static int[] genNumbers(int n, int sum)
    {
+      System.err.println("sum = " + sum);
       int[] nums = new int[n];
       int upperbound = Long.valueOf(Math.round(sum * 1.0 / n)).intValue();
       int offset = Long.valueOf(Math.round(0.5 * upperbound)).intValue();
@@ -52,7 +53,7 @@ public class Color3 implements Serializable
 
    public static Color3 random()
    {
-      int[] nums = genNumbers(3, randomGen.nextInt(255));
+      int[] nums = genNumbers(3, randomGen.nextInt(254) + 2);
       return new Color3(nums[0], nums[1], nums[2]);
    }
 
