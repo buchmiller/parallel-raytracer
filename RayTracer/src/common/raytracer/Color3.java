@@ -1,10 +1,12 @@
 package common.raytracer;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Color3 implements Serializable
 {
    private Vector3 vector;
+   private static final Random randomGen = new Random();
    public static final Color3 WHITE = new Color3(200, 200, 200);
    public static final Color3 BLACK = new Color3(0, 0, 0);
    public static final Color3 RED = new Color3(100, 0, 0);
@@ -22,6 +24,36 @@ public class Color3 implements Serializable
    public Color3(float r, float g, float b)
    {
       this.vector = new Vector3(r, g, b);
+   }
+
+   private static int[] genNumbers(int n, int sum)
+   {
+      int[] nums = new int[n];
+      int upperbound = Long.valueOf(Math.round(sum * 1.0 / n)).intValue();
+      int offset = Long.valueOf(Math.round(0.5 * upperbound)).intValue();
+
+      int cursum = 0;
+      for (int i = 0; i < n; i++)
+      {
+         int rand = randomGen.nextInt(upperbound) + offset;
+         if (cursum + rand > sum || i == n - 1)
+         {
+            rand = sum - cursum;
+         }
+         cursum += rand;
+         nums[i] = rand;
+         if (cursum == sum)
+         {
+            break;
+         }
+      }
+      return nums;
+   }
+
+   public static Color3 random()
+   {
+      int[] nums = genNumbers(3, randomGen.nextInt(255));
+      return new Color3(nums[0], nums[1], nums[2]);
    }
 
    public Vector3 getVector()
