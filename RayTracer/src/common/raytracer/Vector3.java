@@ -115,6 +115,15 @@ public class Vector3 implements Serializable
       return (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
    }
 
+   public static float squaredDistance(Vector3 v1, Vector3 v2)
+   {
+      float dx = v1.x - v2.x;
+      float dy = v1.y - v2.y;
+      float dz = v1.z - v2.z;
+
+      return dx * dx + dy * dy + dz * dz;
+   }
+
    public static float dot(Vector3 v1, Vector3 v2)
    {
       return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
