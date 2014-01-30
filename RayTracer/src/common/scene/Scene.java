@@ -92,7 +92,7 @@ public class Scene implements Serializable
       scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(new Color3(100, 100, 100), 0), normal)); //grey
 
       //lights
-      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
+      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 100, new Color3(100, 100, 100)));
 
       return scene;
    }
@@ -100,15 +100,15 @@ public class Scene implements Serializable
    public static Scene createLightTest(Camera camera, Screen screen, Color3 bColor, int maxDepth)
    {
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
-      scene.addShape(new Sphere(new Vector3(0, 0, -4), 0.5f, new Material(new Color3(100, 100, 100), 0)));
+      scene.addShape(new Sphere(new Vector3(0, 0, -4), 0.5f, new Material(Color3.BLACK, 0)));
 
       Vector3 normal = new Vector3(0, 1, 0);
       normal.normalize();
       scene.addShape(new Plane(new Vector3(0, -0.5f, -10), new Material(Color3.BLACK, 0), normal));
 
       //lights
-      scene.addLight(new PointLight(new Vector3(1, 1, -3), 2, Color3.CYAN));
-      scene.addLight(new PointLight(new Vector3(-1, 0.5f, -3), 2, Color3.YELLOW));
+      scene.addLight(new PointLight(new Vector3(1, 1, -3), 4, Color3.CYAN));
+      scene.addLight(new PointLight(new Vector3(-1, 0.5f, -3), 3, Color3.YELLOW));
 //      scene.addLight(new PointLight(new Vector3(0, 10, 0), 2, new Color3(100, 100, 100)));
 
       return scene;
@@ -154,7 +154,7 @@ public class Scene implements Serializable
       scene.addShape(new Plane(new Vector3(2.2f, 0, -10), new Material(Color3.BLACK, 0, 0.5f), normal));
 
       //lights
-      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
+      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 200, new Color3(100, 100, 100)));
 
       return scene;
    }
@@ -177,7 +177,7 @@ public class Scene implements Serializable
       scene.addShape(new Plane(new Vector3(0, -0.5f, 2), new Material(Color3.BLACK, 0, 0.8f), normal));
 
       //lights
-      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 5, new Color3(100, 100, 100)));
+      scene.addLight(new PointLight(new Vector3(-5, 10, -10), 100, new Color3(100, 100, 100)));
 
       return scene;
    }
@@ -204,9 +204,9 @@ public class Scene implements Serializable
       scene.addShape(new Plane(new Vector3(-7, 0, 0), new Material(Color3.BLACK, 0, 0.5f), normal));
 
       //lights
-      for (int x = -5; x <= 5; x += 3)
-         for (int y = -5; y <= 5; y += 3)
-            scene.addLight(new PointLight(new Vector3(x, y, -5), 5, new Color3(10, 10, 10)));
+      for (int x = -3; x <= 3; x += 3)
+         for (int y = -3; y <= 3; y += 3)
+            scene.addLight(new PointLight(new Vector3(x, y, -5), 50, new Color3(10, 10, 10)));
 
       return scene;
    }
