@@ -43,7 +43,7 @@ public class Client
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
       Color3 bColor = new Color3(0, 1, 0);
-      int maxDepth = 10;
+      int maxDepth = 2;
 
       testScene = Scene.createComplex(camera, screen, bColor, maxDepth);
 //      testScene = Scene.createTwoMirrors(camera, screen, bColor, maxDepth);
