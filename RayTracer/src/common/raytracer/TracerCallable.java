@@ -94,9 +94,10 @@ public class TracerCallable implements Callable<ResultData>
 
             float illum = Vector3.dot(shadowRayDir, normal); //TODO this is repetitive
             Color3 lightColor = light.getColor().multiply(illum);
+            float lightIntensity = light.getIntensity(intersectPos);
             float specular = Vector3.dot(shadowRayDir, reflectDir.getNormalized());
             Color3 specularColor = specular > 0 ? light.getColor().multiply((float) Math.pow(specular, mat.getRoughness())) : Color3.BLACK;
-            color = color.add(lightColor.add(specularColor.multiply(mat.getSpecular())));
+            color = color.add(lightColor.add(specularColor.multiply(mat.getSpecular())).multiply(lightIntensity));
          }
       }
 
@@ -117,7 +118,7 @@ public class TracerCallable implements Callable<ResultData>
           *
           */
           reflectDir.normalize();
-          Ray reflectRay = new Ray(intersectPos, reflectDir, 0.1f, 1000f);
+          Ray reflectRay = new Ray(intersectPos, reflectDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
           Color3 reflectColor = traceRay(reflectRay, depth + 1);
           color = color.add(reflectColor.multiply(hitData.getShape().getMaterial().getReflect()));
       }
@@ -134,7 +135,7 @@ public class TracerCallable implements Callable<ResultData>
          float t = shape.intersect(ray); //distance to intersection
          if (t > 0)
          {
-            if (t < closestHit && t > scene.getCamera().getNearClippingPlane())
+            if (t < closestHit && t > ray.getMin())
             {
                closestHit = t;
                shapeHit = shape;
