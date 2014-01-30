@@ -22,9 +22,10 @@ public class PointLight implements Serializable
       return position;
    }
 
-   public float getIntensity()
+   public float getIntensity(Vector3 location)
    {
-      return intensity;
+      float squaredDistance = Vector3.squaredDistance(position, location);
+      return intensity / squaredDistance;
    }
 
    public Color3 getColor()
