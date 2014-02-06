@@ -9,6 +9,10 @@ import common.raytracer.Ray;
 
 public class Scene implements Serializable
 {
+   public enum Type
+   {
+      SIMPLE, COMPLEX, MIRRORS, LIGHTTEST, SHADOWTEST, REFLECTTEST
+   }
    private List<Shape> shapes = new ArrayList<>();
    private List<PointLight> lights = new ArrayList<>();
    private Camera camera;
@@ -191,7 +195,9 @@ public class Scene implements Serializable
          for (int y = -5; y <= 5; y++)
          {
             for (int z = 10; z <= 20; z++)
-            scene.addShape(new Sphere(new Vector3(x, y, -z), 0.4f, new Material(Color3.random(), 0.5f, 0.2f)));
+            {
+               scene.addShape(new Sphere(new Vector3(x, y, -z), 0.4f, new Material(Color3.random(), 0.5f, 0.2f)));
+            }
          }
       }
 
@@ -205,8 +211,12 @@ public class Scene implements Serializable
 
       //lights
       for (int x = -3; x <= 3; x += 3)
+      {
          for (int y = -3; y <= 3; y += 3)
+         {
             scene.addLight(new PointLight(new Vector3(x, y, -5), 50, new Color3(10, 10, 10)));
+         }
+      }
 
       return scene;
    }
