@@ -3,7 +3,6 @@ package client;
 import common.scene.Scene;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
@@ -567,15 +566,16 @@ public class ClientUI extends javax.swing.JFrame
          return;
       }
 
-      //reset fields and controls until rendering is complete
-      jTextField2.setText("");
+      jTextField2.setText(""); //reset time field
+
+      //disable buttons until rendering is complete
       jButton7.setEnabled(false); //Disable 'Back'
       jButton8.setEnabled(false); //Disable 'Render on servers'
       jButton9.setEnabled(false); //Disable 'Render locally'
       jButton5.setEnabled(false); //Disable 'Display image'
       jButton6.setEnabled(false); //Disable 'Save image'
 
-      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+//      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       jProgressBar1.setVisible(true);
 
       new Thread()
@@ -594,7 +594,7 @@ public class ClientUI extends javax.swing.JFrame
             jButton5.setEnabled(true); //Enable 'Display image'
             jButton6.setEnabled(true); //Enable 'Save image'
 
-            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+//            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             jProgressBar1.setVisible(false);
          }
       }.start();
@@ -619,15 +619,16 @@ public class ClientUI extends javax.swing.JFrame
          return;
       }
 
-      //reset fields and controls until rendering is complete
-      jTextField2.setText("");
+      jTextField2.setText(""); //reset time field
+
+      //disable buttons until rendering is complete
       jButton7.setEnabled(false); //Disable 'Back'
       jButton8.setEnabled(false); //Disable 'Render on servers'
       jButton9.setEnabled(false); //Disable 'Render locally'
       jButton5.setEnabled(false); //Disable 'Display image'
       jButton6.setEnabled(false); //Disable 'Save image'
 
-      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+//      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       jProgressBar1.setVisible(true);
 
       new Thread()
@@ -646,7 +647,7 @@ public class ClientUI extends javax.swing.JFrame
             jButton5.setEnabled(true); //Enable 'Display image'
             jButton6.setEnabled(true); //Enable 'Save image'
 
-            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+//            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             jProgressBar1.setVisible(false);
          }
       }.start();
@@ -678,19 +679,7 @@ public class ClientUI extends javax.swing.JFrame
             }
          }
       }
-      catch (ClassNotFoundException ex)
-      {
-         java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      catch (InstantiationException ex)
-      {
-         java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      catch (IllegalAccessException ex)
-      {
-         java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      catch (javax.swing.UnsupportedLookAndFeelException ex)
+      catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
       {
          java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
       }
