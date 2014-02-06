@@ -1,5 +1,6 @@
 package client;
 
+import common.scene.Scene;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class ClientDriver
             if (arg1 < 10) //reasonable number for numThreads
             {
                Client client = new Client();
+               client.chooseScene(Scene.Type.SIMPLE, 640, 480, 2);
                client.runLocally(arg1);
                client.saveImageToFile();
                return;
@@ -40,6 +42,7 @@ public class ClientDriver
       try
       {
          Client client = new Client(serverNames, 3000);
+         client.chooseScene(Scene.Type.SIMPLE, 640, 480, 2);
          client.openConnections();
          client.startRunnables(4); //use 4 threads on servers
 //         client.sendData();

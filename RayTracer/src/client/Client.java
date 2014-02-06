@@ -34,23 +34,6 @@ public class Client
    {
       this.serverNames = serverNames;
       this.defaultPort = port;
-
-      //Data for a test scene
-      int width = 640;
-      int height = 480;
-      image = new Image(width, height);
-      Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-      Screen screen = new Screen(width, height);
-      Color3 bColor = new Color3(0, 1, 0);
-      int maxDepth = 2;
-
-//      chooseScene(Scene.Type.SIMPLE, width, height, maxDepth);
-      testScene = Scene.createComplex(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createTwoMirrors(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createReflectTest(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createShadowTest(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createLightTest(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
    }
 
    public Client(int port)
@@ -63,35 +46,15 @@ public class Client
       this(new ArrayList<String>(), 3000);
    }
 
-   public void chooseScene(Scene.Type sb, int width, int height, int maxDepth)
+   public void chooseScene(Scene.Type type, int width, int height, int maxDepth)
    {
       //Data for a test scene
       image = new Image(width, height);
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
-      Color3 bColor = new Color3(0, 1, 0);
+      Color3 bColor = new Color3(0, 0, 0);
 
-      switch (sb)
-      {
-         case SIMPLE:
-            testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
-            break;
-         case COMPLEX:
-            testScene = Scene.createComplex(camera, screen, bColor, maxDepth);
-            break;
-         case MIRRORS:
-            testScene = Scene.createTwoMirrors(camera, screen, bColor, maxDepth);
-            break;
-         case LIGHTTEST:
-            testScene = Scene.createLightTest(camera, screen, bColor, maxDepth);
-            break;
-         case SHADOWTEST:
-            testScene = Scene.createShadowTest(camera, screen, bColor, maxDepth);
-            break;
-         case REFLECTTEST:
-            testScene = Scene.createReflectTest(camera, screen, bColor, maxDepth);
-            break;
-      }
+      testScene = Scene.createScene(type, camera, screen, bColor, maxDepth);
    }
 
    public void openConnections() throws IOException

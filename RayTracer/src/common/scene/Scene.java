@@ -78,10 +78,37 @@ public class Scene implements Serializable
       return new Ray(camera.getPosition(), rayDir, camera.getNearClippingPlane(), camera.getFarClippingPlane());
    }
 
-   public static Scene createSimple(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   public static Scene createScene(Type type, Camera camera, Screen screen, Color3 bColor, int maxDepth)
    {
       Scene scene = new Scene(camera, screen, bColor, maxDepth);
 
+      switch (type)
+      {
+         case SIMPLE:
+            createSimple(scene);
+            break;
+         case COMPLEX:
+            createComplex(scene);
+            break;
+         case MIRRORS:
+            createTwoMirrors(scene);
+            break;
+         case LIGHTTEST:
+            createLightTest(scene);
+            break;
+         case SHADOWTEST:
+            createShadowTest(scene);
+            break;
+         case REFLECTTEST:
+            createReflectTest(scene);
+            break;
+      }
+
+      return scene;
+   }
+
+   private static void createSimple(Scene scene)
+   {
       scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(Color3.RED))); //red
       scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(Color3.BLUE))); //blue
       scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(Color3.YELLOW))); //yellow
@@ -97,13 +124,10 @@ public class Scene implements Serializable
 
       //lights
       scene.addLight(new PointLight(new Vector3(-5, 10, -10), 100, new Color3(100, 100, 100)));
-
-      return scene;
    }
 
-   public static Scene createLightTest(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   private static void createLightTest(Scene scene)
    {
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
       scene.addShape(new Sphere(new Vector3(0, 0, -4), 0.5f, new Material(Color3.BLACK, 0)));
 
       Vector3 normal = new Vector3(0, 1, 0);
@@ -113,15 +137,10 @@ public class Scene implements Serializable
       //lights
       scene.addLight(new PointLight(new Vector3(1, 1, -3), 4, Color3.CYAN));
       scene.addLight(new PointLight(new Vector3(-1, 0.5f, -3), 3, Color3.YELLOW));
-//      scene.addLight(new PointLight(new Vector3(0, 10, 0), 2, new Color3(100, 100, 100)));
-
-      return scene;
    }
 
-   public static Scene createShadowTest(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   private static void createShadowTest(Scene scene)
    {
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
-
       for (int y = -2; y < 3; y++)
       {
          for (int x = -3; x < 4; x++)
@@ -136,14 +155,10 @@ public class Scene implements Serializable
 
       //lights
       scene.addLight(new PointLight(new Vector3(0, 0, -4), 2, Color3.WHITE));
-
-      return scene;
    }
 
-   public static Scene createReflectTest(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   private static void createReflectTest(Scene scene)
    {
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
-
       scene.addShape(new Sphere(new Vector3(-2, 0, -2), 1, new Material(Color3.RED, 1, 0.3f))); //red
       scene.addShape(new Sphere(new Vector3(2, 0, -5), 1, new Material(Color3.BLUE, 1, 0.3f))); //blue
       scene.addShape(new Sphere(new Vector3(0, 0, -10), 1, new Material(Color3.YELLOW, 1, 0.3f))); //yellow
@@ -159,14 +174,10 @@ public class Scene implements Serializable
 
       //lights
       scene.addLight(new PointLight(new Vector3(-5, 10, -10), 200, new Color3(100, 100, 100)));
-
-      return scene;
    }
 
-   public static Scene createTwoMirrors(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   private static void createTwoMirrors(Scene scene)
    {
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
-
       scene.addShape(new Sphere(new Vector3(-2, 0, 0), 0.5f, new Material(Color3.BLACK, 1, 0.5f)));
       scene.addShape(new Sphere(new Vector3(2, -0.3f, 0), 0.5f, new Material(Color3.RED, 1, 0.5f)));
       scene.addShape(new Sphere(new Vector3(-1.2f, 2, 0), 0.5f, new Material(Color3.YELLOW, 1, 0.5f)));
@@ -182,14 +193,10 @@ public class Scene implements Serializable
 
       //lights
       scene.addLight(new PointLight(new Vector3(-5, 10, -10), 100, new Color3(100, 100, 100)));
-
-      return scene;
    }
 
-   public static Scene createComplex(Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   private static void createComplex(Scene scene)
    {
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
-
       for (int x = -5; x <= 5; x++)
       {
          for (int y = -5; y <= 5; y++)
@@ -217,7 +224,5 @@ public class Scene implements Serializable
             scene.addLight(new PointLight(new Vector3(x, y, -5), 50, new Color3(10, 10, 10)));
          }
       }
-
-      return scene;
    }
 }
