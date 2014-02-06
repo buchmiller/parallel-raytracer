@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
 import javax.swing.DefaultComboBoxModel;
+import common.scene.Scene.Type;
 
 public class ClientUI extends javax.swing.JFrame
 {
@@ -65,7 +66,7 @@ public class ClientUI extends javax.swing.JFrame
       jLabel6 = new javax.swing.JLabel();
       jLabel7 = new javax.swing.JLabel();
       jTextField4 = new javax.swing.JTextField();
-      jComboBox2 = new javax.swing.JComboBox();
+      jComboBox2 = new javax.swing.JComboBox<Scene.Type>();
       jTextField6 = new javax.swing.JTextField();
       jLabel8 = new javax.swing.JLabel();
 
@@ -139,9 +140,6 @@ public class ClientUI extends javax.swing.JFrame
       SetupPanelLayout.setHorizontalGroup(
          SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addComponent(jSeparator2)
-         .addGroup(SetupPanelLayout.createSequentialGroup()
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addComponent(jButton3))
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,15 +150,18 @@ public class ClientUI extends javax.swing.JFrame
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
             .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(SetupPanelLayout.createSequentialGroup()
-                  .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(85, 85, 85)
-                  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+               .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
+                  .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(SetupPanelLayout.createSequentialGroup()
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
       );
       SetupPanelLayout.setVerticalGroup(
          SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,7 +408,7 @@ public class ClientUI extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                .addContainerGap()
                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+               .addContainerGap(14, Short.MAX_VALUE)))
       );
 
       pack();
@@ -707,7 +708,7 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JButton jButton8;
    private javax.swing.JButton jButton9;
    private javax.swing.JComboBox jComboBox1;
-   private javax.swing.JComboBox jComboBox2;
+   private javax.swing.JComboBox<Scene.Type> jComboBox2;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
