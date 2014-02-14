@@ -1,11 +1,13 @@
 package client;
 
+import common.scene.Scene;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
+import javax.swing.DefaultComboBoxModel;
+import common.scene.Scene.Type;
 
 public class ClientUI extends javax.swing.JFrame
 {
@@ -21,6 +23,7 @@ public class ClientUI extends javax.swing.JFrame
       UIManager.put("ProgressBar.cycleTime", new Integer(1000));
       initComponents();
       jProgressBar1.setVisible(false);
+      jComboBox2.setModel(new DefaultComboBoxModel<>(Scene.Type.values()));
    }
 
    /**
@@ -42,7 +45,6 @@ public class ClientUI extends javax.swing.JFrame
       jList1 = new javax.swing.JList(listModel);
       jButton2 = new javax.swing.JButton();
       jLabel4 = new javax.swing.JLabel();
-      jButton4 = new javax.swing.JButton();
       jButton3 = new javax.swing.JButton();
       jSeparator1 = new javax.swing.JSeparator();
       jSeparator2 = new javax.swing.JSeparator();
@@ -59,6 +61,14 @@ public class ClientUI extends javax.swing.JFrame
       jComboBox1 = new javax.swing.JComboBox();
       jProgressBar1 = new javax.swing.JProgressBar();
       jButton9 = new javax.swing.JButton();
+      jPanel1 = new javax.swing.JPanel();
+      jTextField5 = new javax.swing.JTextField();
+      jLabel6 = new javax.swing.JLabel();
+      jLabel7 = new javax.swing.JLabel();
+      jTextField4 = new javax.swing.JTextField();
+      jComboBox2 = new javax.swing.JComboBox<Scene.Type>();
+      jTextField6 = new javax.swing.JTextField();
+      jLabel8 = new javax.swing.JLabel();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,9 +115,6 @@ public class ClientUI extends javax.swing.JFrame
 
       jLabel4.setText("Connected servers");
 
-      jButton4.setText("Open scene file");
-      jButton4.setEnabled(false);
-
       jButton3.setText("Next");
       jButton3.addActionListener(new java.awt.event.ActionListener()
       {
@@ -133,10 +140,6 @@ public class ClientUI extends javax.swing.JFrame
       SetupPanelLayout.setHorizontalGroup(
          SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addComponent(jSeparator2)
-         .addGroup(SetupPanelLayout.createSequentialGroup()
-            .addComponent(jButton4)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton3))
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,15 +150,18 @@ public class ClientUI extends javax.swing.JFrame
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
             .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(SetupPanelLayout.createSequentialGroup()
-                  .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(85, 85, 85)
-                  .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+               .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
+                  .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(SetupPanelLayout.createSequentialGroup()
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
       );
       SetupPanelLayout.setVerticalGroup(
          SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,14 +180,14 @@ public class ClientUI extends javax.swing.JFrame
             .addComponent(jLabel4)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jButton2))
-            .addGap(7, 7, 7)
+               .addGroup(SetupPanelLayout.createSequentialGroup()
+                  .addComponent(jButton2)
+                  .addGap(0, 72, Short.MAX_VALUE))
+               .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jButton4)
-               .addComponent(jButton3)))
+            .addComponent(jButton3))
       );
 
       mainPanel.add(SetupPanel, "card2");
@@ -251,24 +257,86 @@ public class ClientUI extends javax.swing.JFrame
          }
       });
 
+      jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+      jPanel1.setName(""); // NOI18N
+
+      jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+      jTextField5.setText("640");
+
+      jLabel6.setText("Width:");
+
+      jLabel7.setText("Height:");
+
+      jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+      jTextField4.setText("480");
+
+      jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+      jTextField6.setText("2");
+      jTextField6.setToolTipText("");
+      jTextField6.addActionListener(new java.awt.event.ActionListener()
+      {
+         public void actionPerformed(java.awt.event.ActionEvent evt)
+         {
+            jTextField6ActionPerformed(evt);
+         }
+      });
+
+      jLabel8.setText("Max. Depth:");
+      jLabel8.setToolTipText("number of times to reflect");
+
+      javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+      jPanel1.setLayout(jPanel1Layout);
+      jPanel1Layout.setHorizontalGroup(
+         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                  .addGap(0, 0, Short.MAX_VALUE)
+                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+            .addContainerGap())
+      );
+      jPanel1Layout.setVerticalGroup(
+         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(12, 12, 12)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel6))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel7))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel8)))
+      );
+
       javax.swing.GroupLayout CompletePanelLayout = new javax.swing.GroupLayout(CompletePanel);
       CompletePanel.setLayout(CompletePanelLayout);
       CompletePanelLayout.setHorizontalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(CompletePanelLayout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
-                  .addComponent(jLabel2)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)))
-         .addGroup(CompletePanelLayout.createSequentialGroup()
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                  .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               .addComponent(jButton7))
+            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+               .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(jButton7)
+               .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGap(18, 18, 18)
             .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(CompletePanelLayout.createSequentialGroup()
@@ -279,8 +347,14 @@ public class ClientUI extends javax.swing.JFrame
                      .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                   .addGap(0, 0, Short.MAX_VALUE))
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
-                  .addGap(0, 25, Short.MAX_VALUE)
-                  .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                  .addGap(0, 24, Short.MAX_VALUE)
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CompletePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                     .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
       );
       CompletePanelLayout.setVerticalGroup(
          CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,17 +366,20 @@ public class ClientUI extends javax.swing.JFrame
                      .addComponent(jLabel3)
                      .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                   .addGap(18, 18, 18)
-                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addComponent(jLabel2))
+                  .addGap(25, 25, 25)
+                  .addComponent(jButton8))
                .addGroup(CompletePanelLayout.createSequentialGroup()
                   .addComponent(jButton5)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(jButton6)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-            .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel2))
-            .addGap(25, 25, 25)
-            .addComponent(jButton8)
+                  .addComponent(jButton6)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGap(0, 2, Short.MAX_VALUE)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(CompletePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton7)
@@ -331,11 +408,44 @@ public class ClientUI extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                .addContainerGap()
                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+               .addContainerGap(14, Short.MAX_VALUE)))
       );
 
       pack();
    }// </editor-fold>//GEN-END:initComponents
+
+   private boolean setupScene()
+   {
+      jTextField4.setBackground(Color.WHITE);
+      jTextField5.setBackground(Color.WHITE);
+      jTextField6.setBackground(Color.WHITE);
+
+      try
+      {
+         Scene.Type type = (Scene.Type) jComboBox2.getSelectedItem();
+         int width = Integer.parseInt(jTextField5.getText());
+         int height = Integer.parseInt(jTextField4.getText());
+         int depth = Integer.parseInt(jTextField6.getText());
+
+         if (width < 1 || height < 1 || depth < 0)
+         {
+            throw new NumberFormatException();
+         }
+
+         client.chooseScene(type, width, height, depth);
+      }
+      catch (NumberFormatException e)
+      {
+         //mark input fields red and return false
+         jTextField4.setBackground(Color.RED);
+         jTextField5.setBackground(Color.RED);
+         jTextField6.setBackground(Color.RED);
+         jTextField5.requestFocus();
+         return false;
+      }
+
+      return true;
+   }
 
    private void connectToServer()
    {
@@ -452,16 +562,21 @@ public class ClientUI extends javax.swing.JFrame
    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
    {//GEN-HEADEREND:event_jButton8ActionPerformed
       final int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
+      if (!setupScene())
+      {
+         return;
+      }
 
-      //reset fields and controls until rendering is complete
-      jTextField2.setText("");
+      jTextField2.setText(""); //reset time field
+
+      //disable buttons until rendering is complete
       jButton7.setEnabled(false); //Disable 'Back'
       jButton8.setEnabled(false); //Disable 'Render on servers'
       jButton9.setEnabled(false); //Disable 'Render locally'
       jButton5.setEnabled(false); //Disable 'Display image'
       jButton6.setEnabled(false); //Disable 'Save image'
 
-      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+//      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       jProgressBar1.setVisible(true);
 
       new Thread()
@@ -480,7 +595,7 @@ public class ClientUI extends javax.swing.JFrame
             jButton5.setEnabled(true); //Enable 'Display image'
             jButton6.setEnabled(true); //Enable 'Save image'
 
-            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+//            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             jProgressBar1.setVisible(false);
          }
       }.start();
@@ -500,16 +615,21 @@ public class ClientUI extends javax.swing.JFrame
    {//GEN-HEADEREND:event_jButton9ActionPerformed
       final int numCores = Integer.parseInt((String) jComboBox1.getSelectedItem());
       final boolean isConnected = jButton8.isEnabled(); //'Render on servers' button enabled
+      if (!setupScene())
+      {
+         return;
+      }
 
-      //reset fields and controls until rendering is complete
-      jTextField2.setText("");
+      jTextField2.setText(""); //reset time field
+
+      //disable buttons until rendering is complete
       jButton7.setEnabled(false); //Disable 'Back'
       jButton8.setEnabled(false); //Disable 'Render on servers'
       jButton9.setEnabled(false); //Disable 'Render locally'
       jButton5.setEnabled(false); //Disable 'Display image'
       jButton6.setEnabled(false); //Disable 'Save image'
 
-      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+//      mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       jProgressBar1.setVisible(true);
 
       new Thread()
@@ -528,11 +648,16 @@ public class ClientUI extends javax.swing.JFrame
             jButton5.setEnabled(true); //Enable 'Display image'
             jButton6.setEnabled(true); //Enable 'Save image'
 
-            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+//            mainPanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             jProgressBar1.setVisible(false);
          }
       }.start();
    }//GEN-LAST:event_jButton9ActionPerformed
+
+   private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField6ActionPerformed
+   {//GEN-HEADEREND:event_jTextField6ActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_jTextField6ActionPerformed
 
    /**
     * @param args the command line arguments
@@ -555,19 +680,7 @@ public class ClientUI extends javax.swing.JFrame
             }
          }
       }
-      catch (ClassNotFoundException ex)
-      {
-         java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      catch (InstantiationException ex)
-      {
-         java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      catch (IllegalAccessException ex)
-      {
-         java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      catch (javax.swing.UnsupportedLookAndFeelException ex)
+      catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
       {
          java.util.logging.Logger.getLogger(ClientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
       }
@@ -589,19 +702,23 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
    private javax.swing.JButton jButton3;
-   private javax.swing.JButton jButton4;
    private javax.swing.JButton jButton5;
    private javax.swing.JButton jButton6;
    private javax.swing.JButton jButton7;
    private javax.swing.JButton jButton8;
    private javax.swing.JButton jButton9;
    private javax.swing.JComboBox jComboBox1;
+   private javax.swing.JComboBox<Scene.Type> jComboBox2;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
+   private javax.swing.JLabel jLabel6;
+   private javax.swing.JLabel jLabel7;
+   private javax.swing.JLabel jLabel8;
    private javax.swing.JList jList1;
+   private javax.swing.JPanel jPanel1;
    private javax.swing.JProgressBar jProgressBar1;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JSeparator jSeparator1;
@@ -609,6 +726,9 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JTextField jTextField1;
    private javax.swing.JTextField jTextField2;
    private javax.swing.JTextField jTextField3;
+   private javax.swing.JTextField jTextField4;
+   private javax.swing.JTextField jTextField5;
+   private javax.swing.JTextField jTextField6;
    private javax.swing.JPanel mainPanel;
    // End of variables declaration//GEN-END:variables
 }

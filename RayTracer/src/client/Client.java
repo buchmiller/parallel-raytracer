@@ -34,23 +34,6 @@ public class Client
    {
       this.serverNames = serverNames;
       this.defaultPort = port;
-
-      //Data for a test scene
-      int width = 640;
-      int height = 480;
-      String fileName = "output";
-      image = new Image(width, height);
-      Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-      Screen screen = new Screen(width, height);
-      Color3 bColor = new Color3(0, 1, 0);
-      int maxDepth = 2;
-
-      testScene = Scene.createComplex(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createTwoMirrors(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createReflectTest(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createShadowTest(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createLightTest(camera, screen, bColor, maxDepth);
-//      testScene = Scene.createSimple(camera, screen, bColor, maxDepth);
    }
 
    public Client(int port)
@@ -61,6 +44,17 @@ public class Client
    public Client()
    {
       this(new ArrayList<String>(), 3000);
+   }
+
+   public void chooseScene(Scene.Type type, int width, int height, int maxDepth)
+   {
+      //Data for a test scene
+      image = new Image(width, height);
+      Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+      Screen screen = new Screen(width, height);
+      Color3 bColor = new Color3(0, 0, 0);
+
+      testScene = Scene.createScene(type, camera, screen, bColor, maxDepth);
    }
 
    public void openConnections() throws IOException
