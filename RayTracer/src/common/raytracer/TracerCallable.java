@@ -11,7 +11,7 @@ import common.scene.Shape;
 public class TracerCallable implements Callable<ResultData>
 {
    private Scene scene;
-   private int row; //TODO: Allow multiple rows to be done at once?
+   private int row;
 
    public TracerCallable(Scene scene, int row)
    {
@@ -22,16 +22,6 @@ public class TracerCallable implements Callable<ResultData>
    @Override
    public ResultData call() throws Exception
    {
-      //This sleep is only for testing, remove once more advance ray tracing is added
-//      try
-//      {
-//         Thread.sleep(10);
-//      }
-//      catch (InterruptedException e)
-//      {
-//         System.out.println("Error: " + e);
-//      }
-
       return render();
    }
 
@@ -65,7 +55,7 @@ public class TracerCallable implements Callable<ResultData>
       // reflectDir = rayDir - (normal * (2 * (normal dot rayDir)))
       Vector3 reflectDir = rayDir.subtract(normal.multiply(Vector3.dot(normal, rayDir) * 2f));
 
-      Color3 color = Color3.BLACK; //hitData.getShape().getMaterial().getColor();
+      Color3 color = Color3.BLACK;
 
       for (PointLight light : scene.getLights())
       {
@@ -100,12 +90,6 @@ public class TracerCallable implements Callable<ResultData>
             color = color.add(lightColor.add(specularColor.multiply(mat.getSpecular())).multiply(lightIntensity));
          }
       }
-
-
-//      if (depth >= scene.getMaxDepth())
-//      {
-//         return color.add(new Color3(50, 50, 50));
-//      }
 
       if (depth < scene.getMaxDepth())
       {
