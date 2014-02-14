@@ -22,6 +22,16 @@ public class TracerCallable implements Callable<ResultData>
    @Override
    public ResultData call() throws Exception
    {
+      //This sleep is only for testing, remove once more advance ray tracing is added
+//      try
+//      {
+//         Thread.sleep(10);
+//      }
+//      catch (InterruptedException e)
+//      {
+//         System.out.println("Error: " + e);
+//      }
+
       return render();
    }
 
@@ -50,12 +60,12 @@ public class TracerCallable implements Callable<ResultData>
    {
       Vector3 rayDir = hitData.getRay().getDirection();
       // intersectPos = rayPos + (rayDir * distance)
-      Vector3 intersectPos = hitData.getRay().getOrigin().add(rayDir.multiply(hitData.getDistance()));
+      Vector3 intersectPos = hitData.getRay().getOrigin().add(rayDir.multiply(hitData.getDistance())); //same as intersectionPoint
       Vector3 normal = hitData.getShape().normal(intersectPos);
       // reflectDir = rayDir - (normal * (2 * (normal dot rayDir)))
       Vector3 reflectDir = rayDir.subtract(normal.multiply(Vector3.dot(normal, rayDir) * 2f));
 
-      Color3 color = Color3.BLACK;
+      Color3 color = Color3.BLACK; //hitData.getShape().getMaterial().getColor();
 
       for (PointLight light : scene.getLights())
       {
@@ -91,21 +101,26 @@ public class TracerCallable implements Callable<ResultData>
          }
       }
 
+
+//      if (depth >= scene.getMaxDepth())
+//      {
+//         return color.add(new Color3(50, 50, 50));
+//      }
+
       if (depth < scene.getMaxDepth())
       {
          /**
           * http://cs.fit.edu/~wds/classes/adv-graphics/raytrace/raytrace.html
           * Refraction formula: n1 and n2 are the indices of refraction in the
-          * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1
-          * - (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay
-          * (refraction) = (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot
-          * rayDir)] * normal
+          * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1 -
+          * (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay (refraction) =
+          * (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot rayDir)] * normal
           *
           */
-         reflectDir.normalize();
-         Ray reflectRay = new Ray(intersectPos, reflectDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
-         Color3 reflectColor = traceRay(reflectRay, depth + 1);
-         color = color.add(reflectColor.multiply(hitData.getShape().getMaterial().getReflect()));
+          reflectDir.normalize();
+          Ray reflectRay = new Ray(intersectPos, reflectDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+          Color3 reflectColor = traceRay(reflectRay, depth + 1);
+          color = color.add(reflectColor.multiply(hitData.getShape().getMaterial().getReflect()));
       }
       return color.add(hitData.getShape().getMaterial().getColor());
    }
