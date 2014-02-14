@@ -35,7 +35,7 @@ public class RayTracer
       Color3 bColor = new Color3(0, 1, 0);
       int maxDepth = 4;
 
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
+      Scene scene = new Scene(camera, screen, bColor, maxDepth, 1);
 
       //color wheel
 //      scene.addShape(new Sphere(new Vector3(0, 5, -30), 4, new Material(new Color3(255, 0, 0)))); //red

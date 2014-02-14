@@ -96,6 +96,11 @@ public class Color3 implements Serializable
       return new Color3(vector.multiply(value));
    }
 
+   public Color3 divide(float value)
+   {
+      return new Color3(vector.divide(value));
+   }
+
    @Override
    public String toString()
    {

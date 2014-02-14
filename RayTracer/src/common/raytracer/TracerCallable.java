@@ -25,19 +25,32 @@ public class TracerCallable implements Callable<ResultData>
       return render();
    }
 
+   private Color3 getPixelColor(int col)
+   {
+      int ns = scene.getAntialisingAmount();
+
+      //Deterministic antialiasing
+      Color3 color = Color3.BLACK;
+      for (int sx = 0; sx < ns; sx++)
+      {
+         for (int sy = 0; sy < ns; sy++)
+         {
+            float u = (col + (sx + 0.5f) / ns) / scene.getScreen().getWidth();
+            float v = (row + (sy + 0.5f) / ns) / scene.getScreen().getHeight();
+            Ray ray = scene.constructRay(u, v); //Compute primary ray direction
+            color = color.add(traceRay(ray, 0));
+         }
+      }
+      return color.divide((float)Math.pow(ns, 2));
+   }
+
    public ResultData render()
    {
       Color3[] colors = new Color3[scene.getScreen().getWidth()];
 
       for (int col = 0; col < scene.getScreen().getWidth(); col++)
       {
-         //Compute primary ray direction
-         Ray ray = scene.constructRay(row, col);
-
-         //shoot primary ray into the scene and search for intersection
-         //compute the first visible point in the scene for the given ray
-         //obtain pixel intensity
-         colors[col] = traceRay(ray, 0);
+         colors[col] = getPixelColor(col);
       }
 
       return new ResultData(row, colors);
@@ -96,15 +109,16 @@ public class TracerCallable implements Callable<ResultData>
          /**
           * http://cs.fit.edu/~wds/classes/adv-graphics/raytrace/raytrace.html
           * Refraction formula: n1 and n2 are the indices of refraction in the
-          * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1 -
-          * (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay (refraction) =
-          * (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot rayDir)] * normal
+          * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1
+          * - (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay
+          * (refraction) = (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot
+          * rayDir)] * normal
           *
           */
-          reflectDir.normalize();
-          Ray reflectRay = new Ray(intersectPos, reflectDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
-          Color3 reflectColor = traceRay(reflectRay, depth + 1);
-          color = color.add(reflectColor.multiply(hitData.getShape().getMaterial().getReflect()));
+         reflectDir.normalize();
+         Ray reflectRay = new Ray(intersectPos, reflectDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+         Color3 reflectColor = traceRay(reflectRay, depth + 1);
+         color = color.add(reflectColor.multiply(hitData.getShape().getMaterial().getReflect()));
       }
       return color.add(hitData.getShape().getMaterial().getColor());
    }

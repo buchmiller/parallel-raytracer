@@ -19,13 +19,15 @@ public class Scene implements Serializable
    private Screen screen;
    private Color3 backgroundColor;
    private int maxDepth;
+   private int antialisingAmount;
 
-   public Scene(Camera camera, Screen screen, Color3 backgroundColor, int maxDepth)
+   public Scene(Camera camera, Screen screen, Color3 backgroundColor, int maxDepth, int antialiasingAmount)
    {
       this.camera = camera;
       this.screen = screen;
       this.backgroundColor = backgroundColor;
       this.maxDepth = maxDepth;
+      this.antialisingAmount = antialiasingAmount;
    }
 
    public void addShape(Shape shape)
@@ -68,19 +70,26 @@ public class Scene implements Serializable
       return maxDepth;
    }
 
-   public Ray constructRay(int row, int col)
+   public int getAntialisingAmount()
    {
-      float x = (float) (2 * ((col + 0.5) / screen.getWidth()) - 1) * screen.getAspectRatio() * camera.getAngle();
-      float y = (float) (1 - 2 * ((row + 0.5) / screen.getHeight())) * camera.getAngle();
+      return antialisingAmount;
+   }
+
+   public Ray constructRay(float px, float py)
+   {
+//      float x = (float) (2 * ((col + 0.5) / screen.getWidth()) - 1) * screen.getAspectRatio() * camera.getAngle();
+//      float y = (float) (1 - 2 * ((row + 0.5) / screen.getHeight())) * camera.getAngle();
+      float x = (float) (2 * px - 1) * screen.getAspectRatio() * camera.getAngle();
+      float y = (float) (1 - 2 * py) * camera.getAngle();
       Vector3 rayDir = new Vector3(x, y, -1);
       rayDir.normalize();
 
       return new Ray(camera.getPosition(), rayDir, camera.getNearClippingPlane(), camera.getFarClippingPlane());
    }
 
-   public static Scene createScene(Type type, Camera camera, Screen screen, Color3 bColor, int maxDepth)
+   public static Scene createScene(Type type, Camera camera, Screen screen, Color3 bColor, int maxDepth, int aa)
    {
-      Scene scene = new Scene(camera, screen, bColor, maxDepth);
+      Scene scene = new Scene(camera, screen, bColor, maxDepth, aa);
 
       switch (type)
       {
