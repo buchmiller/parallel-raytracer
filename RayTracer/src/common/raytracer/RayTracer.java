@@ -29,7 +29,7 @@ public class RayTracer
          }
       }
 
-      Image image = new Image(width, height);
+//      Image image = new Image(width, height);
       Camera camera = new Camera(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
       Screen screen = new Screen(width, height);
       Color3 bColor = new Color3(0, 1, 0);

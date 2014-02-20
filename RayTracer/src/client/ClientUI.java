@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
 import javax.swing.DefaultComboBoxModel;
-import common.scene.Scene.Type;
 
 public class ClientUI extends javax.swing.JFrame
 {
@@ -454,8 +453,6 @@ public class ClientUI extends javax.swing.JFrame
 
    private void connectToServer()
    {
-      //TODO connect to the server first and set # of cores
-
       String hostName = jTextField1.getText();
       int portNum = Integer.parseInt(jTextField3.getText());
       jTextField1.setBackground(Color.WHITE);
@@ -502,11 +499,7 @@ public class ClientUI extends javax.swing.JFrame
 
       int size = listModel.getSize();
 
-      if (size == 0) //list is empty
-      {
-         //jButton2.setEnabled(false); //disable 'Disconnect'
-      }
-      else //select an index
+      if (size > 0) //list not empty - select an index
       {
          if (index == listModel.getSize()) //removed item in last position
          {
@@ -639,7 +632,6 @@ public class ClientUI extends javax.swing.JFrame
    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField2ActionPerformed
    {//GEN-HEADEREND:event_jTextField2ActionPerformed
       //This is the amount of time it took to render
-      // TODO add your handling code here:
    }//GEN-LAST:event_jTextField2ActionPerformed
 
    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed

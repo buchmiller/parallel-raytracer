@@ -103,7 +103,8 @@ public class TracerCallable implements Callable<ResultData>
       {
          Vector3 shadowRayDir = light.getPosition().subtract(intersectPos);
          shadowRayDir.normalize();
-         if (Vector3.dot(shadowRayDir, normal) < 0) //not facing towards light source
+         float illum = Vector3.dot(shadowRayDir, normal);
+         if (illum < 0) //not facing towards light source
          {
             continue; //avoid unneccesary computation
          }
@@ -123,8 +124,6 @@ public class TracerCallable implements Callable<ResultData>
          if (!isInShadow)
          {
             Material mat = hitData.getShape().getMaterial();
-
-            float illum = Vector3.dot(shadowRayDir, normal); //TODO this is repetitive
             Color3 lightColor = light.getColor().multiply(illum);
             float lightIntensity = light.getIntensity(intersectPos);
             float specular = Vector3.dot(shadowRayDir, reflectDir.getNormalized());
@@ -160,13 +159,10 @@ public class TracerCallable implements Callable<ResultData>
       for (Shape shape : scene.getShapes())
       {
          float t = shape.intersect(ray); //distance to intersection
-         if (t > 0)
+         if (t > 0 && t < closestHit && t > ray.getMin())
          {
-            if (t < closestHit && t > ray.getMin())
-            {
-               closestHit = t;
-               shapeHit = shape;
-            }
+            closestHit = t;
+            shapeHit = shape;
          }
       }
 

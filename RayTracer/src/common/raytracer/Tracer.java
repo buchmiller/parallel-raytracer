@@ -48,8 +48,6 @@ public class Tracer
 
    private Color3 shade(HitData hitData)
    {
-      Vector3 intersectPoint = hitData.getRay().getOrigin().add(hitData.getRay().getDirection().multiply(hitData.getDistance()));
-
       //************* third attempt *************
       Vector3 d = hitData.getRay().getDirection();
       Vector3 pos = d.multiply(hitData.getDistance()).add(hitData.getRay().getOrigin()); //same as intersectionPoint
@@ -132,7 +130,7 @@ public class Tracer
          return color.add(new Color3(50, 50, 50));
       }
 
-      //TODO: add reflection color
+      //add reflection color here
 
       return color.add(hitData.getShape().getMaterial().getColor());
    }
@@ -144,27 +142,16 @@ public class Tracer
 
       for (Shape shape : scene.getShapes())
       {
-//         ISect intersection = shape.intersect(ray);
-//         if (intersection.getDistance() < closestHit)
-//         {
-//            closestHit = intersection.getDistance();
-//            shapeHit = shape;
-//         }
          float t = shape.intersect(ray);
-         if (t > 0)
+         if (t > 0 && t < closestHit && t > scene.getCamera().getNearClippingPlane())
          {
-            if (t < closestHit && t > scene.getCamera().getNearClippingPlane())
-            {
-               closestHit = t;
-               shapeHit = shape;
-            }
+            closestHit = t;
+            shapeHit = shape;
          }
       }
 
       if (shapeHit != null)
       {
-
-         //TODO: replace this line with a call to a shade() function.
          //return shapeHit.getMaterial().getColor();
          HitData hitData = new HitData(shapeHit, ray, closestHit);
          return shade(hitData);

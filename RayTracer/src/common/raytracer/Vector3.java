@@ -44,7 +44,7 @@ public class Vector3 implements Serializable
 
    public float getSquaredMagnitude()
    {
-      return (x * x + y * y + z * z);
+      return x * x + y * y + z * z;
    }
 
    public Vector3 getNormalized()

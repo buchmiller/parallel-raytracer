@@ -27,12 +27,12 @@ public class Sphere extends Shape implements Serializable
       {
          return -1;
       }
-      float d2 = Vector3.dot(L, L) - (tca * tca);
+      float d2 = Vector3.dot(L, L) - tca * tca;
       if (d2 > (radius * radius))
       {
          return -1;
       }
-      float thc = (float) Math.sqrt((radius * radius) - d2);
+      float thc = (float) Math.sqrt(radius * radius - d2);
       float t0 = tca - thc;
       float t1 = tca + thc;
 
