@@ -7,6 +7,7 @@ import common.scene.Material;
 import common.scene.PointLight;
 import common.scene.Scene;
 import common.scene.Shape;
+import java.util.Random;
 
 public class TracerCallable implements Callable<ResultData>
 {
@@ -30,18 +31,32 @@ public class TracerCallable implements Callable<ResultData>
       int ns = scene.getAntialisingAmount();
 
       //Deterministic antialiasing
+//      Color3 color = Color3.BLACK;
+//      for (int sx = 0; sx < ns; sx++)
+//      {
+//         for (int sy = 0; sy < ns; sy++)
+//         {
+//            float u = (col + (sx + 0.5f) / ns) / scene.getScreen().getWidth();
+//            float v = (row + (sy + 0.5f) / ns) / scene.getScreen().getHeight();
+//            Ray ray = scene.constructRay(u, v); //Compute primary ray direction
+//            color = color.add(traceRay(ray, 0));
+//         }
+//      }
+
+      //Monte Carlo antialiasing
+      Random rand = new Random();
       Color3 color = Color3.BLACK;
-      for (int sx = 0; sx < ns; sx++)
+      for (int s = 0; s < Math.pow(ns, 2); s++)
       {
-         for (int sy = 0; sy < ns; sy++)
-         {
-            float u = (col + (sx + 0.5f) / ns) / scene.getScreen().getWidth();
-            float v = (row + (sy + 0.5f) / ns) / scene.getScreen().getHeight();
-            Ray ray = scene.constructRay(u, v); //Compute primary ray direction
-            color = color.add(traceRay(ray, 0));
-         }
+         float rx = rand.nextFloat();
+         float ry = rand.nextFloat();
+         float u = (col + rx / ns) / scene.getScreen().getWidth();
+         float v = (row + ry / ns) / scene.getScreen().getHeight();
+         Ray ray = scene.constructRay(u, v); //Compute primary ray direction
+         color = color.add(traceRay(ray, 0));
       }
-      return color.divide((float)Math.pow(ns, 2));
+
+      return color.divide((float) Math.pow(ns, 2));
    }
 
    public ResultData render()
