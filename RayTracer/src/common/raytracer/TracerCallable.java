@@ -29,9 +29,9 @@ public class TracerCallable implements Callable<ResultData>
    private Color3 getPixelColor(int col)
    {
       int ns = scene.getAntialisingAmount();
+      Color3 color = Color3.BLACK;
 
       //Deterministic antialiasing
-//      Color3 color = Color3.BLACK;
 //      for (int sx = 0; sx < ns; sx++)
 //      {
 //         for (int sy = 0; sy < ns; sy++)
@@ -44,16 +44,30 @@ public class TracerCallable implements Callable<ResultData>
 //      }
 
       //Monte Carlo antialiasing
+//      Random rand = new Random();
+//      for (int s = 0; s < Math.pow(ns, 2); s++)
+//      {
+//         float rx = rand.nextFloat();
+//         float ry = rand.nextFloat();
+//         float u = (col + rx / ns) / scene.getScreen().getWidth();
+//         float v = (row + ry / ns) / scene.getScreen().getHeight();
+//         Ray ray = scene.constructRay(u, v); //Compute primary ray direction
+//         color = color.add(traceRay(ray, 0));
+//      }
+
+      //Deterministic Monte Carlo
       Random rand = new Random();
-      Color3 color = Color3.BLACK;
-      for (int s = 0; s < Math.pow(ns, 2); s++)
+      for (int sx = 0; sx < ns; sx++)
       {
-         float rx = rand.nextFloat();
-         float ry = rand.nextFloat();
-         float u = (col + rx / ns) / scene.getScreen().getWidth();
-         float v = (row + ry / ns) / scene.getScreen().getHeight();
-         Ray ray = scene.constructRay(u, v); //Compute primary ray direction
-         color = color.add(traceRay(ray, 0));
+         for (int sy = 0; sy < ns; sy++)
+         {
+            float rx = rand.nextFloat();
+            float ry = rand.nextFloat();
+            float u = (col + (sx + rx) / ns) / scene.getScreen().getWidth();
+            float v = (row + (sy + ry) / ns) / scene.getScreen().getHeight();
+            Ray ray = scene.constructRay(u, v); //Compute primary ray direction
+            color = color.add(traceRay(ray, 0));
+         }
       }
 
       return color.divide((float) Math.pow(ns, 2));
