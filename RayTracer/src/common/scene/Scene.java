@@ -13,6 +13,11 @@ public class Scene implements Serializable
    {
       SIMPLE, COMPLEX, MIRRORS, LIGHTTEST, SHADOWTEST, REFLECTTEST
    }
+
+   public enum RenderMethod
+   {
+      DETERMINISTIC, MONTE_CARLO, BOTH
+   }
    private List<Shape> shapes = new ArrayList<>();
    private List<PointLight> lights = new ArrayList<>();
    private Camera camera;
@@ -20,6 +25,7 @@ public class Scene implements Serializable
    private Color3 backgroundColor;
    private int maxDepth;
    private int antialisingAmount;
+   private RenderMethod renderMethod;
 
    public Scene(Camera camera, Screen screen, Color3 backgroundColor, int maxDepth, int antialiasingAmount)
    {
@@ -75,6 +81,11 @@ public class Scene implements Serializable
       return antialisingAmount;
    }
 
+   public RenderMethod getRenderMethod()
+   {
+      return renderMethod;
+   }
+
    public Ray constructRay(float px, float py)
    {
 //      float x = (float) (2 * ((col + 0.5) / screen.getWidth()) - 1) * screen.getAspectRatio() * camera.getAngle();
@@ -87,9 +98,10 @@ public class Scene implements Serializable
       return new Ray(camera.getPosition(), rayDir, camera.getNearClippingPlane(), camera.getFarClippingPlane());
    }
 
-   public static Scene createScene(Type type, Camera camera, Screen screen, Color3 bColor, int maxDepth, int aa)
+   public static Scene createScene(Type type, Camera camera, Screen screen, Color3 bColor, int maxDepth, int aa, RenderMethod renderMethod)
    {
       Scene scene = new Scene(camera, screen, bColor, maxDepth, aa);
+      scene.renderMethod = renderMethod;
 
       switch (type)
       {

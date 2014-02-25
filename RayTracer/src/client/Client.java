@@ -46,7 +46,7 @@ public class Client
       this(new ArrayList<String>(), 3000);
    }
 
-   public void chooseScene(Scene.Type type, int width, int height, int maxDepth, int aa)
+   public void chooseScene(Scene.Type type, int width, int height, int maxDepth, int aa, Scene.RenderMethod renderMethod)
    {
       //Data for a test scene
       image = new Image(width, height);
@@ -54,7 +54,7 @@ public class Client
       Screen screen = new Screen(width, height);
       Color3 bColor = new Color3(0, 0, 0);
 
-      testScene = Scene.createScene(type, camera, screen, bColor, maxDepth, aa);
+      testScene = Scene.createScene(type, camera, screen, bColor, maxDepth, aa, renderMethod);
    }
 
    public void openConnections() throws IOException
