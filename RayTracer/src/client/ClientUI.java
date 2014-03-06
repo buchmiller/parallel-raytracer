@@ -71,7 +71,7 @@ public class ClientUI extends javax.swing.JFrame
       jSpinner1 = new javax.swing.JSpinner();
       jLabel8 = new javax.swing.JLabel();
       jSpinner2 = new javax.swing.JSpinner();
-      jComboBox3 = new javax.swing.JComboBox();
+      jComboBox3 = new javax.swing.JComboBox<Scene.RenderMethod>();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,7 +151,7 @@ public class ClientUI extends javax.swing.JFrame
             .addComponent(jButton2))
          .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
-            .addGap(0, 23, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(SetupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SetupPanelLayout.createSequentialGroup()
@@ -417,7 +417,7 @@ public class ClientUI extends javax.swing.JFrame
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 260, Short.MAX_VALUE)
+         .addGap(0, 239, Short.MAX_VALUE)
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                .addContainerGap()
@@ -673,11 +673,11 @@ public class ClientUI extends javax.swing.JFrame
        */
       try
       {
-         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
          {
             if ("Nimbus".equals(info.getName()))
             {
-               javax.swing.UIManager.setLookAndFeel(info.getClassName());
+               UIManager.setLookAndFeel(info.getClassName());
                break;
             }
          }
@@ -711,7 +711,7 @@ public class ClientUI extends javax.swing.JFrame
    private javax.swing.JButton jButton9;
    private javax.swing.JComboBox jComboBox1;
    private javax.swing.JComboBox<Scene.Type> jComboBox2;
-   private javax.swing.JComboBox jComboBox3;
+   private javax.swing.JComboBox<Scene.RenderMethod> jComboBox3;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;

@@ -33,6 +33,7 @@ public class ClientDriver
          catch (NumberFormatException e)
          {
             //Ignore non-number argument
+            System.out.println("Adding server names from command arguments.");
          }
       }
 

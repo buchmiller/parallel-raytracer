@@ -25,11 +25,6 @@ public class HitData
       return ray;
    }
 
-   public float getIntensity()
-   {
-      throw new RuntimeException("Not yet implemented");
-   }
-
    public float getDistance()
    {
       return distance;

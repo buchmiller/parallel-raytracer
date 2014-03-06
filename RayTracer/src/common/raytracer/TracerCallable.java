@@ -140,15 +140,6 @@ public class TracerCallable implements Callable<ResultData>
 
       if (depth < scene.getMaxDepth())
       {
-         /**
-          * http://cs.fit.edu/~wds/classes/adv-graphics/raytrace/raytrace.html
-          * Refraction formula: n1 and n2 are the indices of refraction in the
-          * incident and transmitted media (e.g. air to water) cosTheta = sqrt[1
-          * - (n1/n2)^2 * (1 - (normal dot rayDir)^2)] transmissionRay
-          * (refraction) = (n1/n2) * rayDir - [cosTheta + (n1/n2)*(normal dot
-          * rayDir)] * normal
-          *
-          */
          reflectDir.normalize();
          Ray reflectRay = new Ray(intersectPos, reflectDir, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
          Color3 reflectColor = traceRay(reflectRay, depth + 1);

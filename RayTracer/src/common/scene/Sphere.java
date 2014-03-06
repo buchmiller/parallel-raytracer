@@ -23,12 +23,12 @@ public class Sphere extends Shape implements Serializable
 
       Vector3 L = position.subtract(ray.getOrigin());
       float tca = Vector3.dot(L, ray.getDirection());
-      if (tca < 0)
+      if (tca < 0) //sphere is behind ray
       {
          return -1;
       }
       float d2 = Vector3.dot(L, L) - tca * tca;
-      if (d2 > (radius * radius))
+      if (d2 > (radius * radius)) //ray missed sphere (no intersection)
       {
          return -1;
       }
@@ -43,10 +43,5 @@ public class Sphere extends Shape implements Serializable
    public Vector3 normal(Vector3 intersectPoint)
    {
       return intersectPoint.subtract(position).multiply(1.0f / radius);
-   }
-
-   public boolean isInside()
-   {
-      throw new RuntimeException("Not yet implemented");
    }
 }
