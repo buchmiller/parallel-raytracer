@@ -108,7 +108,7 @@ public class Client
 //                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)),
                   rowNums.subList(i, (serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach),
                                                       numThreadsOnServer));
-            System.out.println("Server " + serverNumber + ": " + i + " to " + ((serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach));
+            System.out.println("Server " + serverNumber + ": " + i + " to " + ((serverNumber == servers.size() - 1) ? rowNums.size() - 1 : i + numTasksEach));
             i += numTasksEach;
             serverNumber++;
          }
