@@ -104,11 +104,12 @@ public class Client
          int serverNumber = 0;
          for (Socket socket : servers)
          {
+            List<Integer> list = rowNums.subList(i, (serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach);
             executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, numTasksEach,
 //                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)),
-                  rowNums.subList(i, (serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach),
+                                                      list,
                                                       numThreadsOnServer));
-            System.out.println("Server " + serverNumber + ": " + i + " to " + ((serverNumber == servers.size() - 1) ? rowNums.size() - 1 : i + numTasksEach));
+            System.out.println("Server " + serverNumber + ": " + list.get(0) + "-" + list.get(list.size() - 1));
             i += numTasksEach;
             serverNumber++;
          }
