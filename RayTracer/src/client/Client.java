@@ -105,7 +105,7 @@ public class Client
          for (Socket socket : servers)
          {
             List<Integer> list = rowNums.subList(i, (serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach);
-            executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, list.size() - 1,
+            executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, list.size(),
 //                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)),
                                                       list,
                                                       numThreadsOnServer));
