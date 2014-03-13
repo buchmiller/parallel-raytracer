@@ -106,9 +106,9 @@ public class Client
          {
             executorService.submit(new ClientRunnable(serverNumber, socket, testScene, image, numTasksEach,
 //                                                      rowNums.subList(i, i + Math.min(numTasksEach, rowNums.size() - i)),
-                  rowNums.subList(i, (serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach),
+                  rowNums.subList(i, (serverNumber == servers.size() - 1) ? rowNums.size() - 1 : i + numTasksEach),
                                                       numThreadsOnServer));
-            System.out.println("Row nums: " + i + " to " + ((serverNumber == servers.size() - 1) ? rowNums.size() : i + numTasksEach));
+            System.out.println("Server " + serverNumber + ": " + i + " to " + ((serverNumber == servers.size() - 1) ? rowNums.size() - 1 : i + numTasksEach));
             i += numTasksEach;
             serverNumber++;
          }
